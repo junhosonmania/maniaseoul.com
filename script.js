@@ -50,7 +50,7 @@ function generateTable() {
             dividerCell.colSpan = 5; 
             dividerCell.innerHTML = `
                 <div class="divider-content">
-                    <span>founder Junho Son used to work on..</span>
+                    <span>founder Junho Son used to work on....</span>
                 </div>`;
         }
 
