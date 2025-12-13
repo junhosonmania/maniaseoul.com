@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- 1. 모바일 반응형 뷰포트 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELLEGARDEN</title>
+
+  <style>
+    /* 2. 커스텀 폰트 정의 */
+    @font-face {
+      font-family: 'Pretendard-Black';
+      src: url('font/Pretendard-Black.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* 3. 기본 레이아웃 & 텍스트 */
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      font-family: 'Pretendard-Black', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* 4. 제목 스타일 */
+    h1 {
+      margin: 0 1rem;               /* 좌우 여백 */
+      text-align: center;
+      white-space: pre-line;        /* \n 줄바꿈 허용 */
+      overflow-wrap: break-word;    /* 긴 단어나 URL 줄바꿈 */
+      word-break: keep-all;         /* 한글 자모 중간엔 끊지 않음 */
+      line-height: 1.2;
+      font-size: 4rem;              /* 데스크탑 기본 폰트 크기 */
+    }
+
+    /* 5. 모바일(≤768px)에서 폰트 자동 축소 */
+    @media (max-width: 768px) {
+      h1 {
+        /* 최소 2rem, 뷰포트 너비에 따라 최대 3rem */
+        font-size: clamp(2rem, 8vw, 3rem);
+      }
+    }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    $(function () {
+      const text = [
+        { a: "16년 만의 정규 앨범 발매와 활동 재개" },
+        { a: "지치지 않는 청춘의 선율" },
+        { a: "그 어느 때보다 정확한 수식이 될\n‘살아있는 전설’" },
+        { a: "ELLEGARDEN 내한공연\n'Boys are Back in the East Tour 2023'" }
+      ];
+
+      function delay(str) {
+        const ms = str.length * 25;
+        return ms < 125 ? 125 : ms;
+      }
+
+      function play(idx) {
+        if (idx >= text.length) {
+          return setTimeout(() => window.location.href = "index.html", 250);
+        }
+        const parts = text[idx].a.split('\n');  // 줄바꿈(\n) 기준 분할
+        let i = 0;
+        function next() {
+          $('h1').text(parts[i])
+                 .fadeIn(200)
+                 .delay(delay(parts[i]) / 1.5)
+                 .fadeOut(200, () => {
+                   if (i < parts.length - 1) {
+                     i++;
+                     next();
+                   } else {
+                     setTimeout(() => play(idx + 1), 500);
+                   }
+                 });
+        }
+        next();
+      }
+
+      play(0);
+    });
+  </script>
+</head>
+<body>
+  <h1></h1>
+</body>
+</html>

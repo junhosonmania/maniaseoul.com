@@ -1,0 +1,176 @@
+/*────────────────────────────────────────
+  1. Reset
+────────────────────────────────────────*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%; /* 1rem = 16px */
+}
+
+/*────────────────────────────────────────
+  2. Custom Font
+────────────────────────────────────────*/
+@font-face {
+  font-family: 'iAWriterQuattroSRegular';
+  src: local('iA Writer Quattro S Regular'),
+       url('./font/iAWriterQuattroSRegular.woff2') format('woff2'),
+       url('./font/iAWriterQuattroSRegular.woff')  format('woff'),
+       url('./font/iAWriterQuattroSRegular.ttf')   format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*────────────────────────────────────────
+  3. Base Text Styles
+────────────────────────────────────────*/
+body {
+  font-family: 'iAWriterQuattroSRegular', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  padding: 0.5rem;   /* 전체 페이지 여백 */
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  cursor: url('image/question-mark-cursor.png'), pointer;
+}
+
+a:hover {
+  background-color: black;
+  color: black;
+}
+
+/*────────────────────────────────────────
+  4. Header Styles
+────────────────────────────────────────*/
+.site-header {
+  display: flex;
+  padding: 0.5rem 0.5rem;       /* 상하 1rem, 좌우 2rem */
+}
+
+.header-left,
+.header-right {
+  display: block;
+  width: 100%;
+}
+
+.header-left {
+  text-align: left;
+}
+
+.header-right {
+  text-align: right;
+}
+
+/*────────────────────────────────────────
+  5. Headline Styles
+────────────────────────────────────────*/
+h1, .page-title {
+  margin: 1rem 0;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: keep-all;
+  line-height: 1.2;
+  font-size: 4rem;
+}
+
+/*────────────────────────────────────────
+  6. Table Styles
+────────────────────────────────────────*/
+.table-responsive {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px dashed #ddd;
+}
+
+th {
+  cursor: pointer;
+  color: blue;
+  position: relative;
+}
+
+th .arrow-up,
+th .arrow-down {
+  display: none;
+  position: absolute;
+  right: 5px;
+}
+
+th.sorted-asc .arrow-up,
+th.sorted-desc .arrow-down {
+  display: inline-block;
+}
+
+/*────────────────────────────────────────
+  7. Responsive (≤768px)
+────────────────────────────────────────*/
+@media (max-width: 768px) {
+  html {
+    font-size: 60%;         /* 1rem ≈ 12px */
+  }
+
+  .site-header {
+    padding: 0.5rem 1rem;
+  }
+
+  h1, .page-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  body, th, td {
+    font-size: 0.8rem;
+    padding: 4px;
+  }
+
+  th, td {
+    word-wrap: break-word;
+    min-width: 4rem;
+  }
+
+  /* 테이블 셀 폰트 및 패딩 */
+  #dataTable th,
+  #dataTable td {
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+}
+
+/*────────────────────────────────────────
+   8. PC에서 title/role 칸 폭 조정
+────────────────────────────────────────*/
+@media (min-width: 769px) {
+  /* 테이블 레이아웃을 고정하여 width를 적용할 수 있게 */
+  #dataTable {
+    table-layout: fixed;
+  }
+
+  /* 2번째 열(title)을 넓게: 전체의 약 40% */
+  #dataTable th:nth-child(2),
+  #dataTable td:nth-child(2) {
+    width: 40%;
+  }
+
+  /* 5번째 열(role)을 최대한 좁게: 약 15%, 줄넘김 방지 */
+  #dataTable th:nth-child(5),
+  #dataTable td:nth-child(5) {
+    width: 15%;
+    white-space: nowrap;
+  }
+}

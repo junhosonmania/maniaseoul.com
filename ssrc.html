@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- 이미 추가하셨지만, 혹시 빠졌다면 꼭 넣어주세요 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunset Rollercoaster</title>
+
+  <style>
+    @font-face {
+      font-family: 'Pretendard-Black';
+      src: url('font/Pretendard-Black.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      font-family: 'Pretendard-Black', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1 {
+      margin: 0 1rem;
+      text-align: center;
+      white-space: pre-line;        /* \n로 줄바꿈 */
+      overflow-wrap: break-word;    /* 긴 단어나 URL 줄바꿈 */
+      word-break: keep-all;         /* 한글 자모 중간엔 끊지 않음 */
+      line-height: 1.2;
+      font-size: 4rem;              /* 데스크탑 기본 사이즈 */
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        /* 모바일: 최소 2rem, 뷰포트에 따라 최대 3rem */
+        font-size: clamp(2rem, 8vw, 3rem);
+      }
+    }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    $(function () {
+      const text = [
+        { a: "우리가 사랑하는 낭만" },
+        { a: "여전히 유효한 청춘 송가" },
+        { a: "대만의 로맨틱 팝 밴드" },
+        { a: "선셋 롤러코스터 내한공연" }
+      ];
+
+      function delay(str) {
+        const ms = str.length * 25;
+        return ms < 125 ? 125 : ms;
+      }
+
+      function play(idx) {
+        if (idx >= text.length) {
+          return setTimeout(() => window.location.href = "index.html", 250);
+        }
+        const parts = text[idx].a.split('\n');  // ↔ 변경: slash가 아닌 newline 으로 split
+        let i = 0;
+        function next() {
+          $('h1').text(parts[i])
+                 .fadeIn(200)
+                 .delay(delay(parts[i]) / 1.5)
+                 .fadeOut(200, () => {
+                   if (i < parts.length - 1) {
+                     i++;
+                     next();
+                   } else {
+                     setTimeout(() => play(idx + 1), 500);
+                   }
+                 });
+        }
+        next();
+      }
+
+      play(0);
+    });
+  </script>
+</head>
+
+<body>
+  <h1></h1>
+</body>
+</html>

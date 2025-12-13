@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- 모바일 반응형 뷰포트 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>black midi</title>
+
+  <style>
+    @font-face {
+      font-family: 'Pretendard-Black';
+      src: url('font/Pretendard-Black.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      font-family: 'Pretendard-Black', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    h1 {
+      margin: 0 1rem;
+      padding: 1rem;
+      text-align: center;
+      white-space: pre-line;
+      overflow-wrap: break-word;
+      word-break: keep-all;
+      line-height: 1.2;
+      font-size: 4rem;
+    }
+    @media (max-width: 768px) {
+      h1 {
+        font-size: clamp(2rem, 8vw, 3rem);
+      }
+    }
+    @media (max-width: 480px) {
+      h1 {
+        font-size: clamp(1.5rem, 6vw, 2.5rem);
+      }
+    }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    $(function () {
+      const text = [
+        { a: "스티비 원더 선배님은 말했습니다." },
+        { a: "포원스인마랖 (후략)" },
+        { a: "신곡들 와장창 들려드릴 예정이구요." },
+        { a: "인생을 다 바쳐 보여드리겠습니다." },  <!-- **콤마 추가** -->
+        { a: "성원에 보답하는 경우 있는 청년들, 저희예요." }
+      ];
+
+      function delay(str) {
+        const ms = str.length * 25;
+        return ms < 125 ? 125 : ms;
+      }
+
+      function play(idx) {
+        if (idx >= text.length) {
+          return setTimeout(() => window.location.href = "index.html", 250);
+        }
+        const parts = text[idx].a.split('\n');
+        let i = 0;
+        function next() {
+          $('h1').text(parts[i])
+                 .fadeIn(200)
+                 .delay(delay(parts[i]) / 1.5)
+                 .fadeOut(200, () => {
+                   if (i < parts.length - 1) {
+                     i++; next();
+                   } else {
+                     setTimeout(() => play(idx + 1), 500);
+                   }
+                 });
+        }
+        next();
+      }
+
+      play(0);
+    });
+  </script>
+</head>
+<body>
+  <h1></h1>
+</body>
+</html>

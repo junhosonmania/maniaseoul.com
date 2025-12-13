@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- 모바일 반응형 뷰포트 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HMLTD</title>
+
+  <style>
+    /* 커스텀 폰트 정의 */
+    @font-face {
+      font-family: 'Pretendard-Black';
+      src: url('font/Pretendard-Black.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* 기본 레이아웃 & 텍스트 */
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffffff;
+      font-family: 'Pretendard-Black', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* 제목 스타일 */
+    h1 {
+      margin: 0 1rem;               /* 좌우 여백 */
+      text-align: center;
+      white-space: pre-line;        /* \n 줄바꿈 허용 */
+      overflow-wrap: break-word;    /* 긴 단어나 URL 줄바꿈 */
+      word-break: keep-all;         /* 한글 자모 중간엔 끊지 않음 */
+      line-height: 1.2;
+      font-size: 4rem;              /* 데스크탑 기본 폰트 크기 */
+    }
+
+    /* 모바일(≤768px) 폰트 자동 축소 */
+    @media (max-width: 768px) {
+      h1 {
+        /* 최소 2rem, 뷰포트 너비에 따라 최대 3rem */
+        font-size: clamp(2rem, 8vw, 3rem);
+      }
+    }
+  </style>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script>
+    $(function () {
+      const text = [
+        { a: "이 공연은 영국에서 최초로 시작되어\n일년에 한국을 세 번 오는 사람에게 행운을 주었고\n지금은 당신에게 알려진 이 공연은\n내일 오셔야 합니다.\n이 공연 소식을 행운이 필요한\n7명에게 보내 주셔야 합니다." },
+        { a: "영국에서 SETHEVANS라는 사람은 ..(중략).." },
+        { a: "이 공연을 온다면 7년의 행운이 있을 것이고\n그렇지 않으면 3일의 불행이 있을 것입니다.\n7명입니다.\n이 공연을 오는 사람은 행운이 깃들 것입니다.\n힘들겠지만 좋은 게 좋다고 생각하세요.\n7년의 행운을 빌면서...." }
+      ];
+
+      function delay(str) {
+        const ms = str.length * 25;
+        return ms < 125 ? 125 : ms;
+      }
+
+      function play(idx) {
+        if (idx >= text.length) {
+          return setTimeout(() => window.location.href = "index.html", 250);
+        }
+        const parts = text[idx].a.split('\n');  // '\n' 기준 분할
+        let i = 0;
+        function next() {
+          $('h1').text(parts[i])
+                 .fadeIn(200)
+                 .delay(delay(parts[i]) / 1.5)
+                 .fadeOut(200, () => {
+                   if (i < parts.length - 1) {
+                     i++;
+                     next();
+                   } else {
+                     setTimeout(() => play(idx + 1), 500);
+                   }
+                 });
+        }
+        next();
+      }
+
+      play(0);
+    });
+  </script>
+</head>
+<body>
+  <h1></h1>
+</body>
+</html>
