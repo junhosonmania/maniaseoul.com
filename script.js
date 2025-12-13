@@ -1,6 +1,6 @@
 let data = [
     // [현재] mania seoul (구분: 'mania')
-    ['2026/04/26', '???', '???', 'SSMD', 'Promoter', 'mania'],
+    ['2026/04/26', '???', '???', 'SSMD Live Hall', 'Promoter', 'mania'],
     ['2026/03/29', '???', '???', '1975 Theater', 'Promoter', 'mania'],
     ['2026/01/24', 'bar italia + bongjeingan live n seoul', 'bar italia, bongjeingan', 'Musinsa Garage', 'Promoter', 'mania'],
     ['2026/01/18', 'Wisp Live In Seoul', 'Wisp', 'Musinsa Garage', 'Promoter', 'mania'],
@@ -50,7 +50,7 @@ function generateTable() {
             dividerCell.colSpan = 5; 
             dividerCell.innerHTML = `
                 <div class="divider-content">
-                    <span>founder Junho Son used to work on....</span>
+                    <span>Before Mania, Junho Son worked on...</span>
                 </div>`;
         }
 
