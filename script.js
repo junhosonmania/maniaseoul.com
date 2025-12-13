@@ -86,6 +86,10 @@ function generateTable() {
                 else if (artist === 'Geordie Greep') link.href = 'geordie.html';
                 else if (title === 'HMLTD 포원스인마랖 IN SEOUL') link.href = 'hmltd2.html';
                 else if (artist === 'bed') link.href = 'bed.html';
+                else if (artist === 'Pearl & The Oysters') link.href = 'pearl.html';
+                else if (artist === 'bar italia, bonjeingan') link.href = 'pearl.html';
+                else if (artist === 'wisp') link.href = 'wisp.html';
+
 
                 link.textContent = data[i][j];
                 cellContent.appendChild(link);
@@ -138,7 +142,7 @@ function changeLanguage() {
     if(venueHeader) venueHeader.textContent = (selectedLanguage === 'ko') ? '베뉴' : 'VENUE';
     
     let partHeader = document.getElementById("partHeader");
-    if(partHeader) partHeader.textContent = (selectedLanguage === 'ko') ? '담당' : 'ROLE';
+    if(partHeader) partHeader.textContent = (selectedLanguage === 'ko') ? '담당' : 'CREDIT';
 
     generateTable();
 }
