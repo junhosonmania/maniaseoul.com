@@ -1,7 +1,7 @@
 let data = [
     // [현재] mania seoul (구분: 'mania')
-    ['2026/04/26', '???', '???', 'SSMD Live Hall', 'Promoter', 'mania'],
-    ['2026/03/29', '???', '???', '1975 Theater', 'Promoter', 'mania'],
+    ['2026/04/26', '???', '???', '???', 'Promoter', 'mania'],
+    ['2026/03/29', '???', '???', '???', 'Promoter', 'mania'],
     ['2026/01/24', 'bar italia + bongjeingan live n seoul', 'bar italia, bongjeingan', 'Musinsa Garage', 'Promoter', 'mania'],
     ['2026/01/18', 'Wisp Live In Seoul', 'Wisp', 'Musinsa Garage', 'Promoter', 'mania'],
     ['2025/10/17', 'Pearl & The Oysters Live in Seoul', 'Pearl & The Oysters', 'West Bridge Live Hall', 'Promoter', 'mania'],
