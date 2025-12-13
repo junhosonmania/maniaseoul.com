@@ -1,9 +1,9 @@
 let data = [
-    // [현재] Mania Seoul 설립 후 (구분: 'mania')
+    // [현재] Mania Seoul (구분: 'mania')
     ['2025/06/06', 'bed live in seoul', 'bed', 'Veloso Hongdae', 'Promoter', 'mania'],
     ['2025/03/03', 'HMLTD 포원스인마랖 IN SEOUL', 'HMLTD', 'Musinsa Garage', 'Promoter', 'mania'],
 
-    // [과거] 이전 경력 (구분: 'past') - 여기서부터 구분선이 생깁니다
+    // [과거] 이전 경력 (구분: 'past')
     ['2025/02/20', 'Geordie Greep Live in Seoul', 'Geordie Greep', 'Rolling Hall', 'Promoter', 'past'],
     ['2024/12/08', 'Photay Live in Seoul', 'Photay', 'Channel1969', 'Promoter', 'past'],
     ['2024/11/05', 'Hiatus Kaiyote Live in Seoul', 'Hiatus Kaiyote', 'YES24 LIVE HALL', 'Promoter', 'past'],
@@ -35,34 +35,31 @@ function generateTable() {
     let previousType = null;
 
     for (let i = 0; i < data.length; i++) {
-        let currentType = data[i][5]; // 현재 행의 타입 (mania/past)
+        let currentType = data[i][5]; 
 
-        // 타입이 바뀔 때(mania -> past) 중간에 굵은 선 행 추가
+        // [수정됨] 구분선 문구 변경
         if (previousType !== null && currentType !== previousType) {
             let dividerRow = tbody.insertRow();
             dividerRow.className = "divider-row"; 
             let dividerCell = dividerRow.insertCell(0);
             dividerCell.colSpan = 5; 
-            // 구분선 안의 내용 (선 + 텍스트)
             dividerCell.innerHTML = `
                 <div class="divider-content">
-                    <span>PREVIOUS WORKS</span>
+                    <span>founder Junho Son used to work on..</span>
                 </div>`;
         }
 
         let row = tbody.insertRow();
 
-        // j < 5 : 마지막 태그 데이터는 화면에 출력하지 않음
         for (let j = 0; j < 5; j++) {
             let cell = row.insertCell(j);
             let cellContent = document.createElement('span');
 
-            if (j === 1) {  // TITLE 열 링크 처리
+            if (j === 1) { 
                 let link = document.createElement('a');
                 let artist = data[i][2];
                 let title = data[i][1];
 
-                // 링크 매핑 로직
                 if (artist === 'King Gnu') link.href = 'kinggnu.html';
                 else if (artist === 'KNOWER') link.href = 'knower.html';
                 else if (artist === 'amazarashi') link.href = 'amazarashi.html';
@@ -91,7 +88,6 @@ function generateTable() {
             } else {
                 cellContent.textContent = data[i][j];
             }
-
             cell.appendChild(cellContent);
         }
         previousType = currentType;
@@ -143,5 +139,4 @@ function changeLanguage() {
     generateTable();
 }
 
-// 초기 실행
 generateTable();
