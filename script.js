@@ -67,7 +67,6 @@ function generateTable() {
 
                 if (artist === 'King Gnu') link.href = 'kinggnu.html';
                 else if (artist === 'KNOWER') link.href = 'knower.html';
-                else if (artist === 'amazarashi') link.href = 'amazarashi.html';
                 else if (artist === 'Oneothrix Point Never') link.href = 'opn.html';
                 else if (artist === 'Benny Sings') link.href = 'bennysings.html';
                 else if (artist === 'Otoboke Beaver') link.href = 'otobokebeaver.html';
