@@ -2,6 +2,7 @@ let data = [
     // [현재] mania seoul (구분: 'mania')
     ['2026/04/26', '???', '???', '???', 'Promoter', 'mania'],
     ['2026/03/29', '???', '???', '???', 'Promoter', 'mania'],
+    ['2026/01/25', 'bar italia extra night in seoul', 'bar italia', 'Panta Garage', 'Promoter', 'mania'],
     ['2026/01/24', 'bar italia + bongjeingan live in seoul', 'bar italia, bongjeingan', 'Musinsa Garage', 'Promoter', 'mania'],
     ['2026/01/18', 'Wisp Live In Seoul', 'Wisp', 'Musinsa Garage', 'Promoter', 'mania'],
     ['2025/10/17', 'Pearl & The Oysters Live in Seoul', 'Pearl & The Oysters', 'West Bridge Live Hall', 'Promoter', 'mania'],
@@ -87,6 +88,7 @@ function generateTable() {
                 else if (title === 'HMLTD 포원스인마랖 IN SEOUL') link.href = 'hmltd2.html';
                 else if (artist === 'bed') link.href = 'bed.html';
                 else if (artist === 'Pearl & The Oysters') link.href = 'pearl.html';
+                else if (artist === 'bar italia') link.href = 'baritalia2.html';
                 else if (artist === 'bar italia, bongjeingan') link.href = 'baritalia.html';
                 else if (artist === 'Wisp') link.href = 'wisp.html';
 
