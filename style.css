@@ -173,18 +173,18 @@ th.sorted-desc .arrow-down {
 }
 
 /*────────────────────────────────────────
-  9. Divider Styles (얇은 선, 좁은 간격, 텍스트 보호)
+  9. Divider Styles (연한 라인, 좁은 간격, 텍스트 보호)
 ────────────────────────────────────────*/
 
 .divider-row td {
   padding: 0 !important;
   border: none !important;
-  height: 40px;            /* 높이를 80px -> 40px로 줄여 마진 축소 */
+  height: 40px;            /* 좁은 간격 유지 */
   vertical-align: middle;
 }
 
 .divider-content {
-  position: relative;      /* 겹침 처리를 위한 기준점 */
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -192,27 +192,27 @@ th.sorted-desc .arrow-down {
   height: 100%;
 }
 
-/* 실제 선을 그리는 가상 요소 (::before) */
+/* 실제 선 (::before) */
 .divider-content::before {
   content: "";
   position: absolute;
   top: 50%;
   left: 0;
   width: 100%;
-  height: 1px;             /* 선 두께: 3px -> 1px로 얇게 변경 */
-  background-color: #000;  /* 선 색상 */
-  z-index: 0;              /* 글자보다 뒤에 위치 */
+  height: 1px;             /* 얇은 두께 */
+  background-color: #ccc;  /* [수정] 검정(#000) -> 연한 회색(#ccc) */
+  z-index: 0;
 }
 
 /* 텍스트 스타일 */
 .divider-content span {
-  position: relative;      /* 선보다 위에 올라오게 설정 */
-  z-index: 1;              /* 선(0)보다 높은 숫자 */
-  background-color: #fff;  /* 배경색으로 뒤에 지나가는 선을 가림 */
-  padding: 0 20px;         /* 텍스트 좌우 여백을 넉넉히 줘서 선과 겹치지 않게 */
+  position: relative;
+  z-index: 1;
+  background-color: #fff;  /* 선 가림용 배경 */
+  padding: 0 20px;
   
   font-family: 'iAWriterQuattroSRegular', sans-serif;
   font-weight: normal;
-  font-size: 0.85rem;      /* 작고 위트 있게 */
-  color: #000;
+  font-size: 0.85rem;
+  color: #666;             /* [수정] 텍스트도 완전 검정에서 진한 회색으로 부드럽게 */
 }
