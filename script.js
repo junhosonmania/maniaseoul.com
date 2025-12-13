@@ -87,7 +87,7 @@ function generateTable() {
                 else if (title === 'HMLTD 포원스인마랖 IN SEOUL') link.href = 'hmltd2.html';
                 else if (artist === 'bed') link.href = 'bed.html';
                 else if (artist === 'Pearl & The Oysters') link.href = 'pearl.html';
-                else if (artist === 'bar italia, bonjeingan') link.href = 'pearl.html';
+                else if (artist === 'bar italia, bonjeingan') link.href = 'baritalia.html';
                 else if (artist === 'wisp') link.href = 'wisp.html';
 
 
