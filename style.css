@@ -11,20 +11,30 @@ html {
   font-size: 100%; /* 1rem = 16px */
 }
 
+
 /*────────────────────────────────────────
-  2. Custom Font
+  2. Custom Font (iA Writer Quattro S - CDN)
 ────────────────────────────────────────*/
 @font-face {
   font-family: 'iAWriterQuattroSRegular';
-  src: local('iA Writer Quattro S Regular'),
-       url('./font/iAWriterQuattroSRegular.woff2') format('woff2'),
-       url('./font/iAWriterQuattroSRegular.woff')  format('woff'),
-       url('./font/iAWriterQuattroSRegular.ttf')   format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+  /* GitHub jsDelivr CDN 주소로 직접 연결 */
+  src: url('https://cdn.jsdelivr.net/gh/iaolo/iA-Fonts@master/iAWriterQuattro/Webfonts/iAWriterQuattroS-Regular.woff2') format('woff2');
 }
 
+/*────────────────────────────────────────
+  3. Base Text Styles
+────────────────────────────────────────*/
+body {
+  /* 폰트 이름은 그대로 쓰시면 됩니다 */
+  font-family: 'iAWriterQuattroSRegular', sans-serif; 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  padding: 0.5rem;
+}
 /*────────────────────────────────────────
   3. Base Text Styles
 ────────────────────────────────────────*/
