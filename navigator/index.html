@@ -5,53 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mania Seoul Navigator</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
         body, html { width: 100%; height: 100%; overflow: hidden; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }
         .container { display: flex; flex-direction: column; height: 100vh; }
 
+        /* 공통 링크 스타일 */
         .nav-link {
             flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             text-decoration: none;
-            color: black;
-            background-color: white; /* 기본 배경: 흰색 */
+            color: black; /* 기본 텍스트 색상 */
+            background-color: white; /* 기본 배경 색상 */
             font-size: 1.5rem;
             font-weight: bold;
             text-align: center;
-            transition: all 0.3s ease;
+            position: relative; /* 가상 요소를 배치하기 위한 기준점 */
+            z-index: 1; /* 텍스트가 이미지보다 위에 오도록 설정 */
+            transition: color 0.5s ease; /* 텍스트 색상도 부드럽게 변경 */
             border-bottom: 1px solid #eee;
         }
         .nav-link:last-child { border-bottom: none; }
 
+        /* 호버 시 텍스트 색상 변경 */
+        .nav-link:hover {
+            color: white; /* 배경 이미지 위에서 잘 보이도록 흰색으로 변경 */
+        }
+
+        /* --- [배경 이미지 설정 핵심] --- */
+        /* 가상 요소(::before)를 만들어 배경 이미지를 미리 깔아두고 숨김 */
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; /* 이미지가 구역을 꽉 채우도록 */
+            background-position: center; /* 이미지 중앙 정렬 */
+            opacity: 0; /* 처음에는 투명해서 안 보임 */
+            z-index: -1; /* 텍스트 뒤로 보냄 */
+            transition: opacity 0.5s ease-in-out; /* 부드럽게 나타나는 효과 */
+        }
+
+        /* 호버 시 가상 요소(이미지)를 불투명하게 만듦 */
+        .nav-link:hover::before {
+            opacity: 1;
+        }
+
         /* -------------------------------------------------------
-           [여기서 색상을 변경하세요!] 
-           각 섹션별 호버(마우스 올림/터치) 색상 설정
-           # 뒤에 있는 6자리 코드를 원하시는 색상으로 바꾸시면 됩니다.
+           [여기서 이미지 주소를 변경하세요!] 
+           각 섹션별 배경 이미지 URL을 따옴표('') 안에 넣으세요.
+           테스트를 위해 임시 이미지를 넣어두었습니다.
         ------------------------------------------------------- */
         
-        /* 1번 섹션: Bar Italia (예: 강렬한 오렌지 레드) */
-        .link-1:hover, .link-1:active {
-            background-color: #000000; 
-            color: white;
+        /* 1번 섹션 이미지: Bar Italia */
+        .link-1::before {
+            background-image: url('https://lh7-rt.googleusercontent.com/formsz/AN7BsVBew1dl6RjYnVETFljunQUmRxeC3t_NAFQmttg8YbJOYO0sRtRCzg9HPJ0lk5KPbvn5tnj-Tmj53oNLS44HJa-lT-wmxiKZenpmfYahBRXa7E73RxNNufvVa7atUz2zyZdV5wdWu--Bn1FlF_C6Me56C-HH_Y4JVD1QYHcJL4zaRCJ1kORJ5vza16cTf_eIq6NHcngNqJnFF2Y=w740?key=cmti8TQBiDsiqHVQdIxVig');
+            /* 만약 이미지가 너무 밝아서 글씨가 안 보이면 아래처럼 어두운 막을 씌울 수 있습니다. */
+            /* background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('이미지주소'); */
         }
 
-        /* 2번 섹션: Wisp (예: 딥 블루) */
-        .link-2:hover, .link-2:active {
-            background-color: #eae2d8; 
-            color: black;
+        /* 2번 섹션 이미지: Wisp */
+        .link-2::before {
+            background-image: url('https://ticket.img.one.musinsa.com/10051/2/2511191jig39n997fao-1-1000x1000.jpeg');
         }
 
-        /* 3번 섹션: Oneohtrix Point Never (예: 바이올렛) */
-        .link-3:hover, .link-3:active {
-            background-color: #00449b; 
-            color: white;
+        /* 3번 섹션 이미지: Oneohtrix Point Never */
+        .link-3::before {
+            background-image: url('https://ibb.co/ymZzhvTq');
         }
 
         @media (max-width: 768px) {
             .nav-link { font-size: 1.2rem; padding: 0 20px; }
         }
+    </style>
     </style>
 </head>
 <body>
