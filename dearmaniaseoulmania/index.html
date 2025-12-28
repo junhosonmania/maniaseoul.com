@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>매니아 서울 2025</title>
+  <title>연하장</title>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <style>
@@ -22,28 +22,25 @@
       margin: 0;
       padding: 30px; 
       font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-      font-weight: 900; 
+      font-weight: 900; /* Black 웨이트 */
       overflow: hidden;
       letter-spacing: -0.05em;
     }
 
     #start-btn {
       cursor: pointer;
-      font-size: 1.1rem;
+      font-size: 1rem;
       border: 2px solid #000;
       padding: 15px 25px;
       background: none;
       font-weight: 900;
       font-family: "Pretendard", sans-serif;
+      text-transform: lowercase; /* 올 소문자 */
       transition: all 0.2s;
-    }
-    #start-btn:active {
-      background-color: #000;
-      color: #fff;
     }
 
     h1 {
-      font-size: 8.5vw; /* 모바일 대응 크기 */
+      font-size: 8vw; /* 모바일 가독성 최적화 */
       line-height: 1.35;
       text-align: center;
       word-break: keep-all;
@@ -53,97 +50,78 @@
     }
 
     @media (min-width: 600px) {
-      h1 { font-size: 3rem; }
-    }
-
-    /* 유튜브 플레이어 숨김 */
-    #yt-player {
-      position: absolute;
-      top: -9999px;
-      left: -9999px;
+      h1 { font-size: 2.8rem; }
     }
   </style>
 </head>
 <body>
 
-  <div id="yt-player"></div>
-  <script src="https://www.youtube.com/iframe_api"></script>
+  <audio id="bgm" src="themagician.mp3" preload="auto"></audio>
 
-  <button id="start-btn">Dear Mania Seoul Mania</button>
+  <button id="start-btn">dear mania seoul mania</button>
   <h1></h1>
 
   <script>
-    let player;
-    function onYouTubeIframeAPIReady() {
-      player = new YT.Player('yt-player', {
-        height: '0',
-        width: '0',
-        videoId: 'gJ1f6oKYqeQ', // The Magician
-        events: {
-          'onReady': onPlayerReady
-        }
-      });
-    }
-
-    function onPlayerReady(event) {
-      // 플레이어 준비 완료 시 버튼 클릭 활성화 가능
-    }
-
     $(function () {
+      const audio = document.getElementById('bgm');
+      
       const text = [
         { a: "안녕하세요,\n매니아 서울\n팔로워 여러분." },
-        { a: "연말 인사를\n전합니다." },
-        { a: "일일이 연하장을\n보내드리고 싶은\n제 마음을\n알아주셨으면 해요." },
-        { a: "이 편지는\n제가 좋아하는\n민구홍 님의 양식을\n참고했습니다." },
-        { a: "매니아 서울은\n성인 한 명이\n많은 도움을 받아\n운영하는 브랜드입니다." },
-        { a: "그로 말미암아 발생한\n여러 불편들에 대해\n사과드립니다." },
-        { a: "문의나 건의 등은\nDM이 아닌 이메일로\n부탁드립니다." },
-        { a: "info.maniaseoul\n@gmail.com" },
-        { a: "미디어 리터러시가\n떨어지는 바람에,\n양해 부탁드립니다." },
-        { a: "2025년 한 해 동안\n총 5회의 공연을 했고\n파티 하나를 남겼습니다." },
-        { a: "감사했습니다.\n조각보처럼 즐거운\n기억들이 머릿속에\n기워져 있습니다." },
-        { a: "2026년에는\n더 많은 공연이\n준비될 예정입니다." },
-        { a: "기대는 조금만,\n꾸준한 관심은\n느슨하게라도\n부탁드립니다." },
-        { a: "내년은 더 재미있고\n더 신경 쓰겠습니다." },
-        { a: "문득 프로모터로서\n직업 윤리를\n생각해 봅니다." },
-        { a: "첫 공연 롤링홀,\n〈The Magician〉이\n흘러나오던 때를\n기억합니다." },
-        { a: "반짝이던\n수백 개의 눈동자,\n기약 없는 순간을\n붙잡으려던 마음들." },
-        { a: "그런 분들께\n행복을 드리는 게\n저희 일이 아닐까요." },
-        { a: "정확히는,\n아티스트들이 기분 좋게\n행복을 주도록 돕는 것이\n저희의 일입니다." },
-        { a: "지켜봐 주세요.\n좋아하고 잘 하는\n일이니까요." },
-        { a: "Wisp,\nbar italia,\nOneohtrix Point Never." },
+        { a: "연말 인사를 전합니다." },
+        { a: "마음 같아서는 일일이\n연하장을 보내드리고 싶은\n마음임을 알아주셨으면 해요." },
+        { a: "참고로 이 편지는\n제가 좋아하는\n민구홍 님의 양식을\n참고했음을 밝힙니다." },
+        { a: "감사합니다." },
+        { a: "매니아 서울은\n성인 한 명이\n많은 도움을 받아\n운영하고 있는\n프로모터 브랜드입니다." },
+        { a: "그 과정에서 발생한\n여러 불편에 대해\n이 자리를 빌려 사과드립니다." },
+        { a: "(덧붙이자면,\n문의나 의견 및\n불편 사항 등은\n인스타그램 DM이 아닌)" },
+        { a: "이메일\ninfo.maniaseoul\n@gmail.com으로\n부탁드립니다." },
+        { a: "부족한\n미디어 리터러시로 인해\n답장이 늦어질 수 있는 점\n양해 부탁드려요.)" },
+        { a: "2025년 한 해 동안\n총 5회의 공연을 진행했고,\n이제 한 개의 파티를\n남겨두고 있습니다." },
+        { a: "진심으로 감사했습니다." },
+        { a: "조각보처럼 즐거운\n기억들이 머릿속에\n촘촘히 기워져 있습니다." },
+        { a: "2026년에는\n더 많은 공연이\n준비되어 있고,\n또 그렇게 될 예정입니다." },
+        { a: "기대는 조금만 해주시되,\n느슨하더라도\n꾸준한 관심을 부탁드립니다." },
+        { a: "내년은 더 재미있을 겁니다." },
+        { a: "더 신경 쓰겠습니다." },
+        { a: "문득 프로모터로서의\n직업윤리를 생각해 봅니다." },
+        { a: "처음 진행했던 공연은\n롤링홀에서였는데요." },
+        { a: "The Magician이라는\n마법 같은 곡이\n흘러나올 때," },
+        { a: "무대 뒤편에서 바라본\n플로어의 모습이\n아직도 생생합니다." },
+        { a: "조명에 비쳐\n반짝반짝 빛나던\n수백 개의 눈동자를\n기억합니다." },
+        { a: "오늘이 아니면 기약 없는\n이 순간을 붙잡으려는\n그런 마음들이 느껴졌거든요." },
+        { a: "그런 진정성을 가진 분들께\n조금이나마 행복감을 드리는 것이\n저희의 일이 아닐까 생각해봅니다." },
+        { a: "정확히는,\n그런 행복감을 드리는\n아티스트들이 기분 좋도록\n돕는 것이\n매니아 서울의 역할이겠습니다." },
+        { a: "제가 좋아하고\n잘할 수 있는 일이니\n계속해서 지켜봐 주세요." },
+        { a: "다가오는 Wisp,\nbar italia, 그리고\nOneohtrix Point Never\n공연에서" },
         { a: "더 많은 분과\n뵙게 되면 좋겠습니다." },
-        { a: "그런 분들을\n'매니아 서울 매니아'라\n불러도 될까요?" },
+        { a: "그런 분들을\n'매니아 서울 매니아'라고\n불러도 될까요?" },
         { a: "가끔 이렇게\n마음을 전하겠습니다." },
-        { a: "좋은 음악과 함께\n다채로운 연말\n보내시길 바랍니다." },
+        { a: "좋은 음악과 함께\n다채로운 감정을 느끼는\n연말 보내시길 바랍니다." },
         { a: "감사합니다.\n매니아 서울 올림" }
       ];
 
-      // 속도 1.3배 업 반영 (계수 조정 45 -> 35)
+      // 1.3배 빠른 속도 설정
       function delay(str) {
         const ms = str.length * 35; 
-        return ms < 850 ? 850 : ms; 
+        return ms < 800 ? 800 : ms; 
       }
 
       function play(idx) {
         if (idx >= text.length) {
-          // 편지 종료 시 음악 서서히 페이드 아웃 (선택)
           return $('h1').fadeOut(1500);
         }
 
         $('h1').html(text[idx].a.replace(/\n/g, '<br>'))
-               .fadeIn(450) // 페이드 속도도 빠르게
+               .fadeIn(400) 
                .delay(delay(text[idx].a))
-               .fadeOut(450, () => {
-                  setTimeout(() => play(idx + 1), 250); // 문장 사이 정적 단축
+               .fadeOut(400, () => {
+                  setTimeout(() => play(idx + 1), 200); 
                });
       }
 
       $('#start-btn').on('click', function() {
         $(this).hide();
-        if (player && player.playVideo) {
-          player.playVideo(); // 유튜브 음악 재생
-        }
+        audio.play(); 
         setTimeout(() => play(0), 500);
       });
     });
