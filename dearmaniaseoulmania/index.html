@@ -88,7 +88,7 @@
 
       function delay(str) {
         /* 속도를 0.8배로 늦춤 (글자당 35ms -> 44ms로 변경) */
-        const ms = str.length * 44; 
+        const ms = str.length * 60; 
         return ms < 1000 ? 1000 : ms; 
       }
 
@@ -101,7 +101,7 @@
                .fadeIn(400) 
                .delay(delay(text[idx].a))
                .fadeOut(400, () => {
-                 setTimeout(() => play(idx + 1), 200); 
+                 setTimeout(() => play(idx + 1), 300); 
                });
       }
 
