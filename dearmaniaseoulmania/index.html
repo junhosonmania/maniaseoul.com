@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>연하장</title>
+  <title>매니아 서울 2025</title>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <style>
@@ -14,14 +14,15 @@
 
     body {
       background-color: #fff;
-      color: #000;
+      /* 전체 글씨 컬러를 핑크색으로 설정 */
+      color: #ff3399; 
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
       padding: 30px; 
-      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      font-family: "Pretendard", sans-serif;
       font-weight: 900; /* Black 웨이트 */
       overflow: hidden;
       letter-spacing: -0.05em;
@@ -29,18 +30,21 @@
 
     #start-btn {
       cursor: pointer;
-      font-size: 1rem;
-      border: 2px solid #000;
-      padding: 15px 25px;
+      font-size: 1.2rem;
+      border: none; /* 네모 제거 */
       background: none;
+      color: #ff3399; /* 버튼도 핑크색 */
       font-weight: 900;
       font-family: "Pretendard", sans-serif;
-      text-transform: lowercase; /* 올 소문자 */
-      transition: all 0.2s;
+      text-transform: lowercase;
+      letter-spacing: -0.02em;
+      padding: 0;
+      text-decoration: underline; /* 버튼임을 알 수 있게 밑줄 추가 (선택사항) */
+      text-underline-offset: 5px;
     }
 
     h1 {
-      font-size: 8vw; /* 모바일 가독성 최적화 */
+      font-size: 8.5vw;
       line-height: 1.35;
       text-align: center;
       word-break: keep-all;
@@ -50,13 +54,13 @@
     }
 
     @media (min-width: 600px) {
-      h1 { font-size: 2.8rem; }
+      h1 { font-size: 3rem; }
     }
   </style>
 </head>
 <body>
 
-  <audio id="bgm" src="themagician.mp3" preload="auto"></audio>
+  <audio id="bgm" src="themagician.mp3" preload="auto" playsinline></audio>
 
   <button id="start-btn">dear mania seoul mania</button>
   <h1></h1>
@@ -100,7 +104,6 @@
         { a: "감사합니다.\n매니아 서울 올림" }
       ];
 
-      // 1.3배 빠른 속도 설정
       function delay(str) {
         const ms = str.length * 35; 
         return ms < 800 ? 800 : ms; 
@@ -121,7 +124,10 @@
 
       $('#start-btn').on('click', function() {
         $(this).hide();
-        audio.play(); 
+        // 음악 재생 시도 및 오류 확인
+        audio.play().catch(function(error) {
+          console.log("음악 재생 실패:", error);
+        }); 
         setTimeout(() => play(0), 500);
       });
     });
