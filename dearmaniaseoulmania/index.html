@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>연하장</title>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <title>연하장</title> <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <style>
     * {
@@ -14,7 +13,7 @@
 
     body {
       background-color: #fff;
-      color: #000; /* 본문은 블랙 */
+      color: #000;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -22,15 +21,14 @@
       margin: 0;
       padding: 30px; 
       font-family: "Pretendard", sans-serif;
-      font-weight: 900; 
+      font-weight: 900; /* 가장 두껍게 */
       overflow: hidden;
       letter-spacing: -0.05em;
     }
 
-    /* 시작 버튼: 핑크색, 테두리 없음, 밑줄 없음 */
     #start-btn {
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 0.84rem; /* 기존 1.2rem의 70% */
       border: none;
       background: none;
       color: #ff3399; 
@@ -43,18 +41,24 @@
     }
 
     h1 {
-      font-size: 8.5vw;
+      font-size: 5.95vw; /* 기존 8.5vw의 70% */
       line-height: 1.35;
       text-align: center;
       word-break: keep-all;
       margin: 0;
       display: none;
       white-space: pre-wrap;
-      color: #000; /* 본문 텍스트 컬러 */
+      color: #000;
+      font-weight: 900; /* 글씨 두께 강조 */
     }
 
     @media (min-width: 600px) {
-      h1 { font-size: 3rem; }
+      h1 { font-size: 2.1rem; } /* 기존 3rem의 70% */
+
+      <button class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+  맞춤 음악 재생
+</button>
+      
     }
   </style>
 </head>
@@ -63,6 +67,7 @@
   <audio id="bgm" src="themagician.mp3" preload="auto"></audio>
 
   <button id="start-btn">dear mania seoul mania</button>
+  
   <h1></h1>
 
   <script>
@@ -77,7 +82,7 @@
         { a: "감사합니다." },
         { a: "매니아 서울은\n성인 한 명이\n많은 도움을 받아\n운영하고 있는\n프로모터 브랜드입니다." },
         { a: "그 과정에서 발생한\n여러 불편에 대해\n이 자리를 빌려 사과드립니다." },
-        { a: "(이참에,\n문의나 의견 및\n불편 사항 등은\n인스타그램 DM이 아닌)" },
+        { a: "(이참에,\n문의나 의견 및\n불편 사항 등은\n인스타그램 DM이 아닌)" }, // 문구 수정 완료
         { a: "이메일\ninfo.maniaseoul\n@gmail.com으로\n부탁드립니다." },
         { a: "부족한\n미디어 리터러시로 인해\n답장이 늦어질 수 있는 점\n양해 부탁드려요.)" },
         { a: "2025년 한 해 동안\n총 5회의 공연을 진행했고,\n이제 한 개의 파티를\n남겨두고 있습니다." },
@@ -105,7 +110,6 @@
       ];
 
       function delay(str) {
-        // 1.3배 빠른 속도
         const ms = str.length * 35; 
         return ms < 800 ? 800 : ms; 
       }
@@ -119,25 +123,15 @@
                .fadeIn(400) 
                .delay(delay(text[idx].a))
                .fadeOut(400, () => {
-                  setTimeout(() => play(idx + 1), 200); 
+                 setTimeout(() => play(idx + 1), 200); 
                });
       }
 
       $('#start-btn').on('click', function() {
         $(this).hide();
         
-        // 오디오 재생 로직 강화
-        audio.load(); // 다시 로드
-        var playPromise = audio.play();
-
-        if (playPromise !== undefined) {
-          playPromise.then(_ => {
-            // 재생 성공
-          }).catch(error => {
-            // 재생 실패 시 콘솔에 원인 출력
-            console.log("재생이 차단되었습니다:", error);
-          });
-        }
+        // 오디오 재생 실행
+        audio.play().catch(e => console.log("Audio play error:", e));
         
         setTimeout(() => play(0), 500);
       });
