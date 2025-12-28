@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>dear mania seoul mania</title>
+  <title>매니아 서울 2025</title>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <style>
-    /* 여백 및 기본 스타일 초기화 */
     * {
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
@@ -21,39 +20,27 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      padding: 20px; /* 모바일 사이드 여백 */
+      padding: 30px; 
+      /* Pretendard Black(900) 적용 */
       font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-      font-weight: 700; 
-      overflow: hidden; /* 스크롤 방지 */
-    }
-    
-    /* 시작 버튼: 모바일에서 누르기 쉬운 크기 */
-    #start-btn {
-      cursor: pointer;
-      font-size: 1.1rem;
-      border: 1.5px solid #000;
-      padding: 15px 30px;
-      background: none;
-      font-family: "Pretendard", sans-serif;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+      font-weight: 900; 
+      overflow: hidden;
     }
 
-    /* 텍스트 스타일: 모바일 가독성 중심 */
     h1 {
-      font-size: 6.5vw; /* 화면 너비에 반응하는 크기 */
-      line-height: 1.5;
+      font-size: 7vw; /* 모바일 대응 크기 */
+      line-height: 1.4;
       text-align: center;
-      word-break: keep-all; /* 한글 단어 단위 줄바꿈 */
+      word-break: keep-all;
       margin: 0;
       display: none;
-      white-space: pre-wrap; /* \n 반영 */
+      white-space: pre-wrap;
+      letter-spacing: -0.03em; /* 두꺼운 폰트일 때 더 세련되게 조정 */
     }
 
-    /* 태블릿 이상의 화면에서는 글자 크기 제한 */
     @media (min-width: 600px) {
       h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
       }
     }
   </style>
@@ -93,45 +80,32 @@
         { a: "매니아 서울 올림" }
       ];
 
-      const audio = document.getElementById('bgm');
-
-      // 속도 설정: 두 배 속도 반영
+      // 두 배 속도 호흡 유지
       function delay(str) {
-        const ms = str.length * 40; 
-        return ms < 1000 ? 1000 : ms; // 최소 1초 유지
+        const ms = str.length * 45; 
+        return ms < 1100 ? 1100 : ms; 
       }
 
       function play(idx) {
         if (idx >= text.length) {
-          // 마지막 문구 후 화면 초기화 혹은 로고 노출 가능
-          return $('h1').hide(); 
+          return; // 종료
         }
 
-        // 효과 없이(show/hide) 즉시 전환
+        // 페이드 효과 적용 (600ms)
         $('h1').html(text[idx].a.replace(/\n/g, '<br>'))
-               .show()
+               .fadeIn(600)
                .delay(delay(text[idx].a))
-               .queue(function(next) {
-                  $(this).hide();
-                  // 문장 사이의 아주 짧은 정적 (0.4초)
-                  setTimeout(() => play(idx + 1), 400); 
-                  next();
+               .fadeOut(600, () => {
+                  setTimeout(() => play(idx + 1), 300); // 문장 사이 짧은 정적
                });
       }
 
-      $('#start-btn').on('touchstart click', function(e) {
-        e.preventDefault(); // 모바일 중복 클릭 방지
-        $(this).hide();
-        audio.play();
-        play(0);
-      });
+      // 페이지 로드 1초 후 자동 시작
+      setTimeout(() => play(0), 1000);
     });
   </script>
 </head>
 <body>
-  <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
-  
-  <button id="start-btn">매니아 서울로부터</button>
   <h1></h1>
 </body>
 </html>
