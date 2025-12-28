@@ -22,7 +22,6 @@
       margin: 0;
       padding: 30px; 
       font-family: "Pretendard", sans-serif;
-      /* 글씨 두께를 600으로 변경 */
       font-weight: 600; 
       overflow: hidden;
       letter-spacing: -0.02em;
@@ -37,7 +36,6 @@
       display: none;
       white-space: pre-wrap;
       color: #000;
-      /* 글씨 두께 600 적용 */
       font-weight: 600; 
     }
 
@@ -84,7 +82,7 @@
         { a: "그런 분들을\n'매니아 서울 매니아'라고\n불러도 될까요?" },
         { a: "가끔 이렇게\n마음을 전하겠습니다." },
         { a: "좋은 음악과 함께\n다채로운 감정을 느끼는\n연말 보내시길 바랍니다." },
-        { a: "감사합니다." }
+        { a: "감사합니다." }, // 쉼표 추가 수정 완료
         { a: "매니아 서울 올림" }
       ];
 
@@ -94,8 +92,10 @@
       }
 
       function play(idx) {
+        // 모든 문구가 끝났을 때 (idx가 배열 길이에 도달했을 때)
         if (idx >= text.length) {
-          return $('h1').fadeOut(1500);
+          // 1초 대기 후 다시 처음(0번)부터 시작
+          return setTimeout(() => play(0), 1000);
         }
 
         $('h1').html(text[idx].a.replace(/\n/g, '<br>'))
