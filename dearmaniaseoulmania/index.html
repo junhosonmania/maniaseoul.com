@@ -22,40 +22,13 @@
       margin: 0;
       padding: 30px; 
       font-family: "Pretendard", sans-serif;
-      /* 전체 글씨 두께를 Regular(400)로 수정 */
-      font-weight: 400; 
+      /* 글씨 두께를 600으로 변경 */
+      font-weight: 600; 
       overflow: hidden;
       letter-spacing: -0.02em;
     }
 
-    /* 수정된 핑크색 버튼 스타일 */
-    #start-btn {
-      cursor: pointer;
-      /* 글씨 크기 작게 조절 */
-      font-size: 14px; 
-      border: none;
-      /* 핑크색 배경 적용 */
-      background-color: #FF85A2; 
-      color: #ffffff; 
-      /* 두께를 Regular로 설정 */
-      font-weight: 400;
-      font-family: "Pretendard", sans-serif;
-      padding: 10px 24px;
-      border-radius: 50px;
-      text-decoration: none; 
-      /* 불필요한 줄바꿈 방지 */
-      white-space: nowrap;
-      transition: background-color 0.2s, transform 0.1s;
-      box-shadow: 0 2px 8px rgba(255, 133, 162, 0.3);
-    }
-
-    #start-btn:active {
-      transform: scale(0.96);
-      background-color: #ff69b4;
-    }
-
     h1 {
-      /* 메인 텍스트 크기 및 두께 조정 */
       font-size: 5.95vw; 
       line-height: 1.4;
       text-align: center;
@@ -64,7 +37,8 @@
       display: none;
       white-space: pre-wrap;
       color: #000;
-      font-weight: 400; /* Regular로 수정 */
+      /* 글씨 두께 600 적용 */
+      font-weight: 600; 
     }
 
     @media (min-width: 600px) {
@@ -74,48 +48,44 @@
 </head>
 <body>
 
-  <audio id="bgm" src="themagician.mp3" preload="auto"></audio>
-
-  <button id="start-btn">맞춤 음악 재생</button>
   <h1></h1>
 
   <script>
     $(function () {
-      const audio = document.getElementById('bgm');
-      
       const text = [
-        { a: "안녕하세요,\n매니아 서울\n팔로워 여러분." },
+        { a: "안녕하세요,\n매니아 서울 팔로워 여러분." },
         { a: "연말 인사를 전합니다." },
         { a: "마음 같아서는 일일이\n연하장을 보내드리고 싶은\n마음임을 알아주셨으면 해요." },
-        { a: "참고로 이 편지는\n제가 좋아하는\n민구홍 님의 양식을\n참고했음을 밝힙니다." },
+        { a: "참고로 이 편지는\n제가 좋아하는 민구홍 님의 양식을\n참고했음을 밝힙니다." },
         { a: "감사합니다." },
-        { a: "매니아 서울은\n성인 한 명이\n많은 도움을 받아\n운영하고 있는\n프로모터 브랜드입니다." },
+        { a: "매니아 서울은 성인 한 명이,\n많은 도움을 받아 운영하고 있는\n프로모터 브랜드입니다." },
         { a: "그 과정에서 발생한\n여러 불편에 대해\n이 자리를 빌려 사과드립니다." },
-        { a: "(이참에,\n문의나 의견 및\n불편 사항 등은\n인스타그램 DM이 아닌)" }, 
-        { a: "이메일\ninfo.maniaseoul\n@gmail.com으로\n부탁드립니다." },
+        { a: "(이참에,\n문의나 의견 및 불편 사항 등은\n인스타그램 DM이 아닌)" }, 
+        { a: "이메일\ninfo.maniaseoul@gmail.com으로\n부탁드립니다." },
         { a: "부족한\n미디어 리터러시로 인해\n답장이 늦어질 수 있는 점\n양해 부탁드려요.)" },
         { a: "2025년 한 해 동안\n총 5회의 공연을 진행했고,\n이제 한 개의 파티를\n남겨두고 있습니다." },
         { a: "진심으로 감사했습니다." },
         { a: "조각보처럼 즐거운\n기억들이 머릿속에\n촘촘히 기워져 있습니다." },
-        { a: "2026년에는\n더 많은 공연이\n준비되어 있고,\n또 그렇게 될 예정입니다." },
+        { a: "2026년에는\n더 많은 공연이 준비되어 있고,\n또 그렇게 될 예정입니다." },
         { a: "기대는 조금만 해주시되,\n느슨하더라도\n꾸준한 관심을 부탁드립니다." },
         { a: "내년은 더 재미있을 겁니다." },
         { a: "더 신경 쓰겠습니다." },
         { a: "문득 프로모터로서의\n직업윤리를 생각해 봅니다." },
         { a: "처음 진행했던 공연은\n롤링홀에서였는데요." },
-        { a: "The Magician이라는\n마법 같은 곡이\n흘러나올 때," },
-        { a: "무대 뒤편에서 바라본\n플로어의 모습이\n아직도 생생합니다." },
-        { a: "조명에 비쳐\n반짝반짝 빛나던\n수백 개의 눈동자를\n기억합니다." },
+        { a: "The Magician이라는\n마법 같은 곡이 흘러나올 때," },
+        { a: "무대 뒤편에서 바라본\n플로어의 모습이 아직도 생생합니다." },
+        { a: "조명에 비쳐 반짝반짝 빛나던\n수백 개의 눈동자를 기억합니다." },
         { a: "오늘이 아니면 기약 없는\n이 순간을 붙잡으려는\n그런 마음들이 느껴졌거든요." },
         { a: "그런 진정성을 가진 분들께\n조금이나마 행복감을 드리는 것이\n저희의 일이 아닐까 생각해봅니다." },
         { a: "정확히는,\n그런 행복감을 드리는\n아티스트들이 기분 좋도록\n돕는 것이\n매니아 서울의 역할이겠습니다." },
-        { a: "제가 좋아하고\n잘할 수 있는 일이니\n계속해서 지켜봐 주세요." },
+        { a: "제가 좋아하고 잘할 수 있는 일이니\n계속해서 지켜봐 주세요." },
         { a: "다가오는 Wisp,\nbar italia, 그리고\nOneohtrix Point Never\n공연에서" },
         { a: "더 많은 분과\n뵙게 되면 좋겠습니다." },
         { a: "그런 분들을\n'매니아 서울 매니아'라고\n불러도 될까요?" },
         { a: "가끔 이렇게\n마음을 전하겠습니다." },
         { a: "좋은 음악과 함께\n다채로운 감정을 느끼는\n연말 보내시길 바랍니다." },
-        { a: "감사합니다.\n매니아 서울 올림" }
+        { a: "감사합니다." }
+        { a: "매니아 서울 올림" }
       ];
 
       function delay(str) {
@@ -136,14 +106,8 @@
                });
       }
 
-      $('#start-btn').on('click', function() {
-        $(this).hide();
-        
-        // 오디오 재생 실행
-        audio.play().catch(e => console.log("Audio play error:", e));
-        
-        setTimeout(() => play(0), 500);
-      });
+      /* 페이지 로드 즉시 실행 */
+      setTimeout(() => play(0), 500);
     });
   </script>
 </body>
