@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>MY OWN SHAME SETLIST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        body {
+            background-color: #dcdcdc;
+            color: #1a1a1a;
+            font-family: 'Courier Prime', monospace;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        #setlist-paper {
+            width: 90%;
+            max-width: 380px;
+            background-color: #fdfdfd;
+            padding: 60px 40px;
+            box-sizing: border-box;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 100%);
+        }
+
+        #setlist-paper::before {
+            content: "";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-1deg);
+            width: 100px;
+            height: 40px;
+            background: #111;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+
+        .header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 50px;
+            pointer-events: none;
+        }
+
+        .header-top {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            opacity: 0.6;
+        }
+
+        .artist-name {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.6;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* 본문 왼쪽 정렬 및 편집 영역 */
+        #editable-content {
+            width: 100%;
+            flex-grow: 1;
+            font-size: 16px;
+            line-height: 1.8;
+            outline: none;
+            min-height: 300px;
+            white-space: pre-wrap;
+            text-align: left; /* 왼쪽 정렬로 변경 */
+            caret-color: #000;
+            color: #222;
+            position: relative;
+        }
+
+        /* 회색 깜빡이는 가이드 문구 */
+        #editable-content:empty:before {
+            content: '여기에 입력하세요...';
+            color: #bbb;
+            animation: blink 1.2s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        .footer {
+            margin-top: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            opacity: 0.5;
+            letter-spacing: 1px;
+            pointer-events: none;
+        }
+
+        .btn-container {
+            width: 90%;
+            max-width: 380px;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        button, a {
+            width: 100%;
+            border: 1px solid #1a1a1a;
+            padding: 16px;
+            font-family: 'Courier Prime', monospace;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            box-sizing: border-box;
+            background: #fff;
+            color: #000;
+            letter-spacing: 1px;
+        }
+
+        #save-btn { background: #000; color: #fff; }
+        #spotify-btn { color: #1DB954; border-color: #1DB954; }
+    </style>
+</head>
+<body>
+
+    <div id="setlist-paper">
+        <div class="header">
+            <div class="header-top">
+                26.04.2026 / SSMD LIVE HALL, SEOUL
+            </div>
+            <div class="artist-name">
+                SHAME
+            </div>
+        </div>
+        
+        <div id="editable-content" contenteditable="true" spellcheck="false"></div>
+
+        <div class="footer">
+            4월 26일이 무척 재밌을 것 같아요
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button id="save-btn">SAVE IMAGE</button>
+        <a id="spotify-btn" href="https://open.spotify.com/search" target="_blank">
+            LISTEN ON SPOTIFY
+        </a>
+    </div>
+
+    <script>
+        const editable = document.getElementById('editable-content');
+        const saveBtn = document.getElementById('save-btn');
+
+        window.onload = () => {
+            editable.focus();
+        };
+
+        saveBtn.onclick = async () => {
+            const paper = document.getElementById('setlist-paper');
+            const canvas = await html2canvas(paper, { 
+                scale: 3, 
+                backgroundColor: "#dcdcdc", 
+                logging: false 
+            });
+
+            canvas.toBlob(async (blob) => {
+                if (!blob) return;
+                const file = new File([blob], "OPN-SETLIST-MS.png", { type: "image/png" });
+                
+                if (navigator.share) {
+                    try {
+                        await navigator.share({ 
+                            files: [file], 
+                            title: 'OPN SETLIST' 
+                        });
+                    } catch (err) {
+                        if (err.name !== 'AbortError') downloadFallback(canvas);
+                    }
+                } else {
+                    downloadFallback(canvas);
+                }
+            }, 'image/png');
+        };
+
+        function downloadFallback(canvas) {
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL();
+            link.download = 'OPN-SETLIST-MS.png';
+            link.click();
+        }
+    </script>
+</body>
+</html>
