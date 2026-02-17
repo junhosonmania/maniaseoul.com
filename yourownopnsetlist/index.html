@@ -76,15 +76,17 @@
             min-height: 300px;
             white-space: pre-wrap;
             text-align: left;
-            caret-color: #000;
+            caret-color: #000; /* 커서 색상 명시 */
             color: #222;
             position: relative;
         }
 
+        /* 입력값이 없을 때 가이드 문구 애니메이션 */
         #editable-content:empty:before {
             content: '여기에 입력하세요...';
             color: #bbb;
             animation: blink 1.2s infinite;
+            display: block;
         }
 
         @keyframes blink {
@@ -156,7 +158,7 @@
 
     <div class="btn-container">
         <button id="save-btn">SAVE IMAGE</button>
-        <a id="spotify-btn" href="https://open.spotify.com" target="_blank">
+        <a id="spotify-btn" href="https://open.spotify.com/search" target="_blank">
             LISTEN ON SPOTIFY
         </a>
     </div>
@@ -165,15 +167,29 @@
         const editable = document.getElementById('editable-content');
         const saveBtn = document.getElementById('save-btn');
 
-        window.onload = () => {
+        // 모바일 대응 커서 활성화 로직
+        function setFocus() {
             editable.focus();
-            // 커서를 텍스트 맨 끝으로 이동
+            
+            // 텍스트 끝으로 커서 이동 (사용자가 바로 이어서 칠 수 있게)
             const range = document.createRange();
             const selection = window.getSelection();
             range.selectNodeContents(editable);
             range.collapse(false);
             selection.removeAllRanges();
             selection.addRange(range);
+        }
+
+        window.onload = () => {
+            // 페이지 로드 시 즉시 실행
+            setFocus();
+            
+            // iOS 등 일부 모바일 브라우저 대응을 위해 터치 시 다시 한번 포커스 보정
+            document.body.addEventListener('touchstart', function(e) {
+                if (e.target !== editable && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A') {
+                    setFocus();
+                }
+            }, { passive: true });
         };
 
         saveBtn.onclick = async () => {
