@@ -8,100 +8,102 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         body {
-            background-color: #e8e8e8;
+            background-color: #dcdcdc;
             color: #1a1a1a;
             font-family: 'Courier Prime', monospace;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 15px;
+            padding: 40px 0;
         }
 
+        /* 셋리스트 종이 스타일 */
         #setlist-paper {
-            width: 92%;
+            width: 90%;
             max-width: 380px;
-            background-color: #fff;
-            padding: 40px 30px;
+            background-color: #fdfdfd;
+            padding: 60px 40px;
             box-sizing: border-box;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
             display: flex;
             flex-direction: column;
+            align-items: center;
             position: relative;
+            /* 약간 구겨진 듯한 미세한 그라데이션 */
+            background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 100%);
         }
 
+        /* 상단 검정 테이프 디테일 */
         #setlist-paper::before {
             content: "";
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0) 95%, rgba(0,0,0,0.03) 100%);
-            pointer-events: none;
+            top: -15px;
+            width: 100px;
+            height: 40px;
+            background: #111;
+            transform: rotate(-1deg);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
         }
 
         .header {
-            border-bottom: 1.5px solid #1a1a1a;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 50px;
             pointer-events: none;
-            /* 헤더 내부 요소들 중앙 정렬을 위해 추가 */
-            display: flex;
-            flex-direction: column;
-            align-items: center; 
         }
 
         .header-top {
-            display: flex;
-            justify-content: space-between;
-            width: 100%; /* 양 끝 정렬 유지 */
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
-            margin-bottom: 15px;
-            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            opacity: 0.6;
         }
 
         .artist-name {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
-            line-height: 1.2;
-            margin: 0; /* 마진 제거 */
-            display: block;
-            letter-spacing: -0.5px;
-            text-align: center; /* 가운데 정렬 */
-            word-break: keep-all; /* 단어 단위 줄바꿈으로 깔끔하게 */
+            line-height: 1.6;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
+        /* 본문 입력 영역 */
         #editable-content {
+            width: 100%;
             flex-grow: 1;
-            font-size: 18px;
-            line-height: 1.4;
+            font-size: 16px;
+            line-height: 1.8;
             outline: none;
-            min-height: 340px;
+            min-height: 300px;
             white-space: pre-wrap;
-            caret-color: #ff0000;
+            text-align: center; /* Slowdive 셋리스트처럼 중앙 정렬 */
+            caret-color: #000;
+            color: #222;
         }
 
         #editable-content:empty:before {
-            content: 'TYPE SETLIST HERE...';
+            content: 'TYPE YOUR SETLIST...';
             color: #ddd;
         }
 
         .footer {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px dashed #ccc;
-            font-size: 12px;
+            margin-top: 50px;
+            font-size: 11px;
             font-weight: 700;
             text-align: center;
-            letter-spacing: 0.5px;
+            opacity: 0.5;
+            letter-spacing: 1px;
             pointer-events: none;
-            text-transform: uppercase;
         }
 
+        /* 하단 버튼 제어 */
         .btn-container {
-            width: 92%;
+            width: 90%;
             max-width: 380px;
-            margin-top: 20px;
-            margin-bottom: 50px;
+            margin-top: 30px;
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -109,20 +111,23 @@
 
         button, a {
             width: 100%;
-            border: 1.5px solid #1a1a1a;
-            padding: 18px;
+            border: 1px solid #1a1a1a;
+            padding: 16px;
             font-family: 'Courier Prime', monospace;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 13px;
             cursor: pointer;
             text-align: center;
             text-decoration: none;
             box-sizing: border-box;
-            transition: all 0.2s;
+            background: #fff;
+            color: #000;
+            letter-spacing: 1px;
         }
 
-        #save-btn { background: #1a1a1a; color: #fff; }
-        #spotify-btn { background: #fff; color: #1DB954; border-color: #1DB954; }
+        #save-btn { background: #000; color: #fff; }
+        #spotify-btn { color: #1DB954; border-color: #1DB954; }
+
     </style>
 </head>
 <body>
@@ -130,22 +135,28 @@
     <div id="setlist-paper">
         <div class="header">
             <div class="header-top">
-                <span>DATE: 29.03.2026</span>
-                <span>1975 THEATER, SEOUL</span>
+                29.03.2026 / 1975 THEATER, SEOUL
             </div>
-            <span class="artist-name">ONEOHTRIX POINT NEVER<br>TRANQUILIZER LIVE IN SEOUL</span>
+            <div class="artist-name">
+                ONEOHTRIX POINT NEVER<br>
+                TRANQUILIZER LIVE
+            </div>
         </div>
         
-        <div id="editable-content" contenteditable="true" spellcheck="false"></div>
+        <div id="editable-content" contenteditable="true" spellcheck="false">1. Replica
+2. Long Road Home
+3. Sticky Drama
+4. I Don't Love Me Anymore
+5. Boring Angel</div>
 
         <div class="footer">
-            저 3월 29일만 기다려요 진짜
+            THANK YOU MANIA SEOUL
         </div>
     </div>
 
     <div class="btn-container">
-        <button id="save-btn">SAVE TO PHOTOS</button>
-        <a id="spotify-btn" href="https://open.spotify.com/search" target="_blank">
+        <button id="save-btn">SAVE IMAGE</button>
+        <a id="spotify-btn" href="https://open.spotify.com" target="_blank">
             LISTEN ON SPOTIFY
         </a>
     </div>
@@ -154,15 +165,22 @@
         const editable = document.getElementById('editable-content');
         const saveBtn = document.getElementById('save-btn');
 
+        // 커서를 마지막으로 보내기
         window.onload = () => {
             editable.focus();
+            const range = document.createRange();
+            const sel = window.getSelection();
+            range.selectNodeContents(editable);
+            range.collapse(false);
+            sel.removeAllRanges();
+            sel.addRange(range);
         };
 
         saveBtn.onclick = async () => {
             const paper = document.getElementById('setlist-paper');
             const canvas = await html2canvas(paper, { 
                 scale: 3, 
-                backgroundColor: "#ffffff",
+                backgroundColor: "#dcdcdc", // 배경색 유지
                 logging: false 
             });
 
@@ -174,7 +192,7 @@
                     try {
                         await navigator.share({ 
                             files: [file], 
-                            title: 'OPN SETLIST by Mania Seoul' 
+                            title: 'OPN SETLIST' 
                         });
                     } catch (err) {
                         if (err.name !== 'AbortError') downloadFallback(canvas);
