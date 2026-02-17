@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>MY OWN OPN SETLIST</title>
+    <title>OPN SETLIST BUILDER</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -15,7 +15,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 10px; /* 상단 마진 최소화 */
+            padding-top: 10px;
         }
 
         #setlist-paper {
@@ -29,7 +29,6 @@
             flex-direction: column;
         }
 
-        /* 헤더 디자인 강화 (Hierarchy) */
         .header {
             border-bottom: 2px solid #000;
             padding-bottom: 15px;
@@ -43,7 +42,6 @@
             font-size: 10px;
             font-weight: 700;
             margin-bottom: 5px;
-            letter-spacing: 0.5px;
         }
 
         .artist-name {
@@ -60,10 +58,9 @@
             color: #fff;
             display: inline-block;
             padding: 2px 6px;
-            margin-top: 4px;
         }
 
-        /* 셋리스트 편집 영역 */
+        /* 텍스트 편집 영역 */
         #editable-content {
             flex-grow: 1;
             font-size: 17px;
@@ -71,8 +68,7 @@
             outline: none;
             min-height: 320px;
             white-space: pre-wrap;
-            /* 첫 줄 마진 제거 */
-            margin-top: 0; 
+            caret-color: #000; /* 커서 색상 */
         }
 
         .footer {
@@ -82,7 +78,6 @@
             font-size: 11px;
             font-weight: 700;
             text-align: center;
-            letter-spacing: 1px;
             pointer-events: none;
         }
 
@@ -91,12 +86,13 @@
             max-width: 380px;
             margin-top: 15px;
             margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        #save-btn {
+        button {
             width: 100%;
-            background: #000;
-            color: #fff;
             border: none;
             padding: 18px;
             font-family: 'Source Code Pro', monospace;
@@ -105,11 +101,20 @@
             cursor: pointer;
         }
 
-        .guide-text {
-            font-size: 11px;
-            color: #aaa;
-            margin-bottom: 8px;
+        #save-btn { background: #000; color: #fff; }
+        
+        /* 스포티파이 버튼 스타일 */
+        #spotify-btn { 
+            background: #1DB954; 
+            color: #000; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-sizing: border-box;
         }
+
+        .guide-text { font-size: 11px; color: #aaa; margin-bottom: 8px; }
     </style>
 </head>
 <body>
@@ -126,43 +131,50 @@
             <span class="tour-title">TRANQUILIZER LIVE IN SEOUL</span>
         </div>
         
-        <div id="editable-content" contenteditable="true" spellcheck="false">
-1. FOR RESIDUE
-2. FEAR OF SYMMETRY
-3. VESTIGEL
-4. TRANQUILIZER
-5. BUMPY
-6. </div>
+        <div id="editable-content" contenteditable="true" spellcheck="false">1. REPLICA
+2. LONG ROAD HOME
+3. STICKY DRAMA
+4. </div>
 
         <div class="footer">
-            THANK YOU MANIA SEOUL!
+            저는 3월 29일만 기다려요
         </div>
     </div>
 
     <div class="btn-container">
         <button id="save-btn">SAVE TO PHOTOS</button>
+        <a id="spotify-btn" href="https://open.spotify.com/album/4nOjUCw5rOroJp1JHcLZau?si=BdQsNFVDTA6jPLr78kBdxw" target="_blank">
+            LISTEN ON SPOTIFY
+        </a>
     </div>
 
     <script>
+        const editable = document.getElementById('editable-content');
         const saveBtn = document.getElementById('save-btn');
+
+        // [핵심] 페이지 로드 시 커서 깜빡이게 하기
+        window.onload = () => {
+            editable.focus();
+            // 커서를 텍스트 맨 끝으로 보내기
+            const range = document.createRange();
+            const sel = window.getSelection();
+            range.selectNodeContents(editable);
+            range.collapse(false);
+            sel.removeAllRanges();
+            sel.addRange(range);
+        };
 
         saveBtn.onclick = async () => {
             const paper = document.getElementById('setlist-paper');
-            const canvas = await html2canvas(paper, {
-                scale: 3,
-                backgroundColor: "#ffffff"
-            });
+            const canvas = await html2canvas(paper, { scale: 3, backgroundColor: "#ffffff" });
 
             canvas.toBlob(async (blob) => {
                 if (!blob) return;
                 const file = new File([blob], "OPN-SETLIST-MS.png", { type: "image/png" });
                 
-                if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+                if (navigator.share) {
                     try {
-                        await navigator.share({
-                            files: [file],
-                            title: 'OPN SETLIST',
-                        });
+                        await navigator.share({ files: [file], title: 'OPN SETLIST' });
                     } catch (err) {
                         if (err.name !== 'AbortError') downloadFallback(canvas);
                     }
