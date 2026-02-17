@@ -3,129 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MANIA SEOUL x OPN Poster Builder</title>
+    <title>OPN SETLIST BUILDER</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        :root {
-            --bg-color: #0a0a0a;
-            --point-color: #3dfc03; /* OPN 형광 그린 */
-            --text-color: #ffffff;
-        }
-
         body {
-            background-color: #1a1a1a;
-            color: var(--text-color);
+            background-color: #121212;
+            color: #ffffff;
             font-family: 'Source Code Pro', monospace;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 50px 20px;
+            padding: 40px 0;
             margin: 0;
         }
 
-        /* 포스터 영역 */
+        /* 셋리스트 본체 */
         #poster-area {
-            width: 380px;
-            height: 600px;
-            background-color: var(--bg-color);
-            border: 1px solid var(--point-color);
-            padding: 40px;
+            width: 400px;
+            height: 560px;
+            background-color: #000000;
+            padding: 50px;
             display: flex;
             flex-direction: column;
-            position: relative;
-            box-shadow: 0 0 20px rgba(61, 252, 3, 0.1);
+            box-sizing: border-box;
         }
 
-        .header {
-            font-size: 12px;
-            border-bottom: 1px solid var(--point-color);
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-            color: var(--point-color);
-        }
-
-        .main-title {
-            font-weight: 700;
-            font-size: 24px;
+        .info-header {
+            font-size: 14px;
+            line-height: 1.4;
             margin-bottom: 40px;
-            letter-spacing: -1px;
+            font-weight: 700;
+            color: #3dfc03; /* OPN 포인트 컬러 */
         }
 
-        .setlist-container {
+        .setlist-content {
             flex-grow: 1;
+            font-size: 18px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            text-transform: uppercase;
         }
 
-        .setlist-item {
-            font-size: 16px;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .footer {
+        .warning-footer {
             font-size: 10px;
-            margin-top: auto;
-            opacity: 0.7;
-            text-align: right;
+            letter-spacing: 2px;
+            opacity: 0.5;
+            margin-top: 20px;
         }
 
-        /* 입력 UI */
+        /* 컨트롤 영역 */
         .controls {
-            margin-top: 40px;
-            width: 380px;
+            margin-top: 30px;
+            width: 400px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 10px;
         }
 
         textarea {
-            background: #222;
-            border: 1px solid #444;
+            background: #1e1e1e;
+            border: 1px solid #333;
             color: #fff;
             font-family: 'Source Code Pro', monospace;
             padding: 15px;
-            height: 150px;
-            resize: none;
+            height: 120px;
+            outline: none;
         }
 
         button {
-            background: var(--point-color);
+            background: #3dfc03;
             color: #000;
             border: none;
-            padding: 15px;
+            padding: 12px;
             font-family: 'Source Code Pro', monospace;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
-        }
-
-        button:hover {
-            filter: brightness(1.2);
-            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
 
     <div id="poster-area">
-        <div class="header">MANIA SEOUL PRESENTS // ARCHIVE-01</div>
-        <div class="main-title">ONEOHTRIX POINT NEVER<br>LIVE IN SEOUL</div>
+        <div class="info-header">
+            ONEOHTRIX POINT NEVER<br>
+            MAR 29TH 2026 @ 1975 THEATER
+        </div>
         
-        <div id="display-setlist" class="setlist-container">
-            <span class="setlist-item">01. Replica</span>
-            <span class="setlist-item">02. Long Road Home</span>
-            <span class="setlist-item">03. Sticky Drama</span>
-        </div>
+        <div id="display-setlist" class="setlist-content">1. REPLICA
+2. LONG ROAD HOME
+3. STICKY DRAMA</div>
 
-        <div class="footer">
-            2026 NEW YEAR GIFT / MANIASEOUL.COM
-        </div>
+        <div class="warning-footer">THIS IS NOT OFFICIAL</div>
     </div>
 
     <div class="controls">
-        <label>TYPE YOUR IDEAL SETLIST (One per line):</label>
-        <textarea id="input-setlist" placeholder="곡 제목을 한 줄씩 입력하세요..."></textarea>
-        <button onclick="downloadPoster()">DOWNLOAD HD POSTER</button>
+        <textarea id="input-setlist" placeholder="TYPE YOUR SETLIST HERE..."></textarea>
+        <button onclick="downloadPoster()">SAVE IMAGE</button>
     </div>
 
     <script>
@@ -133,19 +107,16 @@
         const display = document.getElementById('display-setlist');
 
         input.addEventListener('input', (e) => {
-            const lines = e.target.value.split('\n');
-            display.innerHTML = lines
-                .map((line, index) => line ? `<span class="setlist-item">${(index + 1).toString().padStart(2, '0')}. ${line}</span>` : '')
-                .join('');
+            display.innerText = e.target.value;
         });
 
         function downloadPoster() {
             html2canvas(document.querySelector("#poster-area"), {
-                backgroundColor: "#0a0a0a",
-                scale: 3 // 고화질 저장
+                backgroundColor: "#000000",
+                scale: 3
             }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'MS-OPN-SETLIST.png';
+                link.download = 'OPN-SETLIST-MS.png';
                 link.href = canvas.toDataURL();
                 link.click();
             });
