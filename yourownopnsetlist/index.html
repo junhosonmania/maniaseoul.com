@@ -67,7 +67,6 @@
             text-transform: uppercase;
         }
 
-        /* 본문 왼쪽 정렬 및 편집 영역 */
         #editable-content {
             width: 100%;
             flex-grow: 1;
@@ -76,13 +75,12 @@
             outline: none;
             min-height: 300px;
             white-space: pre-wrap;
-            text-align: left; /* 왼쪽 정렬로 변경 */
+            text-align: left;
             caret-color: #000;
             color: #222;
             position: relative;
         }
 
-        /* 회색 깜빡이는 가이드 문구 */
         #editable-content:empty:before {
             content: '여기에 입력하세요...';
             color: #bbb;
@@ -147,7 +145,9 @@
             </div>
         </div>
         
-        <div id="editable-content" contenteditable="true" spellcheck="false"></div>
+        <div id="editable-content" contenteditable="true" spellcheck="false">1. For Residue
+2. Bumpy
+3. </div>
 
         <div class="footer">
             저 3월 29일만 기다려요 진짜
@@ -156,7 +156,7 @@
 
     <div class="btn-container">
         <button id="save-btn">SAVE IMAGE</button>
-        <a id="spotify-btn" href="https://open.spotify.com/search" target="_blank">
+        <a id="spotify-btn" href="https://open.spotify.com" target="_blank">
             LISTEN ON SPOTIFY
         </a>
     </div>
@@ -167,6 +167,13 @@
 
         window.onload = () => {
             editable.focus();
+            // 커서를 텍스트 맨 끝으로 이동
+            const range = document.createRange();
+            const selection = window.getSelection();
+            range.selectNodeContents(editable);
+            range.collapse(false);
+            selection.removeAllRanges();
+            selection.addRange(range);
         };
 
         saveBtn.onclick = async () => {
