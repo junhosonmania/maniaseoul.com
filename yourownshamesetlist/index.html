@@ -22,22 +22,21 @@
             width: 90%;
             max-width: 380px;
             background-color: #fff;
-            padding: 60px 30px 40px;
+            padding: 60px 40px 40px;
             box-sizing: border-box;
             box-shadow: 2px 10px 30px rgba(0,0,0,0.2);
             display: flex;
             flex-direction: column;
             position: relative;
-            /* 종이 질감 추가 */
             background-image: url('https://www.transparenttextures.com/patterns/handmade-paper.png');
         }
 
-        /* 스테이플러 심 (금속 느낌 강조) */
+        /* 스테이플러 심 (정중앙 수평 정렬) */
         .staple {
             position: absolute;
             top: 20px;
             left: 50%;
-            transform: translateX(-50%) rotate(-2deg);
+            transform: translateX(-50%);
             width: 35px;
             height: 5px;
             background: #777;
@@ -45,23 +44,10 @@
             z-index: 10;
         }
 
-        /* 종이 접힌 효과 */
-        #setlist-paper::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 0 40px 40px 0;
-            border-color: transparent transparent #e0e0e0 transparent;
-            box-shadow: -2px 2px 5px rgba(0,0,0,0.1);
-        }
-
+        /* 헤더 가운데 정렬 */
         .header {
             width: 100%;
-            text-align: left;
+            text-align: center;
             margin-bottom: 40px;
             pointer-events: none;
         }
@@ -70,16 +56,17 @@
             font-size: 11px;
             margin-bottom: 10px;
             letter-spacing: -1px;
+            opacity: 0.8;
         }
 
         .artist-name {
-            font-size: 44px;
+            font-size: 42px;
             line-height: 1;
-            margin: 15px 0;
+            margin: 10px 0;
             display: block;
-            transform: rotate(-2deg); /* 아티스트명 살짝 틀기 */
         }
 
+        /* 본문만 왼쪽 정렬 */
         #editable-content {
             width: 100%;
             flex-grow: 1;
@@ -105,10 +92,11 @@
             100% { opacity: 1; }
         }
 
+        /* 푸터 가운데 정렬 */
         .footer {
             margin-top: 40px;
             font-size: 14px;
-            text-align: right;
+            text-align: center;
             opacity: 0.7;
             pointer-events: none;
         }
@@ -157,13 +145,13 @@
         <div id="editable-content" contenteditable="true" spellcheck="false"></div>
 
         <div class="footer">
-      4월 26일 무척 재밌을 것 같아요
+            그 날 무척 재밌을 것 같아요 
         </div>
     </div>
 
     <div class="btn-container">
         <button id="save-btn">SAVE SETLIST</button>
-        <a id="spotify-btn" href="https://open.spotify.com/search" target="_blank">
+        <a id="spotify-btn" href="http://googleusercontent.com/spotify.com/3" target="_blank">
             LISTEN ON SPOTIFY
         </a>
     </div>
