@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>OPN SETLIST BUILDER</title>
+    <title>MY OWN OPN SETLIST</title>
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
@@ -15,55 +15,82 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 0;
+            padding-top: 10px; /* 상단 마진 최소화 */
         }
 
-        /* 실제 셋리스트 종이 */
         #setlist-paper {
-            width: 90%;
+            width: 92%;
             max-width: 380px;
             background-color: #fff;
-            padding: 40px 25px;
+            padding: 35px 25px;
             box-sizing: border-box;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             display: flex;
             flex-direction: column;
         }
 
+        /* 헤더 디자인 강화 (Hierarchy) */
         .header {
-            font-size: 15px;
-            font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: 25px;
             border-bottom: 2px solid #000;
             padding-bottom: 15px;
-            pointer-events: none; /* 헤더는 편집 불가 */
-        }
-
-        /* 바로 타이핑하는 영역 */
-        #editable-content {
-            flex-grow: 1;
-            font-size: 17px;
-            line-height: 1.6;
-            outline: none;
-            min-height: 300px;
-            white-space: pre-wrap;
-        }
-
-        .footer {
-            margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px dashed #000;
-            font-size: 11px;
-            text-align: center;
+            margin-bottom: 25px;
             pointer-events: none;
         }
 
-        /* 하단 버튼 */
-        .btn-container {
-            width: 90%;
-            max-width: 380px;
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .artist-name {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1;
+            margin: 8px 0;
+            display: block;
+        }
+
+        .tour-title {
+            font-size: 12px;
+            background: #000;
+            color: #fff;
+            display: inline-block;
+            padding: 2px 6px;
+            margin-top: 4px;
+        }
+
+        /* 셋리스트 편집 영역 */
+        #editable-content {
+            flex-grow: 1;
+            font-size: 17px;
+            line-height: 1.5;
+            outline: none;
+            min-height: 320px;
+            white-space: pre-wrap;
+            /* 첫 줄 마진 제거 */
+            margin-top: 0; 
+        }
+
+        .footer {
             margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 1px;
+            pointer-events: none;
+        }
+
+        .btn-container {
+            width: 92%;
+            max-width: 380px;
+            margin-top: 15px;
+            margin-bottom: 40px;
         }
 
         #save-btn {
@@ -74,39 +101,41 @@
             padding: 18px;
             font-family: 'Source Code Pro', monospace;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 14px;
             cursor: pointer;
         }
 
         .guide-text {
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 10px;
-            text-align: center;
+            font-size: 11px;
+            color: #aaa;
+            margin-bottom: 8px;
         }
     </style>
 </head>
 <body>
 
-    <p class="guide-text">종이 위를 터치해서 셋리스트를 적어보세요</p>
+    <p class="guide-text">TAP TO EDIT YOUR SETLIST</p>
 
     <div id="setlist-paper">
         <div class="header">
-            ONEOHTRIX POINT NEVER<br>
-            TRANQUILIZER LIVE IN SEOUL<br>
-            MAR 29TH 2026 @ 1975 THEATER
+            <div class="header-top">
+                <span>DATE: MAR 29 2026</span>
+                <span>VENUE: 1975 THEATER</span>
+            </div>
+            <span class="artist-name">ONEOHTRIX POINT NEVER</span>
+            <span class="tour-title">TRANQUILIZER LIVE IN SEOUL</span>
         </div>
         
         <div id="editable-content" contenteditable="true" spellcheck="false">
 1. FOR RESIDUE
-2. FEAR OF SYMMERTRY
+2. FEAR OF SYMMETRY
 3. VESTIGEL
-4. 
-        </div>
+4. TRANQUILIZER
+5. BUMPY
+6. </div>
 
         <div class="footer">
-            THANK YOU MANIA SEOUL!<br>
-            <span style="opacity: 0.5; font-size: 9px;">THIS IS NOT OFFICIAL</span>
+            THANK YOU MANIA SEOUL!
         </div>
     </div>
 
@@ -119,42 +148,36 @@
 
         saveBtn.onclick = async () => {
             const paper = document.getElementById('setlist-paper');
-            
-            // 1. 셋리스트를 이미지(Canvas)로 변환
             const canvas = await html2canvas(paper, {
                 scale: 3,
                 backgroundColor: "#ffffff"
             });
 
-            // 2. Blob 데이터로 변환
             canvas.toBlob(async (blob) => {
-                const file = new File([blob], "OPN-SETLIST.png", { type: "image/png" });
+                if (!blob) return;
+                const file = new File([blob], "OPN-SETLIST-MS.png", { type: "image/png" });
                 
-                // 3. Web Share API를 이용해 공유창 띄우기 (아이폰/안드로이드 사진첩 저장 유도)
-                if (navigator.share) {
+                if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
                     try {
                         await navigator.share({
                             files: [file],
-                            title: 'OPN Setlist',
-                            text: 'Created by Mania Seoul'
+                            title: 'OPN SETLIST',
                         });
                     } catch (err) {
-                        console.error("공유 실패:", err);
-                        // 실패 시 일반 다운로드로 대체
-                        const link = document.createElement('a');
-                        link.href = canvas.toDataURL();
-                        link.download = 'OPN-SETLIST.png';
-                        link.click();
+                        if (err.name !== 'AbortError') downloadFallback(canvas);
                     }
                 } else {
-                    // PC 브라우저 등 Share API 미지원 시 바로 다운로드
-                    const link = document.createElement('a');
-                    link.href = canvas.toDataURL();
-                    link.download = 'OPN-SETLIST.png';
-                    link.click();
+                    downloadFallback(canvas);
                 }
             }, 'image/png');
         };
+
+        function downloadFallback(canvas) {
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL();
+            link.download = 'OPN-SETLIST-MS.png';
+            link.click();
+        }
     </script>
 </body>
 </html>
