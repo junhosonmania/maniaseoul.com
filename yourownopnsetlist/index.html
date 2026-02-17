@@ -30,7 +30,6 @@
             position: relative;
         }
 
-        /* 실제 종이 질감을 살짝 주기 위한 디테일 */
         #setlist-paper::before {
             content: "";
             position: absolute;
@@ -44,32 +43,31 @@
             padding-bottom: 20px;
             margin-bottom: 30px;
             pointer-events: none;
+            /* 헤더 내부 요소들 중앙 정렬을 위해 추가 */
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
         }
 
         .header-top {
             display: flex;
             justify-content: space-between;
+            width: 100%; /* 양 끝 정렬 유지 */
             font-size: 11px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 15px;
             text-transform: uppercase;
         }
 
         .artist-name {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            line-height: 1;
-            margin: 10px 0;
+            line-height: 1.2;
+            margin: 0; /* 마진 제거 */
             display: block;
             letter-spacing: -0.5px;
-        }
-
-        .tour-title {
-            font-size: 13px;
-            font-weight: 700;
-            text-decoration: underline;
-            margin-top: 5px;
-            display: inline-block;
+            text-align: center; /* 가운데 정렬 */
+            word-break: keep-all; /* 단어 단위 줄바꿈으로 깔끔하게 */
         }
 
         #editable-content {
@@ -79,7 +77,7 @@
             outline: none;
             min-height: 340px;
             white-space: pre-wrap;
-            caret-color: #ff0000; /* 커서를 빨간색으로 포인트 */
+            caret-color: #ff0000;
         }
 
         #editable-content:empty:before {
@@ -124,11 +122,7 @@
         }
 
         #save-btn { background: #1a1a1a; color: #fff; }
-        #save-btn:active { background: #444; }
-
         #spotify-btn { background: #fff; color: #1DB954; border-color: #1DB954; }
-        #spotify-btn:active { background: #f0fff4; }
-
     </style>
 </head>
 <body>
@@ -139,7 +133,7 @@
                 <span>DATE: 29.03.2026</span>
                 <span>1975 THEATER, SEOUL</span>
             </div>
-            <span class="artist-name">ONEOHTRIX POINT NEVER TRANQUILIZER LIVE IN SEOUL</span>
+            <span class="artist-name">ONEOHTRIX POINT NEVER<br>TRANQUILIZER LIVE IN SEOUL</span>
         </div>
         
         <div id="editable-content" contenteditable="true" spellcheck="false"></div>
