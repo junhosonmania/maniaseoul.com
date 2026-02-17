@@ -18,7 +18,6 @@
             padding: 40px 0;
         }
 
-        /* 셋리스트 종이 스타일 */
         #setlist-paper {
             width: 90%;
             max-width: 380px;
@@ -28,21 +27,19 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.15);
             display: flex;
             flex-direction: column;
-            align-items: center;
             position: relative;
-            /* 약간 구겨진 듯한 미세한 그라데이션 */
             background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,1) 0%, rgba(245,245,245,1) 100%);
         }
 
-        /* 상단 검정 테이프 디테일 */
         #setlist-paper::before {
             content: "";
             position: absolute;
             top: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-1deg);
             width: 100px;
             height: 40px;
             background: #111;
-            transform: rotate(-1deg);
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             z-index: 10;
         }
@@ -70,7 +67,7 @@
             text-transform: uppercase;
         }
 
-        /* 본문 입력 영역 */
+        /* 본문 왼쪽 정렬 및 편집 영역 */
         #editable-content {
             width: 100%;
             flex-grow: 1;
@@ -79,14 +76,23 @@
             outline: none;
             min-height: 300px;
             white-space: pre-wrap;
-            text-align: center; /* Slowdive 셋리스트처럼 중앙 정렬 */
+            text-align: left; /* 왼쪽 정렬로 변경 */
             caret-color: #000;
             color: #222;
+            position: relative;
         }
 
+        /* 회색 깜빡이는 가이드 문구 */
         #editable-content:empty:before {
-            content: 'TYPE YOUR SETLIST...';
-            color: #ddd;
+            content: '여기에 입력하세요...';
+            color: #bbb;
+            animation: blink 1.2s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
         }
 
         .footer {
@@ -99,7 +105,6 @@
             pointer-events: none;
         }
 
-        /* 하단 버튼 제어 */
         .btn-container {
             width: 90%;
             max-width: 380px;
@@ -127,7 +132,6 @@
 
         #save-btn { background: #000; color: #fff; }
         #spotify-btn { color: #1DB954; border-color: #1DB954; }
-
     </style>
 </head>
 <body>
@@ -143,11 +147,7 @@
             </div>
         </div>
         
-        <div id="editable-content" contenteditable="true" spellcheck="false">1. Replica
-2. Long Road Home
-3. Sticky Drama
-4. I Don't Love Me Anymore
-5. Boring Angel</div>
+        <div id="editable-content" contenteditable="true" spellcheck="false"></div>
 
         <div class="footer">
             THANK YOU MANIA SEOUL
@@ -156,7 +156,7 @@
 
     <div class="btn-container">
         <button id="save-btn">SAVE IMAGE</button>
-        <a id="spotify-btn" href="https://open.spotify.com" target="_blank">
+        <a id="spotify-btn" href="https://open.spotify.com/search" target="_blank">
             LISTEN ON SPOTIFY
         </a>
     </div>
@@ -165,22 +165,15 @@
         const editable = document.getElementById('editable-content');
         const saveBtn = document.getElementById('save-btn');
 
-        // 커서를 마지막으로 보내기
         window.onload = () => {
             editable.focus();
-            const range = document.createRange();
-            const sel = window.getSelection();
-            range.selectNodeContents(editable);
-            range.collapse(false);
-            sel.removeAllRanges();
-            sel.addRange(range);
         };
 
         saveBtn.onclick = async () => {
             const paper = document.getElementById('setlist-paper');
             const canvas = await html2canvas(paper, { 
                 scale: 3, 
-                backgroundColor: "#dcdcdc", // 배경색 유지
+                backgroundColor: "#dcdcdc", 
                 logging: false 
             });
 
