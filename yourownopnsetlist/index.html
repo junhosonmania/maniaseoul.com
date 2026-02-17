@@ -3,116 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>OPN SETLIST BUILDER</title>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+    <title>MY OWN OPN SETLIST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         body {
-            background-color: #f0f0f0;
-            color: #000;
-            font-family: 'Source Code Pro', monospace;
+            background-color: #e8e8e8;
+            color: #1a1a1a;
+            font-family: 'Courier Prime', monospace;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 20px;
+            padding-top: 15px;
         }
 
         #setlist-paper {
             width: 92%;
             max-width: 380px;
             background-color: #fff;
-            padding: 35px 25px;
+            padding: 40px 30px;
             box-sizing: border-box;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
             display: flex;
             flex-direction: column;
+            position: relative;
+        }
+
+        /* 실제 종이 질감을 살짝 주기 위한 디테일 */
+        #setlist-paper::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 95%, rgba(0,0,0,0.03) 100%);
+            pointer-events: none;
         }
 
         .header {
-            border-bottom: 2px solid #000;
-            padding-bottom: 15px;
-            margin-bottom: 25px;
+            border-bottom: 1.5px solid #1a1a1a;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
             pointer-events: none;
         }
 
         .header-top {
             display: flex;
             justify-content: space-between;
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
         }
 
         .artist-name {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 700;
             line-height: 1;
-            margin: 8px 0;
+            margin: 10px 0;
             display: block;
+            letter-spacing: -0.5px;
         }
 
         .tour-title {
-            font-size: 12px;
-            background: #000;
-            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: underline;
+            margin-top: 5px;
             display: inline-block;
-            padding: 2px 6px;
         }
 
-        /* 텍스트 편집 영역 */
         #editable-content {
             flex-grow: 1;
-            font-size: 17px;
-            line-height: 1.5;
+            font-size: 18px;
+            line-height: 1.4;
             outline: none;
-            min-height: 320px;
+            min-height: 340px;
             white-space: pre-wrap;
-            caret-color: #000;
+            caret-color: #ff0000; /* 커서를 빨간색으로 포인트 */
         }
 
-        /* 회색 가이드 문구(Placeholder) 설정 */
         #editable-content:empty:before {
-            content: '여기에 입력하세요...';
-            color: #ccc;
-            cursor: text;
+            content: 'TYPE SETLIST HERE...';
+            color: #ddd;
         }
 
         .footer {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-            font-size: 11px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 12px;
             font-weight: 700;
             text-align: center;
+            letter-spacing: 0.5px;
             pointer-events: none;
+            text-transform: uppercase;
         }
 
         .btn-container {
             width: 92%;
             max-width: 380px;
-            margin-top: 15px;
-            margin-bottom: 40px;
+            margin-top: 20px;
+            margin-bottom: 50px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         button, a {
             width: 100%;
-            border: none;
+            border: 1.5px solid #1a1a1a;
             padding: 18px;
-            font-family: 'Source Code Pro', monospace;
+            font-family: 'Courier Prime', monospace;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 15px;
             cursor: pointer;
             text-align: center;
             text-decoration: none;
             box-sizing: border-box;
+            transition: all 0.2s;
         }
 
-        #save-btn { background: #000; color: #fff; }
-        #spotify-btn { background: #1DB954; color: #000; }
+        #save-btn { background: #1a1a1a; color: #fff; }
+        #save-btn:active { background: #444; }
+
+        #spotify-btn { background: #fff; color: #1DB954; border-color: #1DB954; }
+        #spotify-btn:active { background: #f0fff4; }
+
     </style>
 </head>
 <body>
@@ -120,8 +136,8 @@
     <div id="setlist-paper">
         <div class="header">
             <div class="header-top">
-                <span>DATE: MAR 29 2026</span>
-                <span>VENUE: 1975 THEATER</span>
+                <span>DATE: 29.03.2026</span>
+                <span>SEOUL, KR</span>
             </div>
             <span class="artist-name">ONEOHTRIX POINT NEVER</span>
             <span class="tour-title">TRANQUILIZER LIVE IN SEOUL</span>
@@ -145,14 +161,17 @@
         const editable = document.getElementById('editable-content');
         const saveBtn = document.getElementById('save-btn');
 
-        // 페이지 로드 시 커서 활성화
         window.onload = () => {
             editable.focus();
         };
 
         saveBtn.onclick = async () => {
             const paper = document.getElementById('setlist-paper');
-            const canvas = await html2canvas(paper, { scale: 3, backgroundColor: "#ffffff" });
+            const canvas = await html2canvas(paper, { 
+                scale: 3, 
+                backgroundColor: "#ffffff",
+                logging: false 
+            });
 
             canvas.toBlob(async (blob) => {
                 if (!blob) return;
@@ -160,7 +179,10 @@
                 
                 if (navigator.share) {
                     try {
-                        await navigator.share({ files: [file], title: 'OPN SETLIST' });
+                        await navigator.share({ 
+                            files: [file], 
+                            title: 'OPN SETLIST by Mania Seoul' 
+                        });
                     } catch (err) {
                         if (err.name !== 'AbortError') downloadFallback(canvas);
                     }
