@@ -8,157 +8,153 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         body {
-            background-color: #f5f5f5;
+            background-color: #f0f0f0;
             color: #000;
             font-family: 'Source Code Pro', monospace;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-bottom: env(safe-area-inset-bottom); /* 아이폰 하단 바 대응 */
+            padding: 20px 0;
         }
 
-        /* 셋리스트 종이 영역 */
+        /* 실제 셋리스트 종이 */
         #setlist-paper {
-            width: 100%;
-            max-width: 400px;
-            aspect-ratio: 1 / 1.414; /* A4 비율 */
-            background-color: #ffffff;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            padding: 40px 30px;
+            width: 90%;
+            max-width: 380px;
+            background-color: #fff;
+            padding: 40px 25px;
             box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
-            margin-top: 20px;
         }
 
-        .header-info {
-            font-size: 16px;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 30px;
-            border-bottom: 1.5px solid #000;
-            padding-bottom: 10px;
-        }
-
-        .setlist-body {
-            flex-grow: 1;
+        .header {
             font-size: 15px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+            pointer-events: none; /* 헤더는 편집 불가 */
+        }
+
+        /* 바로 타이핑하는 영역 */
+        #editable-content {
+            flex-grow: 1;
+            font-size: 17px;
             line-height: 1.6;
-            white-space: pre-wrap;
-            word-break: break-all;
-            color: #1a1a1a;
-        }
-
-        .warning-footer {
-            font-size: 10px;
-            margin-top: 20px;
-            padding-top: 10px;
-            border-top: 1px dashed #ccc;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-
-        /* 하단 컨트롤러 (모바일 최적화) */
-        .controls {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            box-sizing: border-box;
-            background: #f5f5f5;
-            position: sticky;
-            bottom: 0;
-        }
-
-        textarea {
-            width: 100%;
-            height: 100px;
-            /* 모바일에서 16px 미만이면 자동 줌인됨 */
-            font-size: 16px;
-            font-family: 'Source Code Pro', monospace;
-            padding: 12px;
-            border: 1.5px solid #000;
-            border-radius: 0;
-            box-sizing: border-box;
             outline: none;
-            background: #fff;
-            appearance: none;
+            min-height: 300px;
+            white-space: pre-wrap;
         }
 
-        button {
+        .footer {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px dashed #000;
+            font-size: 11px;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        /* 하단 버튼 */
+        .btn-container {
+            width: 90%;
+            max-width: 380px;
+            margin-top: 20px;
+        }
+
+        #save-btn {
             width: 100%;
-            margin-top: 10px;
             background: #000;
             color: #fff;
             border: none;
-            padding: 15px;
+            padding: 18px;
             font-family: 'Source Code Pro', monospace;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 15px;
             cursor: pointer;
-            border-radius: 0;
         }
 
-        button:active {
-            background: #333;
-        }
-
-        p.guide {
-            font-size: 11px;
-            margin: 5px 0;
-            color: #666;
+        .guide-text {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 10px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
+    <p class="guide-text">종이 위를 터치해서 셋리스트를 적어보세요</p>
+
     <div id="setlist-paper">
-        <div class="header-info">
+        <div class="header">
             ONEOHTRIX POINT NEVER<br>
             TRANQUILIZER LIVE IN SEOUL<br>
             MAR 29TH 2026 @ 1975 THEATER
         </div>
         
-        <div id="display-text" class="setlist-body">1. REPLICA
-2. LONG ROAD HOME
-3. STICKY DRAMA
-4. I DON'T LOVE ME ANYMORE
-5. BORING ANGEL</div>
+        <div id="editable-content" contenteditable="true" spellcheck="false">
+1. FOR RESIDUE
+2. FEAR OF SYMMERTRY
+3. VESTIGEL
+4. 
+        </div>
 
-        <div class="warning-footer">THIS IS NOT OFFICIAL</div>
+        <div class="footer">
+            THANK YOU MANIA SEOUL!<br>
+            <span style="opacity: 0.5; font-size: 9px;">THIS IS NOT OFFICIAL</span>
+        </div>
     </div>
 
-    <div class="controls">
-        <p class="guide">TYPE YOUR SETLIST:</p>
-        <textarea id="input-text" placeholder="한 줄에 한 곡씩 입력..."></textarea>
-        <button onclick="saveSetlist()">SAVE SETLIST (PNG)</button>
+    <div class="btn-container">
+        <button id="save-btn">SAVE TO PHOTOS</button>
     </div>
 
     <script>
-        const textarea = document.getElementById('input-text');
-        const display = document.getElementById('display-text');
+        const saveBtn = document.getElementById('save-btn');
 
-        // 타이핑 시 실시간 반영
-        textarea.addEventListener('input', (e) => {
-            display.innerText = e.target.value;
-        });
-
-        function saveSetlist() {
-            const paper = document.querySelector("#setlist-paper");
+        saveBtn.onclick = async () => {
+            const paper = document.getElementById('setlist-paper');
             
-            // 버튼 클릭 시 시각적인 피드백을 위해 잠시 투명도 조절 (선택사항)
-            html2canvas(paper, {
-                backgroundColor: "#ffffff",
-                scale: 3, // 고화질 출력
-                logging: false,
-                useCORS: true
-            }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'OPN-SETLIST-MS.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
+            // 1. 셋리스트를 이미지(Canvas)로 변환
+            const canvas = await html2canvas(paper, {
+                scale: 3,
+                backgroundColor: "#ffffff"
             });
-        }
+
+            // 2. Blob 데이터로 변환
+            canvas.toBlob(async (blob) => {
+                const file = new File([blob], "OPN-SETLIST.png", { type: "image/png" });
+                
+                // 3. Web Share API를 이용해 공유창 띄우기 (아이폰/안드로이드 사진첩 저장 유도)
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            files: [file],
+                            title: 'OPN Setlist',
+                            text: 'Created by Mania Seoul'
+                        });
+                    } catch (err) {
+                        console.error("공유 실패:", err);
+                        // 실패 시 일반 다운로드로 대체
+                        const link = document.createElement('a');
+                        link.href = canvas.toDataURL();
+                        link.download = 'OPN-SETLIST.png';
+                        link.click();
+                    }
+                } else {
+                    // PC 브라우저 등 Share API 미지원 시 바로 다운로드
+                    const link = document.createElement('a');
+                    link.href = canvas.toDataURL();
+                    link.download = 'OPN-SETLIST.png';
+                    link.click();
+                }
+            }, 'image/png');
+        };
     </script>
 </body>
 </html>
