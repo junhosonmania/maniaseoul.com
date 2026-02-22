@@ -23,25 +23,19 @@
 
         .container {
             width: 100%;
-            padding: 0 5%; /* 좌측 여백을 최소화하여 폰트 크기 확보 */
+            padding-left: 5%; /* 왼쪽 정렬의 맛을 살리는 최소 여백 */
         }
 
         .content {
             font-family: "Pretendard", sans-serif;
-            font-weight: 900; /* 가장 두꺼운 블랙 웨이트 */
-            /* 화면 너비에 따라 유동적으로 변하되, 긴 문장이 한 줄에 들어가도록 조정 */
-            font-size: 10.5vw; 
-            line-height: 1.15;
+            font-weight: 700; /* 원래 요청하신 볼드체 */
+            /* 폰트 사이즈를 대폭 키움 (화면 너비의 13%) */
+            font-size: 13vw; 
+            line-height: 1.1; /* 줄 간격을 더 좁혀서 덩어리감 강조 */
             white-space: pre-line;
-            letter-spacing: -0.05em; /* 자간을 더 조여서 밀도감 극대화 */
+            letter-spacing: -0.06em; /* 글자가 커진 만큼 자간을 더 조여서 한 줄에 들어가게 함 */
             word-break: keep-all;
             text-align: left;
-        }
-
-        /* 앨범명과 특정 문구 강조를 위해 미세 조정 */
-        .highlight {
-            display: block;
-            width: 100%;
         }
     </style>
 </head>
