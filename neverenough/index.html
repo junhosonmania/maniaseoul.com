@@ -6,7 +6,6 @@
     <title>와주셔서 감사해요</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
     <style>
-        /* 기본 레이아웃 초기화 */
         * {
             margin: 0;
             padding: 0;
@@ -15,37 +14,37 @@
 
         body, html {
             height: 100%;
-            background-color: #000; /* 하드코어/펑크 무드에 어울리는 블랙 */
+            background-color: #000;
             color: #fff;
             display: flex;
-            justify-content: center; /* 가로 중앙 */
-            align-items: center;    /* 세로 중앙 */
-            overflow: hidden;       /* 스크롤 방지 */
+            /* 세로만 중앙 정렬, 가로는 왼쪽부터 시작 */
+            align-items: center;
+            overflow: hidden;
         }
 
         .container {
-            text-align: center;      /* 텍스트 중앙 정렬 */
             width: 100%;
-            padding: 0 10%;         /* 좌우 여백 */
+            padding: 0 8%; /* 좌측 여백을 주어 시각적 안정감 확보 */
         }
 
         .content {
             font-family: "Pretendard", sans-serif;
-            font-weight: 800;       /* 더 두꺼운 볼드체 */
-            font-size: 8.5vw;       /* 화면 너비에 맞춘 큰 폰트 크기 */
-            line-height: 1.3;
-            white-space: pre-line;  /* 요청하신 줄바꿈 그대로 유지 */
-            letter-spacing: -0.02em; /* 볼드체일 때 더 예쁜 자간 */
+            font-weight: 800;
+            font-size: 9vw; /* 왼쪽 정렬 시 더 꽉 차 보이도록 살짝 키움 */
+            line-height: 1.25;
+            white-space: pre-line;
+            letter-spacing: -0.03em; /* 볼드체 특유의 응집력을 위해 자간을 더 좁힘 */
             word-break: keep-all;
+            text-align: left; /* 왼쪽 정렬 */
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="content">2월 20일은
+    <div class="content">2월 20일에
 언더독 커피에서
-턴스타일
+TURNSTILE
 NEVER ENOUGH
 앨범 필름을 봤어.
 실로 멋졌지..</div>
