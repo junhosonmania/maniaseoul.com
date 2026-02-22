@@ -17,34 +17,40 @@
             background-color: #000;
             color: #fff;
             display: flex;
-            /* 세로만 중앙 정렬, 가로는 왼쪽부터 시작 */
-            align-items: center;
+            align-items: center; /* 세로 중앙 */
             overflow: hidden;
         }
 
         .container {
             width: 100%;
-            padding: 0 8%; /* 좌측 여백을 주어 시각적 안정감 확보 */
+            padding: 0 5%; /* 좌측 여백을 최소화하여 폰트 크기 확보 */
         }
 
         .content {
             font-family: "Pretendard", sans-serif;
-            font-weight: 800;
-            font-size: 9vw; /* 왼쪽 정렬 시 더 꽉 차 보이도록 살짝 키움 */
-            line-height: 1.25;
+            font-weight: 900; /* 가장 두꺼운 블랙 웨이트 */
+            /* 화면 너비에 따라 유동적으로 변하되, 긴 문장이 한 줄에 들어가도록 조정 */
+            font-size: 10.5vw; 
+            line-height: 1.15;
             white-space: pre-line;
-            letter-spacing: -0.03em; /* 볼드체 특유의 응집력을 위해 자간을 더 좁힘 */
+            letter-spacing: -0.05em; /* 자간을 더 조여서 밀도감 극대화 */
             word-break: keep-all;
-            text-align: left; /* 왼쪽 정렬 */
+            text-align: left;
+        }
+
+        /* 앨범명과 특정 문구 강조를 위해 미세 조정 */
+        .highlight {
+            display: block;
+            width: 100%;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="content">2월 20일에
+    <div class="content">2월 20일은
 언더독 커피에서
-TURNSTILE
+턴스타일
 NEVER ENOUGH
 앨범 필름을 봤어.
 실로 멋졌지..</div>
