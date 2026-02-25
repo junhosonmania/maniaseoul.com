@@ -5,20 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HELP(2) LISTENING PARTY</title>
     
-    <!-- Pretendard 웹폰트 CDN (한글 백업용) -->
+    <!-- Pretendard 웹폰트 CDN -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 
     <style>
-        /* 1. 폰트 설정 */
+        /* 1. 폰트 설정: 모든 가능성을 열어둠 */
         @font-face {
             font-family: 'TAYBirdie';
-            src: local('TAY Birdie Regular'), 
-                 local('TAYBirdie-Regular'), 
-                 local('TAY Birdie'),
+            src: local('TAY Birdie'),
+                 local('TAYBirdie'),
                  url('TAYBirdie.woff') format('woff'),
                  url('./TAYBirdie.woff') format('woff'),
-                 url('TAYBirdie.otf') format('opentype'),
-                 url('./TAYBirdie.otf') format('opentype');
+                 url('TAYBirdie.otf') format('opentype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -61,8 +59,9 @@
             z-index: 100;
             letter-spacing: 0.02em;
             display: flex;
-            justify-content: center; /* 가운데 정렬 */
-            gap: 10px;
+            justify-content: center; /* 헤더 가운데 정렬 */
+            align-items: center;
+            gap: 8px;
         }
 
         main {
@@ -84,11 +83,10 @@
         }
 
         /* 4. 컴포넌트 스타일 */
-        video {
+        .hero-image {
             width: 100%;
             height: auto;
             display: block;
-            background: #f0f0f0; 
             border: 1px solid #eee;
         }
 
@@ -121,11 +119,11 @@
             text-transform: uppercase;
         }
 
-        .recap-item { margin-bottom: 24px; }
+        .recap-item { margin-bottom: 16px; }
         .recap-item img {
             width: 100%;
             display: block;
-            background-color: #f9f9f9;
+            background-color: #f0f0f0;
         }
 
         /* 추가 사진 숨김 처리 */
@@ -166,7 +164,8 @@
     </header>
 
     <main>
-          <div class="block">
+        <!-- 최상단 비주얼 영역 (Cover Image) -->
+        <div class="block">
             <img src="photos/cover.jpg" class="hero-image">
         </div>
 
@@ -174,17 +173,16 @@
             <span class="block-title key-color">Note</span>
             <div class="note-text">
                 <p>
-                    HELP(2)’는 1995 년 발표된 기념비적인 자선 앨범 ‘HELP’의 정신을 잇는 새로운 협업 프로젝트로, 
-                    전 세계 음악 팬들의 참여를 통해 분쟁으로 피해를 입은 아이들에게 긴급 구호, 교육, 전문적인 정신 건강 지원, 
-                    그리고 보호를 제공하는 War Child 의 핵심 활동을 지원하기 위해 기획되었습니다. 
-                    이번 앨범 역시 95 년도 HELP 과 마찬가지로, 오늘날 전 세계가 직면한 인도주의적 위기의 시급성을 강하게 반영하고있습니다
+                    HELP(2)는 기록과 구호 사이의 접점을 탐구합니다. 
+                    우리는 소음을 조직하고, 침묵을 배열하며, 그 사이의 긴장을 기록했습니다. 
+                    이것은 단순한 리스닝 세션이 아닌, 하나의 공감각적 아카이브입니다.
                 </p>
-    
+                <p class="bold" style="font-size: 14px;">Beggars Group.</p>
             </div>
         </div>
 
         <div class="block">
-            <span class="block-title key-color">Tracklist</span>
+            <span class="block-title">Tracks</span>
             <ul class="track-list">
                 <li><span class="track-num">01</span><div class="track-info">Arctic Monkeys — Opening Night</div><a href="#" class="lyrics-btn">LYRICS</a></li>
                 <li><span class="track-num">02</span><div class="track-info">Damon Albarn, Grian Chatten & Kae Tempest — Flags</div><a href="#" class="lyrics-btn">LYRICS</a></li>
@@ -217,45 +215,58 @@
             
             <!-- 항상 보이는 사진 (FT_1.JPG) -->
             <div class="recap-item">
-                <img src="/photos/FT_1.JPG">
+                <img src="photos/FT_1.JPG">
             </div>
 
-            <!-- 랜덤 순서로 배치된 나머지 사진들 -->
-            <div id="more-photos">
-                <div class="recap-item"><img src="photos/Olivia_1.jpg"></div>
-                <div class="recap-item"><img src="photos/DC_@.jpg"></div>
-                <div class="recap-item"><img src="photos/GC_ET_1.jpg"></div>
-                <div class="recap-item"><img src="photos/Kids_4.jpg"></div>
-                <div class="recap-item"><img src="photos/BCNR.jpg"></div>
-                <div class="recap-item"><img src="photos/Jarvis.jpg"></div>
-                <div class="recap-item"><img src="photos/ET.jpg"></div>
-                <div class="recap-item"><img src="photos/DGK.jpg"></div>
-                <div class="recap-item"><img src="photos/Kids_2.jpg"></div>
-                <div class="recap-item"><img src="photos/AM.jpg"></div>
-                <div class="recap-item"><img src="photos/FT_2.jpg"></div>
-                <div class="recap-item"><img src="photos/Kids_1.jpg"></div>
-                <div class="recap-item"><img src="photos/GC_1.jpg"></div>
-                <div class="recap-item"><img src="photos/DO.jpg"></div>
-                <div class="recap-item"><img src="photos/Grian_1.png"></div>
-                <div class="recap-item"><img src="photos/CW.jpg"></div>
-                <div class="recap-item"><img src="photos/Kids_3.jpg"></div>
-                <div class="recap-item"><img src="photos/kids.jpg"></div>
-                <div class="recap-item"><img src="photos/DC_.jpg"></div>
-                <div class="recap-item"><img src="photos/YoungF_1.jpg"></div>
-                <div class="recap-item"><img src="photos/EC.jpg"></div>
-            </div>
+            <!-- 랜덤 순서로 배치될 영역 -->
+            <div id="more-photos"></div>
+
             <!-- 더보기 버튼 -->
             <button class="more-btn" id="toggle-photos">More Photos</button>
         </div>
 
         <div class="block" style="border-top: 1px solid #000; padding-top: 24px; margin-bottom: 0;">
              <p style="font-size: 11px; color: #999; line-height: 1.6;">
-                * 2026, powered by Beggars Korea
+                * 본 마이크로사이트는 Beggars Group에서 주최하는 HELP(2) 리스닝 파티를 위해 제작되었습니다.<br>
+                * 파티 중 원활한 이용을 위해 모바일 환경에 최적화되어 있습니다.
              </p>
         </div>
     </main>
 
     <script>
+        // 이미지 파일 리스트 (FT_1.JPG 제외)
+        const photoFiles = [
+            'AM.jpg', 'Grian_1.png', 'YoungF_1.jpg', 'EC.jpg', 'kids.jpg', 
+            'Jarvis.jpg', 'DC_@.jpg', 'DGK.jpg', 'FT_2.jpg', 'DO.jpg', 
+            'Kids_4.jpg', 'CW.jpg', 'DC_.jpg', 'Kids_2.jpg', 'Olivia_1.jpg', 
+            'Kids_1.jpg', 'GC_1.jpg', 'Kids_3.jpg', 'BCNR.jpg', 'ET.jpg', 'GC_ET_1.jpg'
+        ];
+
+        // 이미지 셔플 함수
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // 페이지 로드 시 랜덤 이미지 배치
+        window.onload = function() {
+            const morePhotosContainer = document.getElementById('more-photos');
+            const shuffledPhotos = shuffle([...photoFiles]);
+
+            shuffledPhotos.forEach(file => {
+                const div = document.createElement('div');
+                div.className = 'recap-item';
+                const img = document.createElement('img');
+                img.src = 'photos/' + file;
+                div.appendChild(img);
+                morePhotosContainer.appendChild(div);
+            });
+        };
+
+        // 더보기 버튼 토글 로직
         document.getElementById('toggle-photos').addEventListener('click', function() {
             const morePhotos = document.getElementById('more-photos');
             const btn = document.getElementById('toggle-photos');
@@ -266,6 +277,7 @@
             } else {
                 morePhotos.style.display = 'block';
                 btn.textContent = 'Hide Photos';
+                // 펼쳐질 때 자연스럽게 이동
                 morePhotos.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
