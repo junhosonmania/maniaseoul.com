@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HELP(2) LISTENING PARTY</title>
     
-    <!-- Pretendard 웹폰트 CDN -->
+    <!-- Pretendard 웹폰트 CDN (한글 백업용) -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 
     <style>
-        /* 1. 폰트 설정 */
-    @font-face {
+        /* 1. 폰트 설정: 모든 가능성을 열어둔 선언 */
+        @font-face {
             font-family: 'TAYBirdie';
             src: local('TAY Birdie Regular'), 
                  local('TAYBirdie-Regular'), 
@@ -22,12 +22,15 @@
             font-weight: normal;
             font-style: normal;
             font-display: swap;
-        :root {
-            --key-color: #e6007d;
-            --font-main: 'TAYBirdie', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
         }
 
-        /* 2. 글로벌 스타일 */
+        :root {
+            --key-color: #e6007d;
+            /* TAYBirdie를 최우선으로 적용 */
+            --font-main: 'TAYBirdie', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        }
+
+        /* 2. 글로벌 스타일 (민구홍 매뉴팩처링 미감 유지) */
         body {
             font-family: var(--font-main);
             background-color: #fff;
@@ -54,14 +57,16 @@
             background: #fff;
             border-bottom: 1px solid #000;
             padding: 12px 16px;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 700;
             z-index: 100;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.02em;
+            display: flex;
+            justify-content: space-between;
         }
 
         main {
-            padding: 24px 16px 80px;
+            padding: 24px 16px 120px;
             max-width: 500px;
             margin: 0 auto;
         }
@@ -94,27 +99,26 @@
             border-bottom: 1px solid #eee;
         }
         .track-num { 
-            width: 24px; 
+            width: 30px; 
             font-size: 11px; 
-            margin-top: 3px;
+            margin-top: 4px;
             font-variant-numeric: tabular-nums; 
-            opacity: 0.5;
+            opacity: 0.6;
         }
         .track-info { 
             flex-grow: 1; 
             padding-right: 10px;
+            font-size: 15px;
+            letter-spacing: -0.01em;
         }
         .lyrics-btn {
             font-size: 10px;
             border: 1px solid #ccc;
             color: #999;
-            padding: 1px 4px;
+            padding: 2px 5px;
             margin-top: 2px;
             white-space: nowrap;
-        }
-        .lyrics-btn:hover {
-            border-color: var(--key-color);
-            color: var(--key-color);
+            text-transform: uppercase;
         }
 
         .recap-item { margin-bottom: 24px; }
@@ -126,7 +130,7 @@
             font-size: 12px;
             margin-top: 8px;
             color: #666;
-            font-family: Pretendard, sans-serif;
+            font-family: 'Pretendard', sans-serif;
         }
 
         .note-text {
@@ -138,18 +142,17 @@
 <body>
 
     <header>
-        HELP(2) LISTENING PARTY
+        <span>HELP(2) LISTENING PARTY</span>
+        <span class="key-color">BEGGARS</span>
     </header>
 
     <main>
-        <!-- 메인 비디오 영역 -->
         <div class="block">
             <video autoplay loop muted playsinline>
                 <source src="main_visual.mp4" type="video/mp4">
             </video>
         </div>
 
-        <!-- 레이블 카피 영역 -->
         <div class="block">
             <span class="block-title key-color">Note</span>
             <div class="note-text">
@@ -158,12 +161,12 @@
                     우리는 소음을 조직하고, 침묵을 배열하며, 그 사이의 긴장을 기록했습니다. 
                     이것은 단순한 리스닝 세션이 아닌, 하나의 공감각적 아카이브입니다.
                 </p>
+                <p class="bold" style="font-size: 14px;">Beggars Group.</p>
             </div>
         </div>
 
-        <!-- 트랙리스트 영역 -->
         <div class="block">
-            <span class="block-title">Tracklists</span>
+            <span class="block-title">Tracks</span>
             <ul class="track-list">
                 <li><span class="track-num">01</span><div class="track-info">Arctic Monkeys — Opening Night</div><a href="#" class="lyrics-btn">LYRICS</a></li>
                 <li><span class="track-num">02</span><div class="track-info">Damon Albarn, Grian Chatten & Kae Tempest — Flags</div><a href="#" class="lyrics-btn">LYRICS</a></li>
@@ -191,29 +194,24 @@
             </ul>
         </div>
 
-        <!-- 스튜디오 리캡 영역 -->
         <div class="block">
             <span class="block-title">Documentation</span>
-            
             <div class="recap-item">
                 <img src="https://via.placeholder.com/600x400/eee/aaa?text=Studio+Image+1" alt="Studio A">
                 <div class="caption">Fig 1. Studio recap / Session recording.</div>
             </div>
-            
             <div class="recap-item">
                 <img src="https://via.placeholder.com/600x400/eee/aaa?text=Studio+Image+2" alt="Notes">
                 <div class="caption">Fig 2. Technical notes and arrangements.</div>
             </div>
         </div>
 
-        <!-- Special Note -->
-        <div class="block" style="border-top: 1px solid #000; padding-top: 20px;">
+        <div class="block" style="border-top: 1px solid #000; padding-top: 24px; margin-bottom: 0;">
              <p style="font-size: 11px; color: #999; line-height: 1.6;">
-                * 2026, powered by Beggars Korea.
+                * 본 마이크로사이트는 Beggars Group에서 주최하는 HELP(2) 리스닝 파티를 위해 제작되었습니다.<br>
+                * 파티 중 원활한 이용을 위해 모바일 환경에 최적화되어 있습니다.
              </p>
         </div>
-
     </main>
-
 </body>
 </html>
