@@ -175,10 +175,27 @@
         }
 
         .recap-item { margin-bottom: 16px; }
-        .recap-item img {
+        
+        /* 슬라이드쇼 디졸브 효과 스타일 */
+        .slideshow-container {
+            position: relative;
             width: 100%;
-            display: block;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
             background-color: #f0f0f0;
+        }
+        .slideshow-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out; /* 디졸브 효과 속도 */
+        }
+        .slideshow-img.active {
+            opacity: 1;
         }
 
         /* Donate Section Styles */
@@ -202,28 +219,6 @@
             color: var(--key-color);
             border-top: 1px solid #eee;
             padding-top: 12px;
-        }
-
-        #more-photos {
-            display: none;
-        }
-
-        .more-btn {
-            width: 100%;
-            padding: 16px;
-            border: 1px solid #000;
-            background: #fff;
-            font-family: var(--font-main);
-            font-weight: 700;
-            font-size: 12px;
-            text-transform: uppercase;
-            cursor: pointer;
-            margin-top: 12px;
-            transition: all 0.2s ease;
-        }
-        .more-btn:active {
-            background: #000;
-            color: #fff;
         }
 
         .note-text {
@@ -301,15 +296,11 @@
         <div class="block">
             <span class="block-title">Documentation</span>
             
-            <div class="recap-item">
-                <!-- 고정 이미지 대신 슬라이드쇼가 동작할 메인 이미지 -->
-                <img id="main-slideshow" src="photos/FT_1.JPG">
+            <div class="slideshow-container" id="slideshow-container">
+                <!-- 디졸브 전환을 위해 두 개의 레이어 사용 -->
+                <img class="slideshow-img active" id="slide-a" src="photos/FT_1.JPG">
+                <img class="slideshow-img" id="slide-b" src="">
             </div>
-
-            <!-- 랜덤 이미지가 삽입될 공간 (더보기 버튼 클릭 시 나타남) -->
-            <div id="more-photos"></div>
-
-            <button class="more-btn" id="toggle-photos">More Photos</button>
         </div>
 
         <!-- Donate Section -->
@@ -352,30 +343,32 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            // 1. 하단 More Photos 영역에 사진들 주입 (랜덤 셔플)
-            const container = document.getElementById('more-photos');
-            const shuffledForGrid = shuffle([...photoFiles]);
-
-            shuffledForGrid.forEach(file => {
-                const div = document.createElement('div');
-                div.className = 'recap-item';
-                const img = document.createElement('img');
-                img.src = 'photos/' + file;
-                div.appendChild(img);
-                container.appendChild(div);
-            });
-
-            // 2. 메인 슬라이드쇼 로직 (1.5초마다 순환)
-            const slideshowImg = document.getElementById('main-slideshow');
+            // 1. 메인 슬라이드쇼 로직 (디졸브 트랜지션)
+            const slideA = document.getElementById('slide-a');
+            const slideB = document.getElementById('slide-b');
             const shuffledForSlideshow = shuffle([...photoFiles]);
             let slideIdx = 0;
+            let useA = true;
 
             setInterval(() => {
                 slideIdx = (slideIdx + 1) % shuffledForSlideshow.length;
-                slideshowImg.src = 'photos/' + shuffledForSlideshow[slideIdx];
-            }, 1500);
+                const nextSrc = 'photos/' + shuffledForSlideshow[slideIdx];
 
-            // 3. 메시지 애니메이션 로직 (3개 순환, 2.5초 간격)
+                if (useA) {
+                    // 현재 A가 보이고 있다면, B에 다음 이미지를 넣고 B를 표시
+                    slideB.src = nextSrc;
+                    slideB.classList.add('active');
+                    slideA.classList.remove('active');
+                } else {
+                    // 현재 B가 보이고 있다면, A에 다음 이미지를 넣고 A를 표시
+                    slideA.src = nextSrc;
+                    slideA.classList.add('active');
+                    slideB.classList.remove('active');
+                }
+                useA = !useA;
+            }, 1500); // 1.5초마다 전환
+
+            // 2. 메시지 애니메이션 로직 (3개 순환, 2.5초 간격)
             const msgs = [
                 document.getElementById('msg1'),
                 document.getElementById('msg2'),
@@ -393,19 +386,6 @@
 
             msgs[0].classList.add('visible');
             setInterval(cycleMessages, 2500); 
-        });
-
-        // 더보기 버튼 토글 로직
-        document.getElementById('toggle-photos').addEventListener('click', function() {
-            const morePhotos = document.getElementById('more-photos');
-            if (morePhotos.style.display === 'block') {
-                morePhotos.style.display = 'none';
-                this.textContent = 'More Photos';
-            } else {
-                morePhotos.style.display = 'block';
-                this.textContent = 'Hide Photos';
-                morePhotos.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
         });
     </script>
 </body>
