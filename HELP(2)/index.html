@@ -247,13 +247,27 @@
             <span class="fade-text" id="msg3">오늘 채널1969까지 걸음해주셔서 감사합니다.</span>
         </div>
 
-        <!-- 자동재생 비디오 -->
-        <div class="block">
-            <video class="hero-video" autoplay loop muted playsinline>
-                <source src="photos/writing.mp4" type="video/mp4">
-            </video>
-        </div>
-
+        <!-- 좌측: 통합 시각 레이어 (영상 + 셀카) -->
+        <section class="viewer-section">
+            <div class="protocol-viewer" id="capture-area">
+                <!-- 베이스: writing.mp4 -->
+                <video id="base-video" autoplay loop muted playsinline>
+                    <source src="photos/writing.mp4" type="video/mp4">
+                </video>
+                <!-- 오버레이: 웹캠 셀카 -->
+                <video id="webcam-overlay" autoplay playsinline muted></video>
+                
+                <div class="watermark-text">
+                    IDENTITY MERGED<br>
+                    <span id="timestamp"></span>
+                </div>
+            </div>
+            <p style="font-size: 11px; margin-top: 15px; opacity: 0.6; line-height: 1.6;">
+                * 사용자의 실시간 신원이 HELP(2) 아카이브 영상과 병합되고 있습니다.<br>
+                * 'RECORD' 버튼을 눌러 이 순간의 병합 상태를 기록하십시오.
+            </p>
+        </section>
+        
         <!-- Note Section -->
         <div class="block">
             <span class="block-title key-color">Note</span>
