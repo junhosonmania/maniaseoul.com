@@ -3,151 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HELP(2) Listening Party | Beggars Group</title>
+    <title>HELP(2) LISTENING PARTY</title>
+    
+    <!-- Pretendard 웹폰트 CDN -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+
     <style>
+        /* 1. 폰트 설정 */
         @font-face {
             font-family: 'TAYBirdie';
             src: url('TAYBirdie.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
         }
 
         :root {
             --key-color: #e6007d;
-            --bg-color: #ffffff;
-            --system-border: 1.5px solid #000;
+            --font-main: 'TAYBirdie', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
         }
 
+        /* 2. 글로벌 스타일 */
         body {
-            font-family: 'TAYBirdie', sans-serif;
-            background-color: var(--bg-color);
-            margin: 0; padding: 0;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            font-family: var(--font-main);
+            background-color: #fff;
+            color: #000;
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            font-size: 15px;
+            word-break: keep-all;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* 상단 고정 바: 이지적인 시스템 느낌 */
+        a { text-decoration: none; color: inherit; cursor: pointer; }
+        ul, ol { list-style: none; padding: 0; margin: 0; }
+        p { margin: 0 0 1em 0; }
+
+        .key-color { color: var(--key-color); }
+        .bold { font-weight: 700; }
+
+        /* 3. 레이아웃 구조 */
         header {
-            position: fixed; top: 0; width: 100%;
-            background: var(--bg-color);
-            border-bottom: var(--system-border);
-            padding: 10px 15px;
-            display: flex; justify-content: space-between;
-            z-index: 1000;
-            font-size: 0.85rem;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            border-bottom: 1px solid #000;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: 700;
+            z-index: 100;
+            letter-spacing: 0.05em;
         }
 
-        .label-name { font-weight: bold; color: var(--key-color); }
-
-        main { padding-top: 50px; }
-
-        section {
-            padding: 40px 20px;
-            border-bottom: var(--system-border);
+        main {
+            padding: 24px 16px 80px;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
-        /* 영상: 가장 자연스러운 mp4 자동재생 */
-        .video-box {
-            width: 100%; height: 300px;
-            background: #eee;
-            margin: 20px 0;
-            border: var(--system-border);
-            overflow: hidden;
-        }
-        video { width: 100%; height: 100%; object-fit: cover; }
+        .block { margin-bottom: 48px; }
 
-        /* 스튜디오 리캡 이미지 & 캡션 */
-        .recap-grid { display: flex; flex-direction: column; gap: 30px; }
-        .recap-item img { width: 100%; border: 1px solid #000; }
-        .caption { font-size: 0.75rem; margin-top: 5px; color: #666; }
-
-        /* 트랙리스트: 클릭 시 가사 표시 (인터랙션) */
-        .track-row {
-            display: flex; justify-content: space-between;
-            padding: 15px 0;
-            border-bottom: 1px dotted var(--key-color);
-            cursor: pointer;
-        }
-        .track-row:hover { color: var(--key-color); }
-
-        /* 인스타그래머블 포인트: 랜덤 텍스트 오버레이 */
-        #interactive-zone {
-            height: 200px;
-            background: #f0f0f0;
-            display: flex; align-items: center; justify-content: center;
-            border: 2px dashed var(--key-color);
-            position: relative; overflow: hidden;
-            font-size: 1.2rem; font-weight: bold;
+        .block-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: block;
+            border-left: 3px solid var(--key-color);
+            padding-left: 8px;
         }
 
-        .label-copy { font-size: 1.1rem; line-height: 1.6; word-break: break-all; }
-        .special-note { font-style: italic; background: #000; color: #fff; padding: 20px; }
+        /* 4. 컴포넌트 스타일 */
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #f0f0f0; 
+            border: 1px solid #eee;
+        }
+
+        .track-list li {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .track-num { 
+            width: 24px; 
+            font-size: 11px; 
+            margin-top: 3px;
+            font-variant-numeric: tabular-nums; 
+            opacity: 0.5;
+        }
+        .track-info { 
+            flex-grow: 1; 
+            padding-right: 10px;
+        }
+        .lyrics-btn {
+            font-size: 10px;
+            border: 1px solid #ccc;
+            color: #999;
+            padding: 1px 4px;
+            margin-top: 2px;
+            white-space: nowrap;
+        }
+        .lyrics-btn:hover {
+            border-color: var(--key-color);
+            color: var(--key-color);
+        }
+
+        .recap-item { margin-bottom: 24px; }
+        .recap-item img {
+            width: 100%;
+            display: block;
+        }
+        .caption {
+            font-size: 12px;
+            margin-top: 8px;
+            color: #666;
+            font-family: Pretendard, sans-serif;
+        }
+
+        .note-text {
+            font-size: 16px;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="label-name">BEGGARS GROUP</div>
-    <div>HELP(2) LISTENING SESSION</div>
-</header>
+    <header>
+        HELP(2) LISTENING PARTY
+    </header>
 
-<main>
-    <section>
-        <h1 style="font-size: 3rem; margin-bottom: 10px;">HELP(2)</h1>
-        <div class="video-box">
+    <main>
+        <!-- 메인 비디오 영역 -->
+        <div class="block">
             <video autoplay loop muted playsinline>
-                <source src="recap-video.mp4" type="video/mp4">
+                <source src="main_visual.mp4" type="video/mp4">
             </video>
         </div>
-        <p class="label-copy">레이블 카피가 이곳에 위치합니다. 짧고 명료한 문장들로 앨범의 정체성을 설명하세요.</p>
-    </section>
 
-    <section>
-        <h2 style="color: var(--key-color);">TRACKLIST</h2>
-        <div class="track-row" onclick="showLyrics('01')">
-            <span>01. Track Title</span>
-            <span>LYRICS ↗</span>
-        </div>
-        </section>
-
-    <section>
-        <h2 style="margin-bottom: 20px;">STUDIO RECAP</h2>
-        <div class="recap-grid">
-            <div class="recap-item">
-                <img src="recap1.jpg" alt="recap">
-                <div class="caption">[FIG 1.] Recording session in London, 2025.</div>
+        <!-- 레이블 카피 영역 -->
+        <div class="block">
+            <span class="block-title key-color">Note</span>
+            <div class="note-text">
+                <p>
+                    HELP(2)는 기록과 구호 사이의 접점을 탐구합니다. 
+                    우리는 소음을 조직하고, 침묵을 배열하며, 그 사이의 긴장을 기록했습니다. 
+                    이것은 단순한 리스닝 세션이 아닌, 하나의 공감각적 아카이브입니다.
+                </p>
+                <p class="bold" style="font-size: 14px;">Beggars Group.</p>
             </div>
         </div>
-    </section>
 
-    <section id="interactive-zone" onclick="addSticker(event)">
-        TAP TO GENERATE HELP(2)
-        </section>
+        <!-- 트랙리스트 영역 -->
+        <div class="block">
+            <span class="block-title">Tracks</span>
+            <ul class="track-list">
+                <li><span class="track-num">01</span><div class="track-info">Arctic Monkeys — Opening Night</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">02</span><div class="track-info">Damon Albarn, Grian Chatten & Kae Tempest — Flags</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">03</span><div class="track-info">Black Country, New Road — Strangers</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">04</span><div class="track-info">The Last Dinner Party — Let's Do It Again!</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">05</span><div class="track-info">Beth Gibbons — Sunday Morning</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">06</span><div class="track-info">Arooj Aftab & Beck — Lilac Wine</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">07</span><div class="track-info">King Krule — The 343 Loop</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">08</span><div class="track-info">Depeche Mode — Universal Soldier</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">09</span><div class="track-info">Ezra Collective & Greentea Peng — Helicopters</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">10</span><div class="track-info">Arlo Parks — Nothing I Could Hide</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">11</span><div class="track-info">English Teacher & Graham Coxon — Parasite</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">12</span><div class="track-info">Beabadoobee — Say Yes</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">13</span><div class="track-info">Big Thief — Relive, Redie</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">14</span><div class="track-info">Fontaines D.C. — Black Boys On Mopeds</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">15</span><div class="track-info">Cameron Winter — Warning</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">16</span><div class="track-info">Young Fathers — Don't Fight The Young</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">17</span><div class="track-info">Pulp — Begging For Change</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">18</span><div class="track-info">Sampha — Naboo</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">19</span><div class="track-info">Wet Leg — Obvious</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">20</span><div class="track-info">Foals — When The War Is Finally Done</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">21</span><div class="track-info">Bat For Lashes — Carried My Girl</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">22</span><div class="track-info">Anna Calvi, Dove Ellis, Ellie Rowsell & Nilüfer Yanya — Sunday Light</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">23</span><div class="track-info">Olivia Rodrigo — The Book of Love</div><a href="#" class="lyrics-btn">LYRICS</a></li>
+            </ul>
+        </div>
 
-    <section class="special-note">
-        <p>“이 앨범은 어떤 마음으로 만들어졌습니다...” - Special Note Context</p>
-    </section>
-</main>
+        <!-- 스튜디오 리캡 영역 -->
+        <div class="block">
+            <span class="block-title">Documentation</span>
+            
+            <div class="recap-item">
+                <img src="https://via.placeholder.com/600x400/eee/aaa?text=Studio+Image+1" alt="Studio A">
+                <div class="caption">Fig 1. Studio recap / Session recording.</div>
+            </div>
+            
+            <div class="recap-item">
+                <img src="https://via.placeholder.com/600x400/eee/aaa?text=Studio+Image+2" alt="Notes">
+                <div class="caption">Fig 2. Technical notes and arrangements.</div>
+            </div>
+        </div>
 
-<script>
-    // 인스타그래머블 인터랙션: 클릭 시 랜덤 위치에 텍스트 생성
-    const zone = document.getElementById('interactive-zone');
-    const messages = ['HELP(2)', 'BEGGARS', 'E6007D', 'RECAP', '2026'];
-    
-    function addSticker(e) {
-        const span = document.createElement('span');
-        span.innerText = messages[Math.floor(Math.random() * messages.length)];
-        span.style.position = 'absolute';
-        span.style.left = e.offsetX + 'px';
-        span.style.top = e.offsetY + 'px';
-        span.style.color = '#e6007d';
-        span.style.fontSize = (Math.random() * 2 + 1) + 'rem';
-        span.style.transform = `rotate(${Math.random() * 40 - 20}deg)`;
-        zone.appendChild(span);
-    }
+        <!-- Special Note -->
+        <div class="block" style="border-top: 1px solid #000; padding-top: 20px;">
+             <p style="font-size: 11px; color: #999; line-height: 1.6;">
+                * 2026, powered by Beggars Korea.
+             </p>
+        </div>
 
-    function showLyrics(trackId) {
-        alert('가사 데이터가 준비되면 해당 트랙(' + trackId + ')의 내용을 보여줍니다.');
-    }
-</script>
+    </main>
 
 </body>
 </html>
