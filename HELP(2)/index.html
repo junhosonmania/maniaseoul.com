@@ -9,14 +9,13 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 
     <style>
-        /* 1. 폰트 설정: 모든 가능성을 열어둠 */
+        /* 1. 폰트 설정 */
         @font-face {
             font-family: 'TAYBirdie';
             src: local('TAY Birdie'),
                  local('TAYBirdie'),
-                 url('TAYBirdie.woff') format('woff'),
                  url('./TAYBirdie.woff') format('woff'),
-                 url('TAYBirdie.otf') format('opentype');
+                 url('TAYBirdie.woff') format('woff');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -61,7 +60,7 @@
             display: flex;
             justify-content: center; /* 헤더 가운데 정렬 */
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         main {
@@ -126,12 +125,10 @@
             background-color: #f0f0f0;
         }
 
-        /* 추가 사진 숨김 처리 */
         #more-photos {
             display: none;
         }
 
-        /* MORE PHOTOS 버튼 스타일 */
         .more-btn {
             width: 100%;
             padding: 16px;
@@ -164,9 +161,10 @@
     </header>
 
     <main>
-        <!-- 최상단 비주얼 영역 (Cover Image) -->
+        <!-- 최상단 비주얼 (Cover) -->
         <div class="block">
-            <img src="photos/cover.jpg" class="hero-image">
+            <!-- 경로를 점(.)으로 시작하여 현재 폴더임을 명시 -->
+            <img src="./photos/cover.jpg" class="hero-image">
         </div>
 
         <div class="block">
@@ -213,15 +211,12 @@
         <div class="block">
             <span class="block-title">Documentation</span>
             
-            <!-- 항상 보이는 사진 (FT_1.JPG) -->
             <div class="recap-item">
-                <img src="photos/FT_1.JPG">
+                <img src="./photos/FT_1.JPG">
             </div>
 
-            <!-- 랜덤 순서로 배치될 영역 -->
             <div id="more-photos"></div>
 
-            <!-- 더보기 버튼 -->
             <button class="more-btn" id="toggle-photos">More Photos</button>
         </div>
 
@@ -234,7 +229,6 @@
     </main>
 
     <script>
-        // 이미지 파일 리스트 (FT_1.JPG 제외)
         const photoFiles = [
             'AM.jpg', 'Grian_1.png', 'YoungF_1.jpg', 'EC.jpg', 'kids.jpg', 
             'Jarvis.jpg', 'DC_@.jpg', 'DGK.jpg', 'FT_2.jpg', 'DO.jpg', 
@@ -242,7 +236,6 @@
             'Kids_1.jpg', 'GC_1.jpg', 'Kids_3.jpg', 'BCNR.jpg', 'ET.jpg', 'GC_ET_1.jpg'
         ];
 
-        // 이미지 셔플 함수
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -251,7 +244,7 @@
             return array;
         }
 
-        // 페이지 로드 시 랜덤 이미지 배치
+        // 경로 인식을 위해 ./를 붙여서 생성
         window.onload = function() {
             const morePhotosContainer = document.getElementById('more-photos');
             const shuffledPhotos = shuffle([...photoFiles]);
@@ -260,13 +253,12 @@
                 const div = document.createElement('div');
                 div.className = 'recap-item';
                 const img = document.createElement('img');
-                img.src = 'photos/' + file;
+                img.src = './photos/' + file; 
                 div.appendChild(img);
                 morePhotosContainer.appendChild(div);
             });
         };
 
-        // 더보기 버튼 토글 로직
         document.getElementById('toggle-photos').addEventListener('click', function() {
             const morePhotos = document.getElementById('more-photos');
             const btn = document.getElementById('toggle-photos');
@@ -277,7 +269,6 @@
             } else {
                 morePhotos.style.display = 'block';
                 btn.textContent = 'Hide Photos';
-                // 펼쳐질 때 자연스럽게 이동
                 morePhotos.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
