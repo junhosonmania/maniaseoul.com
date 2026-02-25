@@ -9,11 +9,13 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 
     <style>
-        /* 1. 폰트 설정: 브라우저 호환성 극대화 */
+        /* 1. 폰트 설정 */
         @font-face {
             font-family: 'TAYBirdie';
-            /* 서버 환경에 따라 경로 인식이 다를 수 있으므로 표준 경로로 선언 */
-            src: url('TAYBirdie.woff') format('woff');
+            src: url('TAYBirdie.woff') format('woff'),
+                 url('./TAYBirdie.woff') format('woff'),
+                 url('TAYBirdie.otf') format('opentype'),
+                 url('./TAYBirdie.otf') format('opentype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -24,7 +26,7 @@
             --font-main: 'TAYBirdie', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
         }
 
-        /* 2. 글로벌 스타일 (민구홍 매뉴팩처링 미감 유지) */
+        /* 2. 글로벌 스타일 (민구홍 매뉴팩처링 미감) */
         body {
             font-family: var(--font-main);
             background-color: #fff;
@@ -80,27 +82,33 @@
             background-color: #f0f0f0;
         }
 
-        /* 트랙리스트 하이어라키 재조정 */
+        /* 트랙리스트 위계 및 들여쓰기 제거 */
+        .track-list {
+            padding: 0;
+            margin: 0;
+        }
         .track-list li {
             display: flex;
             align-items: flex-start;
-            padding: 20px 0;
+            padding: 18px 0;
             border-bottom: 1px solid #eee;
         }
         .track-num { 
-            width: 32px; 
-            font-size: 11px; 
-            margin-top: 6px;
+            /* 번호를 정보 영역의 일부로 취급하여 들여쓰기 느낌 제거 */
+            font-size: 10px; 
+            margin-right: 12px;
+            margin-top: 5px;
             font-variant-numeric: tabular-nums; 
-            opacity: 0.4;
+            opacity: 0.3;
             font-weight: 700;
+            min-width: 18px;
         }
         .track-info { 
             flex-grow: 1; 
             padding-right: 10px;
         }
         .track-artist {
-            /* 아티스트 크기 강조 (16px) */
+            /* 아티스트 크기 16px 및 강조 */
             font-size: 16px;
             font-weight: 700;
             color: #000;
@@ -109,7 +117,7 @@
             letter-spacing: -0.01em;
         }
         .track-title {
-            /* 곡명은 살짝 작게 위계 조정 (13px) */
+            /* 곡명 13px로 조정 */
             font-size: 13px;
             font-weight: 400;
             line-height: 1.2;
@@ -122,10 +130,13 @@
             border: 1px solid #000;
             color: #000;
             padding: 3px 6px;
-            margin-top: 8px;
+            margin-top: 6px;
             white-space: nowrap;
             text-transform: uppercase;
             font-weight: 700;
+            /* 밑줄 제거 */
+            text-decoration: none;
+            display: inline-block;
         }
 
         .recap-item { margin-bottom: 16px; }
@@ -385,7 +396,6 @@
             <span class="block-title">Documentation</span>
             
             <div class="recap-item">
-                <!-- FT_1.JPG는 항상 노출 -->
                 <img src="photos/FT_1.JPG">
             </div>
 
@@ -431,7 +441,6 @@
                 div.className = 'recap-item';
                 const img = document.createElement('img');
                 
-                // 상대 경로 photos/ 사용
                 img.src = 'photos/' + file;
                 
                 div.appendChild(img);
