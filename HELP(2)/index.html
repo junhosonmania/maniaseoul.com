@@ -302,10 +302,11 @@
             <span class="block-title">Documentation</span>
             
             <div class="recap-item">
-                <img src="photos/FT_1.JPG">
+                <!-- 고정 이미지 대신 슬라이드쇼가 동작할 메인 이미지 -->
+                <img id="main-slideshow" src="photos/FT_1.JPG">
             </div>
 
-            <!-- 랜덤 이미지가 삽입될 공간 -->
+            <!-- 랜덤 이미지가 삽입될 공간 (더보기 버튼 클릭 시 나타남) -->
             <div id="more-photos"></div>
 
             <button class="more-btn" id="toggle-photos">More Photos</button>
@@ -315,7 +316,7 @@
         <div class="block">
             <span class="block-title">Donate</span>
             <div class="recap-item">
-                <img src="photos/t.png" class="hero-image" style="border: 1px solid #eee;">
+                <img src="photos/t.png" class="hero-image" style="border: 1px solid #eee; width: 100%;">
             </div>
             <div class="donate-info">
                 <div class="donate-price">티셔츠 60,000원</div>
@@ -339,7 +340,7 @@
             'AM.jpg', 'Grian_1.png', 'YoungF_1.jpg', 'EC.jpg', 'kids.jpg', 
             'Jarvis.jpg', 'DC_@.jpg', 'DGK.jpg', 'FT_2.jpg', 'DO.jpg', 
             'Kids_4.jpg', 'CW.jpg', 'DC_.jpg', 'Kids_2.jpg', 'Olivia_1.jpg', 
-            'Kids_1.jpg', 'GC_1.jpg', 'Kids_3.jpg', 'BCNR.jpg', 'ET.jpg', 'GC_ET_1.jpg'
+            'Kids_1.jpg', 'GC_1.jpg', 'Kids_3.jpg', 'BCNR.jpg', 'ET.jpg', 'GC_ET_1.jpg', 'FT_1.JPG'
         ];
 
         function shuffle(array) {
@@ -351,10 +352,11 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            // 1. 하단 More Photos 영역에 사진들 주입 (랜덤 셔플)
             const container = document.getElementById('more-photos');
-            const shuffled = shuffle([...photoFiles]);
+            const shuffledForGrid = shuffle([...photoFiles]);
 
-            shuffled.forEach(file => {
+            shuffledForGrid.forEach(file => {
                 const div = document.createElement('div');
                 div.className = 'recap-item';
                 const img = document.createElement('img');
@@ -363,7 +365,17 @@
                 container.appendChild(div);
             });
 
-            // 텍스트 애니메이션 로직 (3개 순환, 2.5초 간격)
+            // 2. 메인 슬라이드쇼 로직 (1.5초마다 순환)
+            const slideshowImg = document.getElementById('main-slideshow');
+            const shuffledForSlideshow = shuffle([...photoFiles]);
+            let slideIdx = 0;
+
+            setInterval(() => {
+                slideIdx = (slideIdx + 1) % shuffledForSlideshow.length;
+                slideshowImg.src = 'photos/' + shuffledForSlideshow[slideIdx];
+            }, 1500);
+
+            // 3. 메시지 애니메이션 로직 (3개 순환, 2.5초 간격)
             const msgs = [
                 document.getElementById('msg1'),
                 document.getElementById('msg2'),
@@ -383,6 +395,7 @@
             setInterval(cycleMessages, 2500); 
         });
 
+        // 더보기 버튼 토글 로직
         document.getElementById('toggle-photos').addEventListener('click', function() {
             const morePhotos = document.getElementById('more-photos');
             if (morePhotos.style.display === 'block') {
