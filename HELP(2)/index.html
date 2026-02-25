@@ -9,13 +9,12 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 
     <style>
-        /* 1. 폰트 설정 */
+        /* 1. 폰트 설정: 모든 경로 변수 대응 */
         @font-face {
             font-family: 'TAYBirdie';
             src: local('TAY Birdie'),
-                 local('TAYBirdie'),
-                 url('./TAYBirdie.woff') format('woff'),
-                 url('TAYBirdie.woff') format('woff');
+                 url('TAYBirdie.woff') format('woff'),
+                 url('./TAYBirdie.woff') format('woff');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -26,7 +25,7 @@
             --font-main: 'TAYBirdie', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
         }
 
-        /* 2. 글로벌 스타일 */
+        /* 2. 글로벌 스타일 (민구홍 매뉴팩처링 미감) */
         body {
             font-family: var(--font-main);
             background-color: #fff;
@@ -39,28 +38,18 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        a { text-decoration: none; color: inherit; cursor: pointer; }
-        ul, ol { list-style: none; padding: 0; margin: 0; }
-        p { margin: 0 0 1em 0; }
-
-        .key-color { color: var(--key-color); }
-        .bold { font-weight: 700; }
-
-        /* 3. 레이아웃 구조 */
         header {
             position: sticky;
             top: 0;
             background: #fff;
             border-bottom: 1px solid #000;
-            padding: 12px 16px;
+            padding: 14px 16px;
             font-size: 14px;
             font-weight: 700;
             z-index: 100;
             letter-spacing: 0.02em;
-            display: flex;
-            justify-content: center; /* 헤더 가운데 정렬 */
-            align-items: center;
-            gap: 10px;
+            /* 헤더 텍스트 가운데 정렬 */
+            text-align: center;
         }
 
         main {
@@ -81,12 +70,13 @@
             padding-left: 8px;
         }
 
-        /* 4. 컴포넌트 스타일 */
+        /* 3. 컴포넌트 스타일 */
         .hero-image {
             width: 100%;
             height: auto;
             display: block;
             border: 1px solid #eee;
+            background-color: #f0f0f0;
         }
 
         .track-list li {
@@ -156,17 +146,16 @@
 <body>
 
     <header>
-        <span>HELP(2) LISTENING PARTY</span>
-        <span class="key-color">BEGGARS</span>
+        HELP(2) LISTENING PARTY <span class="key-color">BEGGARS</span>
     </header>
 
     <main>
-        <!-- 최상단 비주얼 (Cover) -->
+        <!-- 최상단 Cover Image -->
         <div class="block">
-            <!-- 경로를 점(.)으로 시작하여 현재 폴더임을 명시 -->
-            <img src="./photos/cover.jpg" class="hero-image">
+            <img src="photos/cover.jpg" class="hero-image">
         </div>
 
+        <!-- Note Section -->
         <div class="block">
             <span class="block-title key-color">Note</span>
             <div class="note-text">
@@ -175,10 +164,11 @@
                     우리는 소음을 조직하고, 침묵을 배열하며, 그 사이의 긴장을 기록했습니다. 
                     이것은 단순한 리스닝 세션이 아닌, 하나의 공감각적 아카이브입니다.
                 </p>
-                <p class="bold" style="font-size: 14px;">Beggars Group.</p>
+                <p style="font-weight: 700; font-size: 14px;">Beggars Group.</p>
             </div>
         </div>
 
+        <!-- Tracks Section -->
         <div class="block">
             <span class="block-title">Tracks</span>
             <ul class="track-list">
@@ -208,19 +198,23 @@
             </ul>
         </div>
 
+        <!-- Documentation Section -->
         <div class="block">
             <span class="block-title">Documentation</span>
             
             <div class="recap-item">
-                <img src="./photos/FT_1.JPG">
+                <!-- FT_1.JPG는 항상 노출 -->
+                <img src="photos/FT_1.JPG">
             </div>
 
+            <!-- 랜덤 이미지가 삽입될 공간 -->
             <div id="more-photos"></div>
 
             <button class="more-btn" id="toggle-photos">More Photos</button>
         </div>
 
-        <div class="block" style="border-top: 1px solid #000; padding-top: 24px; margin-bottom: 0;">
+        <!-- Footer Note -->
+        <div class="block" style="border-top: 1px solid #000; padding-top: 24px; opacity: 0.6;">
              <p style="font-size: 11px; color: #999; line-height: 1.6;">
                 * 본 마이크로사이트는 Beggars Group에서 주최하는 HELP(2) 리스닝 파티를 위해 제작되었습니다.<br>
                 * 파티 중 원활한 이용을 위해 모바일 환경에 최적화되어 있습니다.
@@ -229,6 +223,7 @@
     </main>
 
     <script>
+        // 파일 리스트 (FT_1.JPG 제외)
         const photoFiles = [
             'AM.jpg', 'Grian_1.png', 'YoungF_1.jpg', 'EC.jpg', 'kids.jpg', 
             'Jarvis.jpg', 'DC_@.jpg', 'DGK.jpg', 'FT_2.jpg', 'DO.jpg', 
@@ -236,6 +231,7 @@
             'Kids_1.jpg', 'GC_1.jpg', 'Kids_3.jpg', 'BCNR.jpg', 'ET.jpg', 'GC_ET_1.jpg'
         ];
 
+        // 이미지 랜덤 셔플
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -244,31 +240,34 @@
             return array;
         }
 
-        // 경로 인식을 위해 ./를 붙여서 생성
-        window.onload = function() {
-            const morePhotosContainer = document.getElementById('more-photos');
-            const shuffledPhotos = shuffle([...photoFiles]);
+        // 페이지 로드 시 실행
+        window.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('more-photos');
+            const shuffled = shuffle([...photoFiles]);
 
-            shuffledPhotos.forEach(file => {
+            shuffled.forEach(file => {
                 const div = document.createElement('div');
                 div.className = 'recap-item';
                 const img = document.createElement('img');
-                img.src = './photos/' + file; 
+                
+                // 상대 경로 photos/ 사용
+                img.src = 'photos/' + file;
+                
                 div.appendChild(img);
-                morePhotosContainer.appendChild(div);
+                container.appendChild(div);
             });
-        };
+        });
 
+        // 더보기 버튼 로직
         document.getElementById('toggle-photos').addEventListener('click', function() {
             const morePhotos = document.getElementById('more-photos');
-            const btn = document.getElementById('toggle-photos');
-            
             if (morePhotos.style.display === 'block') {
                 morePhotos.style.display = 'none';
-                btn.textContent = 'More Photos';
+                this.textContent = 'More Photos';
             } else {
                 morePhotos.style.display = 'block';
-                btn.textContent = 'Hide Photos';
+                this.textContent = 'Hide Photos';
+                // 펼쳐질 때 자연스럽게 이동
                 morePhotos.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
