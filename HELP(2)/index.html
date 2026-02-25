@@ -10,14 +10,18 @@
 
     <style>
         /* 1. 폰트 설정 */
-        @font-face {
+    @font-face {
             font-family: 'TAYBirdie';
-            src: url('TAYBirdie.woff') format('woff');
+            src: local('TAY Birdie Regular'), 
+                 local('TAYBirdie-Regular'), 
+                 local('TAY Birdie'),
+                 url('TAYBirdie.woff') format('woff'),
+                 url('./TAYBirdie.woff') format('woff'),
+                 url('TAYBirdie.otf') format('opentype'),
+                 url('./TAYBirdie.otf') format('opentype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
-        }
-
         :root {
             --key-color: #e6007d;
             --font-main: 'TAYBirdie', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
