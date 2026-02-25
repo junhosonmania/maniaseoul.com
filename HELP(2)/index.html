@@ -9,7 +9,7 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 
     <style>
-        /* 1. 폰트 설정: 모든 가능성을 열어둔 선언 */
+        /* 1. 폰트 설정 */
         @font-face {
             font-family: 'TAYBirdie';
             src: local('TAY Birdie Regular'), 
@@ -26,11 +26,10 @@
 
         :root {
             --key-color: #e6007d;
-            /* TAYBirdie를 최우선으로 적용 */
             --font-main: 'TAYBirdie', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
         }
 
-        /* 2. 글로벌 스타일 (민구홍 매뉴팩처링 미감 유지) */
+        /* 2. 글로벌 스타일 */
         body {
             font-family: var(--font-main);
             background-color: #fff;
@@ -62,7 +61,8 @@
             z-index: 100;
             letter-spacing: 0.02em;
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* 가운데 정렬 */
+            gap: 10px;
         }
 
         main {
@@ -125,12 +125,31 @@
         .recap-item img {
             width: 100%;
             display: block;
+            background-color: #f9f9f9;
         }
-        .caption {
+
+        /* 추가 사진 숨김 처리 */
+        #more-photos {
+            display: none;
+        }
+
+        /* MORE PHOTOS 버튼 스타일 */
+        .more-btn {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #000;
+            background: #fff;
+            font-family: var(--font-main);
+            font-weight: 700;
             font-size: 12px;
-            margin-top: 8px;
-            color: #666;
-            font-family: 'Pretendard', sans-serif;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: all 0.2s ease;
+        }
+        .more-btn:active {
+            background: #000;
+            color: #fff;
         }
 
         .note-text {
@@ -157,11 +176,12 @@
             <span class="block-title key-color">Note</span>
             <div class="note-text">
                 <p>
-                    HELP(2)는 기록과 구호 사이의 접점을 탐구합니다. 
-                    우리는 소음을 조직하고, 침묵을 배열하며, 그 사이의 긴장을 기록했습니다. 
-                    이것은 단순한 리스닝 세션이 아닌, 하나의 공감각적 아카이브입니다.
+                    HELP(2)’는 1995 년 발표된 기념비적인 자선 앨범 ‘HELP’의 정신을 잇는 새로운 협업 프로젝트로, 
+                    전 세계 음악 팬들의 참여를 통해 분쟁으로 피해를 입은 아이들에게 긴급 구호, 교육, 전문적인 정신 건강 지원, 
+                    그리고 보호를 제공하는 War Child 의 핵심 활동을 지원하기 위해 기획되었습니다. 
+                    이번 앨범 역시 95 년도 HELP 과 마찬가지로, 오늘날 전 세계가 직면한 인도주의적 위기의 시급성을 강하게 반영하고있습니다
                 </p>
-                <p class="bold" style="font-size: 14px;">Beggars Group.</p>
+    
             </div>
         </div>
 
@@ -196,22 +216,62 @@
 
         <div class="block">
             <span class="block-title">Documentation</span>
+            
+            <!-- 항상 보이는 사진 (FT_1.JPG) -->
             <div class="recap-item">
-                <img src="https://via.placeholder.com/600x400/eee/aaa?text=Studio+Image+1" alt="Studio A">
-                <div class="caption">Fig 1. Studio recap / Session recording.</div>
+                <img src="/photos/FT_1.JPG">
             </div>
-            <div class="recap-item">
-                <img src="https://via.placeholder.com/600x400/eee/aaa?text=Studio+Image+2" alt="Notes">
-                <div class="caption">Fig 2. Technical notes and arrangements.</div>
+
+            <!-- 랜덤 순서로 배치된 나머지 사진들 -->
+            <div id="more-photos">
+                <div class="recap-item"><img src="/photos/Olivia_1.jpg"></div>
+                <div class="recap-item"><img src="/photos/DC_@.jpg"></div>
+                <div class="recap-item"><img src="/photos/GC_ET_1.jpg"></div>
+                <div class="recap-item"><img src="/photos/Kids_4.jpg"></div>
+                <div class="recap-item"><img src="/photos/BCNR.jpg"></div>
+                <div class="recap-item"><img src="/photos/Jarvis.jpg"></div>
+                <div class="recap-item"><img src="/photos/ET.jpg"></div>
+                <div class="recap-item"><img src="/photos/DGK.jpg"></div>
+                <div class="recap-item"><img src="/photos/Kids_2.jpg"></div>
+                <div class="recap-item"><img src="/photos/AM.jpg"></div>
+                <div class="recap-item"><img src="/photos/FT_2.jpg"></div>
+                <div class="recap-item"><img src="/photos/Kids_1.jpg"></div>
+                <div class="recap-item"><img src="/photos/GC_1.jpg"></div>
+                <div class="recap-item"><img src="/photos/DO.jpg"></div>
+                <div class="recap-item"><img src="/photos/Grian_1.png"></div>
+                <div class="recap-item"><img src="/photos/CW.jpg"></div>
+                <div class="recap-item"><img src="/photos/Kids_3.jpg"></div>
+                <div class="recap-item"><img src="/photos/kids.jpg"></div>
+                <div class="recap-item"><img src="/photos/DC_.jpg"></div>
+                <div class="recap-item"><img src="/photos/YoungF_1.jpg"></div>
+                <div class="recap-item"><img src="/photos/EC.jpg"></div>
             </div>
+
+            <!-- 더보기 버튼 -->
+            <button class="more-btn" id="toggle-photos">More Photos</button>
         </div>
 
         <div class="block" style="border-top: 1px solid #000; padding-top: 24px; margin-bottom: 0;">
              <p style="font-size: 11px; color: #999; line-height: 1.6;">
-                * 본 마이크로사이트는 Beggars Group에서 주최하는 HELP(2) 리스닝 파티를 위해 제작되었습니다.<br>
-                * 파티 중 원활한 이용을 위해 모바일 환경에 최적화되어 있습니다.
+                * 2026, powered by Beggars Korea
              </p>
         </div>
     </main>
+
+    <script>
+        document.getElementById('toggle-photos').addEventListener('click', function() {
+            const morePhotos = document.getElementById('more-photos');
+            const btn = document.getElementById('toggle-photos');
+            
+            if (morePhotos.style.display === 'block') {
+                morePhotos.style.display = 'none';
+                btn.textContent = 'More Photos';
+            } else {
+                morePhotos.style.display = 'block';
+                btn.textContent = 'Hide Photos';
+                morePhotos.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    </script>
 </body>
 </html>
