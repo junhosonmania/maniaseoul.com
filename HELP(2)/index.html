@@ -9,6 +9,11 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 
     <style>
+        /* 모든 요소에 box-sizing 적용하여 가로폭 계산 오류 방지 */
+        * {
+            box-sizing: border-box;
+        }
+
         /* 1. 폰트 설정 */
         @font-face {
             font-family: 'TAYBirdie';
@@ -80,12 +85,23 @@
             display: block;
             border: 1px solid #eee;
             background-color: #f0f0f0;
+            margin-bottom: 12px;
+        }
+
+        .hero-video {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #eee;
+            background-color: #000;
         }
 
         /* 트랙리스트 위계 및 들여쓰기 제거 */
         .track-list {
             padding: 0;
             margin: 0;
+            list-style: none;
         }
         .track-list li {
             display: flex;
@@ -94,7 +110,6 @@
             border-bottom: 1px solid #eee;
         }
         .track-num { 
-            /* 번호를 정보 영역의 일부로 취급하여 들여쓰기 느낌 제거 */
             font-size: 10px; 
             margin-right: 12px;
             margin-top: 5px;
@@ -134,7 +149,6 @@
             white-space: nowrap;
             text-transform: uppercase;
             font-weight: 700;
-            /* 밑줄 제거 */
             text-decoration: none;
             display: inline-block;
         }
@@ -144,6 +158,29 @@
             width: 100%;
             display: block;
             background-color: #f0f0f0;
+        }
+
+        /* Donate Section Styles */
+        .donate-info {
+            margin-top: 16px;
+            font-size: 14px;
+        }
+        .donate-price {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .donate-size {
+            font-size: 13px;
+            opacity: 0.6;
+            margin-bottom: 12px;
+        }
+        .donate-desc {
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--key-color);
+            border-top: 1px solid #eee;
+            padding-top: 12px;
         }
 
         #more-photos {
@@ -183,16 +220,17 @@
 
     <main>
         <!-- 최상단 Cover Image -->
-        <div class="block">
+        <div class="block" style="margin-bottom: 12px;">
             <img src="photos/cover.jpg" class="hero-image">
         </div>
 
-          <div class="block">
+        <!-- 커버 밑 자동재생 비디오 -->
+        <div class="block">
             <video class="hero-video" autoplay loop muted playsinline>
                 <source src="photos/writing.mp4" type="video/mp4">
             </video>
         </div>
-        
+
         <!-- Note Section -->
         <div class="block">
             <span class="block-title key-color">Note</span>
@@ -210,190 +248,29 @@
         <div class="block">
             <span class="block-title">Tracklist</span>
             <ul class="track-list">
-                <li>
-                    <span class="track-num">01</span>
-                    <div class="track-info">
-                        <span class="track-artist">Arctic Monkeys</span>
-                        <span class="track-title">Opening Night</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">02</span>
-                    <div class="track-info">
-                        <span class="track-artist">Damon Albarn, Grian Chatten & Kae Tempest</span>
-                        <span class="track-title">Flags</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">03</span>
-                    <div class="track-info">
-                        <span class="track-artist">Black Country, New Road</span>
-                        <span class="track-title">Strangers</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">04</span>
-                    <div class="track-info">
-                        <span class="track-artist">The Last Dinner Party</span>
-                        <span class="track-title">Let's Do It Again!</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">05</span>
-                    <div class="track-info">
-                        <span class="track-artist">Beth Gibbons</span>
-                        <span class="track-title">Sunday Morning</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">06</span>
-                    <div class="track-info">
-                        <span class="track-artist">Arooj Aftab & Beck</span>
-                        <span class="track-title">Lilac Wine</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">07</span>
-                    <div class="track-info">
-                        <span class="track-artist">King Krule</span>
-                        <span class="track-title">The 343 Loop</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">08</span>
-                    <div class="track-info">
-                        <span class="track-artist">Depeche Mode</span>
-                        <span class="track-title">Universal Soldier</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">09</span>
-                    <div class="track-info">
-                        <span class="track-artist">Ezra Collective & Greentea Peng</span>
-                        <span class="track-title">Helicopters</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">10</span>
-                    <div class="track-info">
-                        <span class="track-artist">Arlo Parks</span>
-                        <span class="track-title">Nothing I Could Hide</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">11</span>
-                    <div class="track-info">
-                        <span class="track-artist">English Teacher & Graham Coxon</span>
-                        <span class="track-title">Parasite</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">12</span>
-                    <div class="track-info">
-                        <span class="track-artist">Beabadoobee</span>
-                        <span class="track-title">Say Yes</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">13</span>
-                    <div class="track-info">
-                        <span class="track-artist">Big Thief</span>
-                        <span class="track-title">Relive, Redie</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">14</span>
-                    <div class="track-info">
-                        <span class="track-artist">Fontaines D.C.</span>
-                        <span class="track-title">Black Boys On Mopeds</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">15</span>
-                    <div class="track-info">
-                        <span class="track-artist">Cameron Winter</span>
-                        <span class="track-title">Warning</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">16</span>
-                    <div class="track-info">
-                        <span class="track-artist">Young Fathers</span>
-                        <span class="track-title">Don't Fight The Young</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">17</span>
-                    <div class="track-info">
-                        <span class="track-artist">Pulp</span>
-                        <span class="track-title">Begging For Change</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">18</span>
-                    <div class="track-info">
-                        <span class="track-artist">Sampha</span>
-                        <span class="track-title">Naboo</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">19</span>
-                    <div class="track-info">
-                        <span class="track-artist">Wet Leg</span>
-                        <span class="track-title">Obvious</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">20</span>
-                    <div class="track-info">
-                        <span class="track-artist">Foals</span>
-                        <span class="track-title">When The War Is Finally Done</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">21</span>
-                    <div class="track-info">
-                        <span class="track-artist">Bat For Lashes</span>
-                        <span class="track-title">Carried My Girl</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">22</span>
-                    <div class="track-info">
-                        <span class="track-artist">Anna Calvi, Dove Ellis, Ellie Rowsell & Nilüfer Yanya</span>
-                        <span class="track-title">Sunday Light</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
-                <li>
-                    <span class="track-num">23</span>
-                    <div class="track-info">
-                        <span class="track-artist">Olivia Rodrigo</span>
-                        <span class="track-title">The Book of Love</span>
-                    </div>
-                    <a href="#" class="lyrics-btn">LYRICS</a>
-                </li>
+                <li><span class="track-num">01</span><div class="track-info"><span class="track-artist">Arctic Monkeys</span><span class="track-title">Opening Night</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">02</span><div class="track-info"><span class="track-artist">Damon Albarn, Grian Chatten & Kae Tempest</span><span class="track-title">Flags</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">03</span><div class="track-info"><span class="track-artist">Black Country, New Road</span><span class="track-title">Strangers</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">04</span><div class="track-info"><span class="track-artist">The Last Dinner Party</span><span class="track-title">Let's Do It Again!</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">05</span><div class="track-info"><span class="track-artist">Beth Gibbons</span><span class="track-title">Sunday Morning</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">06</span><div class="track-info"><span class="track-artist">Arooj Aftab & Beck</span><span class="track-title">Lilac Wine</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">07</span><div class="track-info"><span class="track-artist">King Krule</span><span class="track-title">The 343 Loop</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">08</span><div class="track-info"><span class="track-artist">Depeche Mode</span><span class="track-title">Universal Soldier</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">09</span><div class="track-info"><span class="track-artist">Ezra Collective & Greentea Peng</span><span class="track-title">Helicopters</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">10</span><div class="track-info"><span class="track-artist">Arlo Parks</span><span class="track-title">Nothing I Could Hide</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">11</span><div class="track-info"><span class="track-artist">English Teacher & Graham Coxon</span><span class="track-title">Parasite</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">12</span><div class="track-info"><span class="track-artist">Beabadoobee</span><span class="track-title">Say Yes</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">13</span><div class="track-info"><span class="track-artist">Big Thief</span><span class="track-title">Relive, Redie</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">14</span><div class="track-info"><span class="track-artist">Fontaines D.C.</span><span class="track-title">Black Boys On Mopeds</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">15</span><div class="track-info"><span class="track-artist">Cameron Winter</span><span class="track-title">Warning</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">16</span><div class="track-info"><span class="track-artist">Young Fathers</span><span class="track-title">Don't Fight The Young</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">17</span><div class="track-info"><span class="track-artist">Pulp</span><span class="track-title">Begging For Change</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">18</span><div class="track-info"><span class="track-artist">Sampha</span><span class="track-title">Naboo</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">19</span><div class="track-info"><span class="track-artist">Wet Leg</span><span class="track-title">Obvious</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">20</span><div class="track-info"><span class="track-artist">Foals</span><span class="track-title">When The War Is Finally Done</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">21</span><div class="track-info"><span class="track-artist">Bat For Lashes</span><span class="track-title">Carried My Girl</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">22</span><div class="track-info"><span class="track-artist">Anna Calvi, Dove Ellis, Ellie Rowsell & Nilüfer Yanya</span><span class="track-title">Sunday Light</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">23</span><div class="track-info"><span class="track-artist">Olivia Rodrigo</span><span class="track-title">The Book of Love</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
             </ul>
         </div>
 
@@ -411,6 +288,21 @@
             <button class="more-btn" id="toggle-photos">More Photos</button>
         </div>
 
+        <!-- Donate Section -->
+        <div class="block">
+            <span class="block-title">Donate</span>
+            <div class="recap-item">
+                <img src="photos/t.png" class="hero-image" style="border: 1px solid #eee;">
+            </div>
+            <div class="donate-info">
+                <div class="donate-price">HELP(2) 티셔츠 60,000원</div>
+                <div class="donate-size">Size L / XL</div>
+                <div class="donate-desc">
+                    티셔츠 판매 수익금 전액은 War Child 재단에 전달됩니다.
+                </div>
+            </div>
+        </div>
+
         <!-- Footer Note -->
         <div class="block" style="border-top: 1px solid #000; padding-top: 24px; opacity: 0.6;">
              <p style="font-size: 11px; color: #999; line-height: 1.6;">
@@ -420,7 +312,6 @@
     </main>
 
     <script>
-        // 파일 리스트 (FT_1.JPG 제외)
         const photoFiles = [
             'AM.jpg', 'Grian_1.png', 'YoungF_1.jpg', 'EC.jpg', 'kids.jpg', 
             'Jarvis.jpg', 'DC_@.jpg', 'DGK.jpg', 'FT_2.jpg', 'DO.jpg', 
@@ -428,7 +319,6 @@
             'Kids_1.jpg', 'GC_1.jpg', 'Kids_3.jpg', 'BCNR.jpg', 'ET.jpg', 'GC_ET_1.jpg'
         ];
 
-        // 이미지 랜덤 셔플
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -437,7 +327,6 @@
             return array;
         }
 
-        // 페이지 로드 시 실행
         window.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('more-photos');
             const shuffled = shuffle([...photoFiles]);
@@ -446,15 +335,12 @@
                 const div = document.createElement('div');
                 div.className = 'recap-item';
                 const img = document.createElement('img');
-                
                 img.src = 'photos/' + file;
-                
                 div.appendChild(img);
                 container.appendChild(div);
             });
         });
 
-        // 더보기 버튼 로직
         document.getElementById('toggle-photos').addEventListener('click', function() {
             const morePhotos = document.getElementById('more-photos');
             if (morePhotos.style.display === 'block') {
