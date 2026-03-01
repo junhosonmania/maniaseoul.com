@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HELP(2) LISTENING PARTY</title>
     
-    <!-- Pretendard 웹폰트 CDN (한글 백업용) -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 
     <style>
@@ -55,7 +54,6 @@
             z-index: 100;
             letter-spacing: 0.02em;
             text-align: center;
-            /* 헤더 글씨 색깔 키컬러 적용 */
             color: var(--key-color);
         }
 
@@ -88,7 +86,6 @@
             background-color: #000;
         }
 
-        /* 메시지 애니메이션 스타일 (테두리 없음, 속도 2.5초) */
         #message-box {
             height: 80px;
             display: flex;
@@ -118,7 +115,6 @@
             color: var(--key-color);
         }
 
-        /* 트랙리스트 위계 및 들여쓰기 제거 */
         .track-list {
             padding: 0;
             margin: 0;
@@ -144,7 +140,6 @@
             padding-right: 10px;
         }
         .track-title {
-            /* 트랙명이 상단 (16px, Bold) */
             font-size: 16px;
             font-weight: 700;
             color: #000;
@@ -153,7 +148,6 @@
             margin-bottom: 2px;
         }
         .track-artist {
-            /* 아티스트명이 하단 (13px, Key Color) */
             font-size: 13px;
             font-weight: 400;
             line-height: 1.2;
@@ -161,22 +155,9 @@
             display: block;
             opacity: 0.9;
         }
-        .lyrics-btn {
-            font-size: 9px;
-            border: 1px solid #000;
-            color: #000;
-            padding: 3px 6px;
-            margin-top: 8px;
-            white-space: nowrap;
-            text-transform: uppercase;
-            font-weight: 700;
-            text-decoration: none; /* 밑줄 제거 */
-            display: inline-block;
-        }
 
         .recap-item { margin-bottom: 16px; }
         
-        /* 슬라이드쇼 디졸브 효과 스타일 */
         .slideshow-container {
             position: relative;
             width: 100%;
@@ -192,13 +173,12 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 1s ease-in-out; /* 디졸브 효과 속도 */
+            transition: opacity 1s ease-in-out;
         }
         .slideshow-img.active {
             opacity: 1;
         }
 
-        /* Donate Section Styles */
         .donate-info {
             margin-top: 16px;
             font-size: 14px;
@@ -235,21 +215,18 @@
     </header>
 
     <main>
-        <!-- 애니메이션 텍스트 영역 (테두리 없음, 3개 순환, 2.5초 간격) -->
         <div class="block" id="message-box">
             <span class="fade-text" id="msg1">WE MADE THIS ALBUM TO HELP.</span>
             <span class="fade-text highlight" id="msg2">YOU CAN HELP TOO.</span>
             <span class="fade-text" id="msg3">오늘 채널1969까지 걸음해주셔서 감사합니다.</span>
         </div>
 
-        <!-- 자동재생 비디오 -->
         <div class="block">
             <video class="hero-video" autoplay loop muted playsinline>
                 <source src="photos/writing.mp4" type="video/mp4">
             </video>
         </div>
 
-        <!-- Note Section -->
         <div class="block">
             <span class="block-title key-color">Note</span>
             <div class="note-text">
@@ -262,48 +239,43 @@
             </div>
         </div>
 
-        <!-- Tracklist Section -->
         <div class="block">
             <span class="block-title">Tracklist</span>
             <ul class="track-list">
-                <li><span class="track-num">01</span><div class="track-info"><span class="track-title">Opening Night</span><span class="track-artist">Arctic Monkeys</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">02</span><div class="track-info"><span class="track-title">Flags</span><span class="track-artist">Damon Albarn, Grian Chatten & Kae Tempest</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">03</span><div class="track-info"><span class="track-title">Strangers</span><span class="track-artist">Black Country, New Road</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">04</span><div class="track-info"><span class="track-title">Let's Do It Again!</span><span class="track-artist">The Last Dinner Party</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">05</span><div class="track-info"><span class="track-title">Sunday Morning</span><span class="track-artist">Beth Gibbons</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">06</span><div class="track-info"><span class="track-title">Lilac Wine</span><span class="track-artist">Arooj Aftab & Beck</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">07</span><div class="track-info"><span class="track-title">The 343 Loop</span><span class="track-artist">King Krule</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">08</span><div class="track-info"><span class="track-title">Universal Soldier</span><span class="track-artist">Depeche Mode</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">09</span><div class="track-info"><span class="track-title">Helicopters</span><span class="track-artist">Ezra Collective & Greentea Peng</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">10</span><div class="track-info"><span class="track-title">Nothing I Could Hide</span><span class="track-artist">Arlo Parks</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">11</span><div class="track-info"><span class="track-title">Parasite</span><span class="track-artist">English Teacher & Graham Coxon</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">12</span><div class="track-info"><span class="track-title">Say Yes</span><span class="track-artist">Beabadoobee</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">13</span><div class="track-info"><span class="track-title">Relive, Redie</span><span class="track-artist">Big Thief</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">14</span><div class="track-info"><span class="track-title">Black Boys On Mopeds</span><span class="track-artist">Fontaines D.C.</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">15</span><div class="track-info"><span class="track-title">Warning</span><span class="track-artist">Cameron Winter</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">16</span><div class="track-info"><span class="track-title">Don't Fight The Young</span><span class="track-artist">Young Fathers</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">17</span><div class="track-info"><span class="track-title">Begging For Change</span><span class="track-artist">Pulp</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">18</span><div class="track-info"><span class="track-title">Naboo</span><span class="track-artist">Sampha</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">19</span><div class="track-info"><span class="track-title">Obvious</span><span class="track-artist">Wet Leg</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">20</span><div class="track-info"><span class="track-title">When The War Is Finally Done</span><span class="track-artist">Foals</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">21</span><div class="track-info"><span class="track-title">Carried My Girl</span><span class="track-artist">Bat For Lashes</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">22</span><div class="track-info"><span class="track-title">Sunday Light</span><span class="track-artist">Anna Calvi, Dove Ellis, Ellie Rowsell & Nilüfer Yanya</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
-                <li><span class="track-num">23</span><div class="track-info"><span class="track-title">The Book of Love</span><span class="track-artist">Olivia Rodrigo</span></div><a href="#" class="lyrics-btn">LYRICS</a></li>
+                <li><span class="track-num">01</span><div class="track-info"><span class="track-title">Opening Night</span><span class="track-artist">Arctic Monkeys</span></div></li>
+                <li><span class="track-num">02</span><div class="track-info"><span class="track-title">Flags</span><span class="track-artist">Damon Albarn, Grian Chatten & Kae Tempest</span></div></li>
+                <li><span class="track-num">03</span><div class="track-info"><span class="track-title">Strangers</span><span class="track-artist">Black Country, New Road</span></div></li>
+                <li><span class="track-num">04</span><div class="track-info"><span class="track-title">Let's Do It Again!</span><span class="track-artist">The Last Dinner Party</span></div></li>
+                <li><span class="track-num">05</span><div class="track-info"><span class="track-title">Sunday Morning</span><span class="track-artist">Beth Gibbons</span></div></li>
+                <li><span class="track-num">06</span><div class="track-info"><span class="track-title">Lilac Wine</span><span class="track-artist">Arooj Aftab & Beck</span></div></li>
+                <li><span class="track-num">07</span><div class="track-info"><span class="track-title">The 343 Loop</span><span class="track-artist">King Krule</span></div></li>
+                <li><span class="track-num">08</span><div class="track-info"><span class="track-title">Universal Soldier</span><span class="track-artist">Depeche Mode</span></div></li>
+                <li><span class="track-num">09</span><div class="track-info"><span class="track-title">Helicopters</span><span class="track-artist">Ezra Collective & Greentea Peng</span></div></li>
+                <li><span class="track-num">10</span><div class="track-info"><span class="track-title">Nothing I Could Hide</span><span class="track-artist">Arlo Parks</span></div></li>
+                <li><span class="track-num">11</span><div class="track-info"><span class="track-title">Parasite</span><span class="track-artist">English Teacher & Graham Coxon</span></div></li>
+                <li><span class="track-num">12</span><div class="track-info"><span class="track-title">Say Yes</span><span class="track-artist">Beabadoobee</span></div></li>
+                <li><span class="track-num">13</span><div class="track-info"><span class="track-title">Relive, Redie</span><span class="track-artist">Big Thief</span></div></li>
+                <li><span class="track-num">14</span><div class="track-info"><span class="track-title">Black Boys On Mopeds</span><span class="track-artist">Fontaines D.C.</span></div></li>
+                <li><span class="track-num">15</span><div class="track-info"><span class="track-title">Warning</span><span class="track-artist">Cameron Winter</span></div></li>
+                <li><span class="track-num">16</span><div class="track-info"><span class="track-title">Don't Fight The Young</span><span class="track-artist">Young Fathers</span></div></li>
+                <li><span class="track-num">17</span><div class="track-info"><span class="track-title">Begging For Change</span><span class="track-artist">Pulp</span></div></li>
+                <li><span class="track-num">18</span><div class="track-info"><span class="track-title">Naboo</span><span class="track-artist">Sampha</span></div></li>
+                <li><span class="track-num">19</span><div class="track-info"><span class="track-title">Obvious</span><span class="track-artist">Wet Leg</span></div></li>
+                <li><span class="track-num">20</span><div class="track-info"><span class="track-title">When The War Is Finally Done</span><span class="track-artist">Foals</span></div></li>
+                <li><span class="track-num">21</span><div class="track-info"><span class="track-title">Carried My Girl</span><span class="track-artist">Bat For Lashes</span></div></li>
+                <li><span class="track-num">22</span><div class="track-info"><span class="track-title">Sunday Light</span><span class="track-artist">Anna Calvi, Dove Ellis, Ellie Rowsell & Nilüfer Yanya</span></div></li>
+                <li><span class="track-num">23</span><div class="track-info"><span class="track-title">The Book of Love</span><span class="track-artist">Olivia Rodrigo</span></div></li>
             </ul>
         </div>
 
-        <!-- Documentation Section -->
         <div class="block">
             <span class="block-title">Documentation</span>
-            
             <div class="slideshow-container" id="slideshow-container">
-                <!-- 디졸브 전환을 위해 두 개의 레이어 사용 -->
                 <img class="slideshow-img active" id="slide-a" src="photos/FT_1.JPG">
                 <img class="slideshow-img" id="slide-b" src="">
             </div>
         </div>
 
-        <!-- Donate Section -->
         <div class="block">
             <span class="block-title">Donate</span>
             <div class="recap-item">
@@ -318,7 +290,6 @@
             </div>
         </div>
 
-        <!-- Footer Note -->
         <div class="block" style="border-top: 1px solid #000; padding-top: 24px; opacity: 0.6;">
              <p style="font-size: 11px; color: #999; line-height: 1.6;">
                 2026, powered by Beggars Korea
@@ -343,7 +314,6 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            // 1. 메인 슬라이드쇼 로직 (디졸브 트랜지션)
             const slideA = document.getElementById('slide-a');
             const slideB = document.getElementById('slide-b');
             const shuffledForSlideshow = shuffle([...photoFiles]);
@@ -355,20 +325,17 @@
                 const nextSrc = 'photos/' + shuffledForSlideshow[slideIdx];
 
                 if (useA) {
-                    // 현재 A가 보이고 있다면, B에 다음 이미지를 넣고 B를 표시
                     slideB.src = nextSrc;
                     slideB.classList.add('active');
                     slideA.classList.remove('active');
                 } else {
-                    // 현재 B가 보이고 있다면, A에 다음 이미지를 넣고 A를 표시
                     slideA.src = nextSrc;
                     slideA.classList.add('active');
                     slideB.classList.remove('active');
                 }
                 useA = !useA;
-            }, 1500); // 1.5초마다 전환
+            }, 1500);
 
-            // 2. 메시지 애니메이션 로직 (3개 순환, 2.5초 간격)
             const msgs = [
                 document.getElementById('msg1'),
                 document.getElementById('msg2'),
