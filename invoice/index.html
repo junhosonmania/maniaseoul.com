@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나가세요</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; }
+
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* A4 Print Styles */
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            body {
+                background-color: white;
+                padding: 0;
+                margin: 0;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-container {
+                width: 210mm;
+                min-height: 297mm;
+                padding: 20mm;
+                margin: 0 auto;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            input, textarea {
+                border: none !important;
+                background: transparent !important;
+                padding: 0 !important;
+                appearance: none;
+            }
+        }
+
+        /* Editor Styles */
+        .editor-input {
+            @apply bg-gray-50 border-none rounded p-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none w-full transition-all;
+        }
+        .section-title {
+            @apply text-[10px] font-black uppercase tracking-widest text-gray-400 mb-3 border-b border-gray-100 pb-1;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-900">
+
+    <!-- Top Navigation Bar (Hidden on Print) -->
+    <nav class="no-print bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 p-1.5 rounded-lg text-white">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                </div>
+                <h1 class="font-bold text-lg">Invoice Manager</h1>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="downloadCSV()" class="flex items-center gap-2 px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm font-semibold transition-all">
+                    <i data-lucide="download" class="w-4 h-4"></i> CSV
+                </button>
+                <button onclick="addRow()" class="flex items-center gap-2 px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg text-sm font-semibold transition-all border border-blue-100">
+                    <i data-lucide="plus" class="w-4 h-4"></i> Add Row
+                </button>
+                <button onclick="window.print()" class="flex items-center gap-2 px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-bold shadow-lg shadow-blue-200 transition-all">
+                    <i data-lucide="printer" class="w-4 h-4"></i> Print to A4 PDF
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="max-w-5xl mx-auto py-8 px-4 print:py-0 print:px-0">
+        
+        <div id="invoice-sheet" class="print-container bg-white shadow-xl rounded-xl overflow-hidden border border-gray-200">
+            <div class="p-10 md:p-16">
+                
+                <!-- Invoice Header -->
+                <div class="flex justify-between items-start mb-12 border-b-2 border-gray-900 pb-10">
+                    <div>
+                        <h2 class="text-5xl font-black tracking-tighter mb-4">INVOICE</h2>
+                        <div class="space-y-1">
+                            <div class="flex gap-2 items-center">
+                                <input type="text" id="senderCo" value="c/o " class="font-bold text-gray-500 uppercase tracking-widest text-xs w-24 editor-input">
+                                <input type="text" id="senderName" value="Mania" class="font-bold text-gray-900 text-lg editor-input">
+                            </div>
+                            <textarea id="senderAddress" rows="2" class="text-sm text-gray-500 w-full max-w-sm editor-input">102-ho, 143-9 Changuimun-ro, Jongno-gu, Seoul, 03022, SOUTH KOREA</textarea>
+                            <input type="text" id="senderPhone" value="+82 10 4034 3799" class="text-sm text-gray-500 editor-input">
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div class="mb-6">
+                            <span class="section-title block">Invoice Number</span>
+                            <input type="text" id="globalInvNo" value="003" class="text-2xl font-mono font-bold text-right editor-input w-32">
+                        </div>
+                        <div>
+                            <span class="section-title block">Date</span>
+                            <input type="date" id="globalDate" value="2026-03-04" class="text-lg font-bold text-right editor-input w-40">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Addresses Section -->
+                <div class="grid grid-cols-2 gap-16 mb-12">
+                    <div>
+                        <span class="section-title block">Bill To</span>
+                        <input type="text" id="recipientName" value="Beggars Group" class="text-xl font-black mb-1 editor-input">
+                        <div class="flex items-center gap-1 mb-2">
+                            <span class="text-xs text-blue-600 font-bold uppercase">FAO:</span>
+                            <input type="text" id="recipientFao" value="Laura Stefu" class="text-sm font-medium editor-input">
+                        </div>
+                        <textarea id="recipientAddress" rows="3" class="text-sm text-gray-500 w-full leading-relaxed editor-input">17-19 Alma Road SW18 1AA, London, UK</textarea>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-2xl print:bg-transparent print:p-0 print:rounded-none">
+                        <span class="section-title block">Tax Registration</span>
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="text-xs font-bold text-gray-400 uppercase">VAT NO:</span>
+                            <input type="text" id="vatNo" value="759-55-00887" class="font-mono font-bold text-sm editor-input">
+                        </div>
+                        <p class="text-[10px] text-gray-400 leading-tight">This document is a formal commercial instrument issued for the supply of goods and services as described below.</p>
+                    </div>
+                </div>
+
+                <!-- Items Table -->
+                <div class="mb-12">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b-2 border-gray-900">
+                                <th class="py-4 section-title">Description</th>
+                                <th class="py-4 section-title text-right w-32">Amount (GBP)</th>
+                                <th class="py-4 section-title text-right w-32 no-print">Amount (KRW)</th>
+                                <th class="py-4 w-10 no-print"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoice-tbody" class="divide-y divide-gray-100">
+                            <!-- Rows injected by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Totals -->
+                <div class="flex justify-end mb-16">
+                    <div class="w-full max-w-xs space-y-3">
+                        <div class="flex justify-between items-center text-gray-400">
+                            <span class="text-xs font-bold uppercase tracking-widest">Subtotal</span>
+                            <span id="subtotal-display" class="font-mono font-bold">0.00</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-3 border-t-4 border-gray-900">
+                            <span class="font-black uppercase tracking-tighter text-lg">Total Gross</span>
+                            <div class="text-right">
+                                <span class="text-xs font-bold text-blue-600 uppercase block">GBP</span>
+                                <span id="total-gbp-display" class="text-3xl font-black tracking-tighter">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Details -->
+                <div class="bg-gray-900 text-white p-8 rounded-3xl print:rounded-none">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-blue-400 mb-6 border-b border-white/10 pb-2 inline-block">Bank Payment Details</h3>
+                    <div class="grid grid-cols-2 gap-x-12 gap-y-6">
+                        <div>
+                            <label class="text-[10px] font-bold text-gray-400 uppercase block mb-1">Bank Name</label>
+                            <input type="text" id="bankName" value="WOORI BANK" class="w-full bg-transparent border-none p-0 font-bold outline-none">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-gray-400 uppercase block mb-1">SWIFT / BIC Code</label>
+                            <input type="text" id="swift" value="HVBKKRSEXXX" class="w-full bg-transparent border-none p-0 font-bold font-mono outline-none">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-gray-400 uppercase block mb-1">Account Name</label>
+                            <input type="text" id="accountName" value="JUNHO SON" class="w-full bg-transparent border-none p-0 font-bold outline-none">
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-gray-400 uppercase block mb-1">Account Number</label>
+                            <input type="text" id="accountNo" value="1002231548392" class="w-full bg-transparent border-none p-0 font-bold font-mono outline-none text-lg">
+                        </div>
+                        <div class="col-span-2 border-t border-white/10 pt-4">
+                            <label class="text-[10px] font-bold text-gray-400 uppercase block mb-1">Bank Address</label>
+                            <textarea id="bankAddress" rows="1" class="w-full bg-transparent border-none p-0 text-xs text-gray-300 outline-none">17, WORLD CUP BUK-RO 60-GIL, MAPO-GU, SEOUL, 03921, SOUTH KOREA</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="mt-16 text-center border-t border-gray-100 pt-8">
+                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.3em]">Thank you for your cooperation</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let invoiceItems = [
+            { id: Date.now(), description: 'War Child Record HELP(2) T shirt production', gbp: 250.57, krw: 500000 }
+        ];
+
+        function renderRows() {
+            const tbody = document.getElementById('invoice-tbody');
+            tbody.innerHTML = '';
+
+            invoiceItems.forEach((item) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="py-6">
+                        <textarea oninput="updateItem(${item.id}, 'description', this.value)" class="w-full bg-transparent border-none p-0 text-sm font-bold outline-none focus:bg-blue-50/50 rounded transition-all">${item.description}</textarea>
+                    </td>
+                    <td class="py-6 text-right">
+                        <div class="flex items-center justify-end">
+                            <input type="number" step="0.01" value="${item.gbp}" oninput="updateItem(${item.id}, 'gbp', this.value)" class="bg-transparent border-none p-0 text-right font-mono font-bold outline-none w-24">
+                        </div>
+                    </td>
+                    <td class="py-6 text-right no-print">
+                        <input type="number" value="${item.krw}" oninput="updateItem(${item.id}, 'krw', this.value)" class="bg-transparent border-none p-0 text-right font-mono text-xs text-gray-400 outline-none w-24">
+                    </td>
+                    <td class="py-6 text-center no-print">
+                        <button onclick="deleteRow(${item.id})" class="text-gray-300 hover:text-red-500">
+                            <i data-lucide="x" class="w-4 h-4"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            lucide.createIcons();
+            updateTotals();
+        }
+
+        function addRow() {
+            invoiceItems.push({ id: Date.now(), description: 'New Service Item', gbp: 0, krw: 0 });
+            renderRows();
+        }
+
+        function deleteRow(id) {
+            invoiceItems = invoiceItems.filter(i => i.id !== id);
+            renderRows();
+        }
+
+        function updateItem(id, field, value) {
+            const item = invoiceItems.find(i => i.id === id);
+            if (item) {
+                item[field] = (field === 'gbp' || field === 'krw') ? parseFloat(value) || 0 : value;
+                updateTotals();
+            }
+        }
+
+        function updateTotals() {
+            const totalGbp = invoiceItems.reduce((sum, i) => sum + i.gbp, 0);
+            document.getElementById('subtotal-display').innerText = totalGbp.toLocaleString(undefined, {minimumFractionDigits: 2});
+            document.getElementById('total-gbp-display').innerText = totalGbp.toLocaleString(undefined, {minimumFractionDigits: 2});
+        }
+
+        function downloadCSV() {
+            const headers = ["Description", "GBP", "KRW"];
+            const rows = invoiceItems.map(r => [`"${r.description}"`, r.gbp, r.krw]);
+            let csvContent = "\uFEFF" + headers.join(",") + "\n" + rows.map(e => e.join(",")).join("\n");
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = `invoice_data_${new Date().toISOString().split('T')[0]}.csv`;
+            link.click();
+        }
+
+        window.onload = renderRows;
+    </script>
+</body>
+</html>
