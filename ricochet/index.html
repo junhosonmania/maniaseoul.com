@@ -26,7 +26,7 @@
   body {
     background-color: var(--deep-blue);
     color: var(--text);
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     font-weight: 300;
     overflow-x: hidden;
   }
@@ -87,7 +87,7 @@
   }
 
   .hero-artist {
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     font-size: clamp(52px, 9vw, 100px);
     font-weight: 400;
     color: var(--cream);
@@ -98,7 +98,7 @@
   }
 
   .hero-album {
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     
     font-size: clamp(32px, 5.5vw, 62px);
     color: var(--gold);
@@ -117,6 +117,16 @@
     animation: fadeUp 1s ease 1.2s forwards;
   }
 
+  .hero-sublabel {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: var(--cream);
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
+    margin-top: 4px;
+    margin-bottom: 0;
+  }
+
   .scroll-hint {
     position: absolute;
     bottom: 36px;
@@ -127,7 +137,7 @@
     align-items: center;
     gap: 10px;
     opacity: 0;
-    animation: fadeUp 1s ease 2s forwards;
+    animation: scrollHintIn 1s ease 2s forwards;
   }
 
   .scroll-hint span {
@@ -191,7 +201,7 @@
   }
 
   .bio-pull p {
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     
     font-size: clamp(21px, 2.8vw, 30px);
     line-height: 1.48;
@@ -201,7 +211,7 @@
 
   /* TRACKLIST */
   .section-title {
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     font-size: clamp(28px, 4vw, 44px);
     color: var(--cream);
     font-weight: 400;
@@ -229,7 +239,7 @@
   .track-row:hover .track-name { color: var(--cream); }
 
   .track-num {
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     font-size: 13px;
     color: var(--muted);
     opacity: 0.4;
@@ -237,7 +247,7 @@
   }
 
   .track-name {
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     font-size: 23px;
     font-weight: 300;
     color: var(--text);
@@ -254,7 +264,7 @@
     padding: 7px 13px;
     cursor: pointer;
     background: transparent;
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     transition: all 0.22s ease;
     white-space: nowrap;
   }
@@ -264,7 +274,7 @@
 
   /* QUIZ */
   .quiz-intro-desc {
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     
     font-size: 20px;
     color: var(--muted);
@@ -315,7 +325,7 @@
   }
 
   .quiz-question {
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     font-size: clamp(19px, 2.4vw, 27px);
     color: var(--cream);
     line-height: 1.45;
@@ -336,7 +346,7 @@
     border: 1px solid rgba(201,168,76,0.17);
     background: transparent;
     color: var(--text);
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     font-size: 16px;
     cursor: pointer;
     text-align: left;
@@ -356,7 +366,7 @@
 
   .quiz-feedback {
     margin-top: 24px;
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     
     font-size: 17px;
     color: var(--muted);
@@ -373,7 +383,7 @@
     border: 1px solid var(--gold);
     background: transparent;
     color: var(--gold);
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     font-size: 11px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -390,7 +400,7 @@
   }
 
   .result-score {
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     font-size: 90px;
     color: var(--gold);
     line-height: 1;
@@ -406,7 +416,7 @@
   }
 
   .result-msg {
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     
     font-size: clamp(19px, 2.3vw, 25px);
     color: var(--cream);
@@ -421,7 +431,7 @@
     padding: 15px 42px;
     border: 1px solid rgba(201,168,76,0.38);
     color: var(--gold-light);
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     
     font-size: 21px;
     background: rgba(201,168,76,0.04);
@@ -437,7 +447,7 @@
     cursor: pointer;
     background: none;
     border: none;
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     transition: color 0.28s;
   }
 
@@ -448,7 +458,7 @@
     border-top: 1px solid rgba(201,168,76,0.1);
     padding: 44px clamp(28px, 6vw, 72px);
     text-align: center;
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     
     font-size: 17px;
     color: var(--muted);
@@ -484,7 +494,7 @@
     background: none;
     border: 1px solid rgba(201,168,76,0.2);
     color: var(--muted);
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     font-size: 10px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -505,7 +515,7 @@
   }
 
   .modal-title {
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     font-size: clamp(30px, 5vw, 50px);
     color: var(--cream);
     font-weight: 400;
@@ -514,17 +524,36 @@
   }
 
   .modal-lyrics {
-    font-family: 'SeoulHangang', sans-serif;
+    font-family: 'KbizHanmaumMyungjo', serif;
     font-size: 18px;
     line-height: 2.1;
     color: var(--text);
     white-space: pre-line;
   }
 
+  /* NAME SUBMIT */
+  .name-submit-wrap { margin-top: 32px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .name-submit-label { font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--muted); }
+  .name-input-row { display: flex; width: 100%; max-width: 360px; }
+  .name-input { flex: 1; padding: 13px 18px; background: transparent; border: 1px solid rgba(201,168,76,0.3); border-right: none; color: var(--cream); font-family: 'KbizHanmaumMyungjo', serif; font-size: 16px; outline: none; transition: border-color 0.25s; }
+  .name-input::placeholder { color: var(--muted); opacity: 0.5; }
+  .name-input:focus { border-color: var(--gold); }
+  .name-submit-btn { padding: 13px 22px; background: transparent; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); font-family: 'KbizHanmaumMyungjo', serif; font-size: 12px; letter-spacing: 0.22em; cursor: pointer; transition: all 0.25s; white-space: nowrap; }
+  .name-submit-btn:hover { background: var(--gold); color: var(--deep-blue); border-color: var(--gold); }
+  .name-submit-btn:disabled { opacity: 0.4; cursor: default; }
+  .name-submit-status { font-size: 14px; min-height: 20px; color: var(--muted); transition: color 0.3s; }
+  .name-submit-status.ok { color: #7eb89a; }
+  .name-submit-status.err { color: #c07070; }
+
   /* ANIMATIONS */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollHintIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   @keyframes scrollPulse {
@@ -549,15 +578,64 @@
     .quiz-options { grid-template-columns: 1fr; }
     .quiz-card { padding: 34px 26px 30px; }
   }
+
+  /* PHOTO STRIP */
+  .photo-strip {
+    padding: 0 clamp(28px, 6vw, 72px) 80px;
+  }
+
+  .photo-strip-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .photo-item {
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .photo-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(201,168,76,0.15);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.85) brightness(0.92);
+    transition: filter 0.4s ease, transform 0.5s ease;
+  }
+
+  .photo-item:hover img {
+    filter: saturate(1) brightness(1);
+    transform: scale(1.02);
+  }
+
+  @media (max-width: 600px) {
+    .photo-strip-inner { grid-template-columns: 1fr; gap: 8px; }
+    .photo-item { aspect-ratio: 4/3; }
+  }
+
 </style>
 </head>
 <body>
 
 <section class="hero">
   <div class="hero-cover">
-    <img src="Snail_Mail_-_Ricochet_-_Packshot.jpg" alt="Snail Mail — Ricochet">
+    <img src="albumcover.jpg" alt="Snail Mail — Ricochet">
   </div>
-  <p class="hero-label">New Album · March 27, 2026 · Matador Records</p>
+  <p class="hero-label">Snail Mail Third Album Ricochet Listening Party</p>
+  <p class="hero-sublabel">Gimbab Records · March 24</p>
   <h1 class="hero-artist">Snail Mail</h1>
   <h2 class="hero-album">Ricochet</h2>
   <p class="hero-meta">11 Tracks</p>
@@ -588,6 +666,15 @@
   </div>
 </section>
 
+
+<section class="photo-strip fade-in">
+  <div class="photo-strip-inner">
+    <div class="photo-item"><img src="image001.jpg" alt=""></div>
+    <div class="photo-item"><img src="image002.jpg" alt=""></div>
+    <div class="photo-item"><img src="image003.jpg" alt=""></div>
+  </div>
+</section>
+
 <section class="content-section fade-in">
   <div class="eyebrow">Tracklist</div>
   <h2 class="section-title">Ricochet</h2>
@@ -605,7 +692,7 @@
 </section>
 
 <footer class="footer">
-  Snail Mail · <em>Ricochet</em> · March 27, 2026
+  New Album · Snail Mail · <em>Ricochet</em> · March 27, 2026 · Matador Records
 </footer>
 
 <div class="modal-overlay" id="lyricsModal">
@@ -709,21 +796,73 @@ function nextQuestion() {
   else renderQuestion();
 }
 
+// ─── SUPABASE CONFIG ───
+const SUPABASE_URL = 'https://pyjevnxoiqcbtbgfowrr.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5amV2bnhvaXFjYnRiZ2Zvd3JyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNDA3MTMsImV4cCI6MjA4OTgxNjcxM30.gr5Q3bM-B_yN_VZ4kvALcnQ4CvtdwlSrti9oheFaaPA';
+
+async function submitScore(name, score, total) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/quiz_results`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Prefer': 'return=minimal'
+    },
+    body: JSON.stringify({ name, score, total })
+  });
+  return res.ok;
+}
+
 function showResult() {
   const pct = Math.round((score / questions.length) * 100);
   let msg, badge;
   if (pct >= 88)      { msg = "완벽합니다. 오늘 밤 사인 엽서는 당신의 것."; badge = "🐌 True Snail Mail Stan"; }
   else if (pct >= 62) { msg = "꽤 잘 알고 있네요. Ricochet와 함께 더 깊이 빠져들 준비가 됐습니다."; badge = "🌙 Tractor Beam에 올라탄 사람"; }
   else                { msg = "처음이라도 괜찮아요. 오늘 밤이 시작입니다."; badge = "🌀 Ricochet 입문자"; }
+
   document.getElementById('quizBody').innerHTML = `
     <div class="quiz-result">
       <div class="result-score">${score}<span style="font-size:38px;color:var(--muted);"> / ${questions.length}</span></div>
       <div class="result-label">${pct}% 정답률</div>
       <div class="result-msg">${msg}</div>
-      <div class="result-badge">${badge}</div><br>
-      <button class="quiz-restart" onclick="restartQuiz()">다시 도전하기</button>
+      <div class="result-badge">${badge}</div>
+      <div class="name-submit-wrap">
+        <p class="name-submit-label">이름을 남겨 추첨에 참여하세요</p>
+        <div class="name-input-row">
+          <input class="name-input" id="nameInput" type="text" placeholder="이름 입력" maxlength="20">
+          <button class="name-submit-btn" id="nameSubmitBtn" onclick="handleSubmit()">제출</button>
+        </div>
+        <p class="name-submit-status" id="submitStatus"></p>
+      </div>
     </div>`;
   renderProgress();
+}
+
+async function handleSubmit() {
+  const nameEl = document.getElementById('nameInput');
+  const btnEl = document.getElementById('nameSubmitBtn');
+  const statusEl = document.getElementById('submitStatus');
+  const name = nameEl.value.trim();
+
+  if (!name) { statusEl.textContent = '이름을 입력해주세요.'; statusEl.className = 'name-submit-status err'; return; }
+
+  btnEl.disabled = true;
+  btnEl.textContent = '전송 중…';
+  statusEl.textContent = '';
+
+  const ok = await submitScore(name, score, questions.length);
+  if (ok) {
+    statusEl.textContent = `✓ ${name}님의 점수가 등록됐습니다!`;
+    statusEl.className = 'name-submit-status ok';
+    nameEl.disabled = true;
+    btnEl.textContent = '완료';
+  } else {
+    statusEl.textContent = '오류가 발생했어요. 다시 시도해주세요.';
+    statusEl.className = 'name-submit-status err';
+    btnEl.disabled = false;
+    btnEl.textContent = '제출';
+  }
 }
 
 function restartQuiz() { currentQ = 0; score = 0; renderQuestion(); }
@@ -733,6 +872,7 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.07 });
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
 </script>
 </body>
 </html>
