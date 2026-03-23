@@ -6,626 +6,654 @@
 <title>Snail Mail — Ricochet</title>
 <style>
 @font-face {
-    font-family: 'KbizHanmaumMyungjo';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KBIZHanmaumMyungjo.woff') format('woff');
-    font-weight: normal;
-    font-display: swap;
+  font-family: 'KbizHanmaumMyungjo';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KBIZHanmaumMyungjo.woff') format('woff');
+  font-weight: normal;
+  font-display: swap;
 }
-  :root {
-    --deep-blue: #0e1a2b;
-    --gold: #c9a84c;
-    --gold-light: #e4c47a;
-    --cream: #f0e8d5;
-    --muted: #8a9ab0;
-    --text: #d4c9b8;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background-color: var(--deep-blue);
-    color: var(--text);
-    font-family: 'KbizHanmaumMyungjo', serif;
-    font-weight: 300;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 999;
-    opacity: 0.4;
-  }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 80px 40px 100px;
-    position: relative;
-  }
-
-  .hero-cover {
-    width: min(320px, 68vw);
-    margin-bottom: 52px;
-    position: relative;
-    opacity: 0;
-    animation: fadeUp 1.2s ease 0.2s forwards;
-  }
-
-  .hero-cover img {
-    width: 100%;
-    display: block;
-    box-shadow: 0 0 80px rgba(0,0,0,0.85), 0 0 40px rgba(201,168,76,0.07);
-  }
-
-  .hero-cover::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border: 1px solid rgba(201,168,76,0.2);
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .hero-label {
-    font-size: 10px;
-    letter-spacing: 0.45em;
-    text-transform: uppercase;
-    color: var(--gold);
-    opacity: 0;
-    animation: fadeUp 1s ease 0.6s forwards;
-    margin-bottom: 18px;
-  }
-
-  .hero-artist {
-    font-family: 'KbizHanmaumMyungjo', serif;
-    font-size: clamp(52px, 9vw, 100px);
-    font-weight: 400;
-    color: var(--cream);
-    letter-spacing: -0.02em;
-    line-height: 1;
-    opacity: 0;
-    animation: fadeUp 1s ease 0.8s forwards;
-  }
-
-  .hero-album {
-    font-family: 'KbizHanmaumMyungjo', serif;
-    
-    font-size: clamp(32px, 5.5vw, 62px);
-    color: var(--gold);
-    font-weight: 300;
-    opacity: 0;
-    animation: fadeUp 1s ease 1s forwards;
-    margin-top: 4px;
-  }
-
-  .hero-meta {
-    margin-top: 24px;
-    font-size: 12px;
-    letter-spacing: 0.22em;
-    color: var(--muted);
-    opacity: 0;
-    animation: fadeUp 1s ease 1.2s forwards;
-  }
-
-  .hero-sublabel {
-    font-size: 13px;
-    letter-spacing: 0.18em;
-    color: var(--cream);
-    opacity: 0;
-    animation: fadeUp 1s ease 1s forwards;
-    margin-top: 4px;
-    margin-bottom: 0;
-  }
-
-  .scroll-hint {
-    position: absolute;
-    bottom: 36px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    opacity: 0;
-    animation: scrollHintIn 1s ease 2s forwards;
-  }
-
-  .scroll-hint span {
-    font-size: 9px;
-    letter-spacing: 0.42em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .scroll-line {
-    width: 1px;
-    height: 44px;
-    background: linear-gradient(to bottom, var(--muted), transparent);
-    animation: scrollPulse 2.2s ease-in-out infinite;
-  }
-
-  /* SECTIONS */
-  .content-section {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 96px clamp(28px, 6vw, 72px);
-    border-top: 1px solid rgba(201,168,76,0.11);
-  }
-
-  .eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.44em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 44px;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-  }
-
-  .eyebrow::before {
-    content: '';
-    display: block;
-    width: 34px;
-    height: 1px;
-    background: var(--gold);
-    opacity: 0.45;
-    flex-shrink: 0;
-  }
-
-  /* BIO */
-  .bio-text {
-    font-size: 18.5px;
-    line-height: 1.95;
-    color: var(--text);
-  }
-
-  .bio-text p + p { margin-top: 26px; }
-  .bio-text strong { color: var(--cream); font-weight: 400; }
-  .bio-text em {  color: var(--gold-light); }
-
-  .bio-pull {
-    margin: 48px 0;
-    padding: 0 0 0 28px;
-    border-left: 1px solid rgba(201,168,76,0.32);
-  }
-
-  .bio-pull p {
-    font-family: 'KbizHanmaumMyungjo', serif;
-    
-    font-size: clamp(21px, 2.8vw, 30px);
-    line-height: 1.48;
-    color: var(--cream);
-    font-weight: 300;
-  }
-
-  /* TRACKLIST */
-  .section-title {
-    font-family: 'KbizHanmaumMyungjo', serif;
-    font-size: clamp(28px, 4vw, 44px);
-    color: var(--cream);
-    font-weight: 400;
-    margin-bottom: 52px;
-  }
-
-  .tracks { display: flex; flex-direction: column; }
-
-  .track-row {
-    display: grid;
-    grid-template-columns: 42px 1fr auto;
-    align-items: center;
-    gap: 18px;
-    padding: 19px 0;
-    border-bottom: 1px solid rgba(201,168,76,0.07);
-    transition: all 0.28s ease;
-  }
-
-  .track-row:hover {
-    padding-left: 10px;
-    border-bottom-color: rgba(201,168,76,0.2);
-  }
-
-  .track-row:hover .track-num { color: var(--gold); }
-  .track-row:hover .track-name { color: var(--cream); }
-
-  .track-num {
-    font-family: 'KbizHanmaumMyungjo', serif;
-    font-size: 13px;
-    color: var(--muted);
-    opacity: 0.4;
-    transition: all 0.28s;
-  }
-
-  .track-name {
-    font-family: 'KbizHanmaumMyungjo', serif;
-    font-size: 23px;
-    font-weight: 300;
-    color: var(--text);
-    transition: color 0.28s;
-  }
-
-  .lyrics-btn {
-    font-size: 10px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--gold);
-    opacity: 0;
-    border: 1px solid rgba(201,168,76,0.26);
-    padding: 7px 13px;
-    cursor: pointer;
-    background: transparent;
-    font-family: 'KbizHanmaumMyungjo', serif;
-    transition: all 0.22s ease;
-    white-space: nowrap;
-  }
-
-  .track-row:hover .lyrics-btn { opacity: 1; }
-  .lyrics-btn:hover { background: rgba(201,168,76,0.07); border-color: var(--gold); }
-
-  /* QUIZ */
-  .quiz-intro-desc {
-    font-family: 'KbizHanmaumMyungjo', serif;
-    
-    font-size: 20px;
-    color: var(--muted);
-    line-height: 1.55;
-    margin-top: 12px;
-    margin-bottom: 44px;
-  }
-
-  .quiz-card {
-    background: rgba(26,45,69,0.3);
-    border: 1px solid rgba(201,168,76,0.13);
-    padding: 50px 48px 44px;
-    position: relative;
-  }
-
-  .quiz-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
-    opacity: 0.32;
-  }
-
-  .quiz-progress {
-    display: flex;
-    gap: 5px;
-    margin-bottom: 42px;
-  }
-
-  .progress-dot {
-    flex: 1;
-    height: 2px;
-    background: rgba(201,168,76,0.14);
-    transition: background 0.38s ease;
-  }
-
-  .progress-dot.active { background: var(--gold); }
-  .progress-dot.done { background: rgba(201,168,76,0.42); }
-
-  .quiz-q-num {
-    font-size: 10px;
-    letter-spacing: 0.38em;
-    text-transform: uppercase;
-    color: var(--gold);
-    opacity: 0.5;
-    margin-bottom: 14px;
-  }
-
-  .quiz-question {
-    font-family: 'KbizHanmaumMyungjo', serif;
-    font-size: clamp(19px, 2.4vw, 27px);
-    color: var(--cream);
-    line-height: 1.45;
-    margin-bottom: 34px;
-    font-weight: 300;
-    
-    min-height: 66px;
-  }
-
-  .quiz-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 9px;
-  }
-
-  .quiz-option {
-    padding: 16px 20px;
-    border: 1px solid rgba(201,168,76,0.17);
-    background: transparent;
-    color: var(--text);
-    font-family: 'KbizHanmaumMyungjo', serif;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: left;
-    transition: all 0.2s ease;
-    line-height: 1.4;
-  }
-
-  .quiz-option:hover {
-    border-color: var(--gold);
-    color: var(--cream);
-    background: rgba(201,168,76,0.05);
-  }
-
-  .quiz-option.correct { border-color: #7eb89a; color: #7eb89a; background: rgba(126,184,154,0.07); }
-  .quiz-option.wrong { border-color: #c07070; color: #c07070; background: rgba(192,112,112,0.07); }
-  .quiz-option.disabled { pointer-events: none; opacity: 0.36; }
-
-  .quiz-feedback {
-    margin-top: 24px;
-    font-family: 'KbizHanmaumMyungjo', serif;
-    
-    font-size: 17px;
-    color: var(--muted);
-    min-height: 26px;
-    line-height: 1.5;
-  }
-
-  .quiz-feedback.correct-msg { color: #7eb89a; }
-  .quiz-feedback.wrong-msg { color: #c07070; }
-
-  .quiz-next-btn {
-    margin-top: 28px;
-    padding: 12px 34px;
-    border: 1px solid var(--gold);
-    background: transparent;
-    color: var(--gold);
-    font-family: 'KbizHanmaumMyungjo', serif;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.26s ease;
-    display: none;
-  }
-
-  .quiz-next-btn:hover { background: var(--gold); color: var(--deep-blue); }
-
-  .quiz-result {
-    text-align: center;
-    padding: 28px 0 4px;
-  }
-
-  .result-score {
-    font-family: 'KbizHanmaumMyungjo', serif;
-    font-size: 90px;
-    color: var(--gold);
-    line-height: 1;
-    font-weight: 300;
-  }
-
-  .result-label {
-    font-size: 11px;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 6px;
-  }
-
-  .result-msg {
-    font-family: 'KbizHanmaumMyungjo', serif;
-    
-    font-size: clamp(19px, 2.3vw, 25px);
-    color: var(--cream);
-    margin: 34px auto 0;
-    line-height: 1.52;
-    max-width: 460px;
-  }
-
-  .result-badge {
-    display: inline-block;
-    margin-top: 34px;
-    padding: 15px 42px;
-    border: 1px solid rgba(201,168,76,0.38);
-    color: var(--gold-light);
-    font-family: 'KbizHanmaumMyungjo', serif;
-    
-    font-size: 21px;
-    background: rgba(201,168,76,0.04);
-  }
-
-  .quiz-restart {
-    margin-top: 20px;
-    display: inline-block;
-    font-size: 10px;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--muted);
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-family: 'KbizHanmaumMyungjo', serif;
-    transition: color 0.28s;
-  }
-
-  .quiz-restart:hover { color: var(--gold); }
-
-  /* FOOTER */
-  .footer {
-    border-top: 1px solid rgba(201,168,76,0.1);
-    padding: 44px clamp(28px, 6vw, 72px);
-    text-align: center;
-    font-family: 'KbizHanmaumMyungjo', serif;
-    
-    font-size: 17px;
-    color: var(--muted);
-    opacity: 0.55;
-  }
-
-  /* LYRICS MODAL */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(6,12,20,0.96);
-    z-index: 500;
-    display: none;
-    align-items: flex-start;
-    justify-content: center;
-    overflow-y: auto;
-    padding: 80px 24px;
-    backdrop-filter: blur(10px);
-  }
-
-  .modal-overlay.open { display: flex; }
-
-  .modal {
-    max-width: 620px;
-    width: 100%;
-    animation: modalIn 0.36s ease;
-  }
-
-  .modal-close {
-    position: fixed;
-    top: 26px;
-    right: 30px;
-    background: none;
-    border: 1px solid rgba(201,168,76,0.2);
-    color: var(--muted);
-    font-family: 'KbizHanmaumMyungjo', serif;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    padding: 8px 16px;
-    cursor: pointer;
-    transition: all 0.26s;
-  }
-
-  .modal-close:hover { color: var(--gold); border-color: var(--gold); }
-
-  .modal-track-num {
-    font-size: 10px;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--gold);
-    opacity: 0.52;
-    margin-bottom: 14px;
-  }
-
-  .modal-title {
-    font-family: 'KbizHanmaumMyungjo', serif;
-    font-size: clamp(30px, 5vw, 50px);
-    color: var(--cream);
-    font-weight: 400;
-    margin-bottom: 48px;
-    line-height: 1;
-  }
-
-  .modal-lyrics {
-    font-family: 'KbizHanmaumMyungjo', serif;
-    font-size: 18px;
-    line-height: 2.1;
-    color: var(--text);
-    white-space: pre-line;
-  }
-
-  /* NAME SUBMIT */
-  .name-submit-wrap { margin-top: 32px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
-  .name-submit-label { font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--muted); }
-  .name-input-row { display: flex; width: 100%; max-width: 360px; }
-  .name-input { flex: 1; padding: 13px 18px; background: transparent; border: 1px solid rgba(201,168,76,0.3); border-right: none; color: var(--cream); font-family: 'KbizHanmaumMyungjo', serif; font-size: 16px; outline: none; transition: border-color 0.25s; }
-  .name-input::placeholder { color: var(--muted); opacity: 0.5; }
-  .name-input:focus { border-color: var(--gold); }
-  .name-submit-btn { padding: 13px 22px; background: transparent; border: 1px solid rgba(201,168,76,0.3); color: var(--gold); font-family: 'KbizHanmaumMyungjo', serif; font-size: 12px; letter-spacing: 0.22em; cursor: pointer; transition: all 0.25s; white-space: nowrap; }
-  .name-submit-btn:hover { background: var(--gold); color: var(--deep-blue); border-color: var(--gold); }
-  .name-submit-btn:disabled { opacity: 0.4; cursor: default; }
-  .name-submit-status { font-size: 14px; min-height: 20px; color: var(--muted); transition: color 0.3s; }
-  .name-submit-status.ok { color: #7eb89a; }
-  .name-submit-status.err { color: #c07070; }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes scrollHintIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 0.22; }
-    50% { opacity: 0.65; }
-  }
-
-  @keyframes modalIn {
-    from { opacity: 0; transform: translateY(18px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .fade-in {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.85s ease, transform 0.85s ease;
-  }
-
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-  @media (max-width: 600px) {
-    .quiz-options { grid-template-columns: 1fr; }
-    .quiz-card { padding: 34px 26px 30px; }
-  }
-
-  /* PHOTO STRIP */
-  .photo-strip {
-    padding: 0 clamp(28px, 6vw, 72px) 80px;
-  }
-
-  .photo-strip-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 12px;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .photo-item {
-    aspect-ratio: 3/4;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .photo-item::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border: 1px solid rgba(201,168,76,0.15);
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  .photo-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    filter: saturate(0.85) brightness(0.92);
-    transition: filter 0.4s ease, transform 0.5s ease;
-  }
-
-  .photo-item:hover img {
-    filter: saturate(1) brightness(1);
-    transform: scale(1.02);
-  }
-
-  @media (max-width: 600px) {
-    .photo-strip-inner { grid-template-columns: 1fr; gap: 8px; }
-    .photo-item { aspect-ratio: 4/3; }
-  }
 
+:root {
+  --deep-blue: #0e1a2b;
+  --gold: #c9a84c;
+  --gold-light: #e4c47a;
+  --cream: #f0e8d5;
+  --muted: #7a8fa8;
+  --text: #c8bfae;
+  --f: 'KbizHanmaumMyungjo', serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--deep-blue);
+  color: var(--text);
+  font-family: var(--f);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.35;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 32px 96px;
+  position: relative;
+}
+
+.hero-cover {
+  width: 280px;
+  margin-bottom: 44px;
+  position: relative;
+  opacity: 0;
+  animation: fadeUp 1.1s ease 0.2s forwards;
+}
+
+.hero-cover img {
+  width: 100%;
+  display: block;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.7), 0 0 32px rgba(201,168,76,0.06);
+}
+
+.hero-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(201,168,76,0.18);
+  pointer-events: none;
+}
+
+.hero-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.7s forwards;
+  margin-bottom: 12px;
+}
+
+.hero-sublabel {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: rgba(240,232,213,0.55);
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.85s forwards;
+  margin-top: 2px;
+}
+
+.hero-artist {
+  font-size: 72px;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 1s forwards;
+  margin-top: 20px;
+}
+
+.hero-album {
+  font-size: 36px;
+  color: var(--gold);
+  line-height: 1.1;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 1.1s forwards;
+  margin-top: 6px;
+}
+
+.hero-meta {
+  margin-top: 18px;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  opacity: 0;
+  animation: fadeUp 0.9s ease 1.25s forwards;
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 1s ease 2.2s forwards;
+}
+
+.scroll-hint span {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, rgba(138,154,176,0.5), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+/* ── LAYOUT ── */
+.content-section {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 32px;
+  border-top: 1px solid rgba(201,168,76,0.1);
+}
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.7;
+  margin-bottom: 32px;
+}
+
+/* ── BIO ── */
+.bio-text {
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--text);
+}
+
+.bio-text p + p { margin-top: 22px; }
+.bio-text strong { color: var(--cream); }
+.bio-text em { color: var(--gold-light); font-style: normal; }
+
+.bio-pull {
+  margin: 40px 0;
+  padding-left: 20px;
+  border-left: 1px solid rgba(201,168,76,0.28);
+}
+
+.bio-pull p {
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--cream);
+}
+
+/* ── TRACKLIST ── */
+.section-title {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0;
+  opacity: 0.6;
+}
+
+.tracks {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4px;
+}
+
+.track-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  cursor: default;
+  position: relative;
+}
+
+.track-row:hover .track-name { color: var(--cream); }
+.track-row:hover .track-num  { color: var(--gold); }
+
+.track-num {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0.4;
+  width: 28px;
+  flex-shrink: 0;
+  transition: color 0.2s, opacity 0.2s;
+  padding-top: 2px;
+}
+
+.track-name {
+  flex: 1;
+  font-size: 19px;
+  color: var(--text);
+  transition: color 0.2s;
+  line-height: 1.2;
+}
+
+.lyrics-btn {
+  font-size: 11px;
+  color: var(--muted);
+  opacity: 0;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  font-family: var(--f);
+  transition: opacity 0.15s ease, color 0.15s ease;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.track-row:hover .lyrics-btn { opacity: 1; }
+.lyrics-btn:hover { color: var(--gold); }
+
+/* ── QUIZ ── */
+.quiz-intro-desc {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-top: 8px;
+  margin-bottom: 36px;
+}
+
+.quiz-card {
+  background: rgba(20,36,56,0.5);
+  border: 1px solid rgba(201,168,76,0.1);
+  padding: 40px;
+  position: relative;
+}
+
+.quiz-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent);
+}
+
+.quiz-progress {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 36px;
+}
+
+.progress-dot {
+  flex: 1;
+  height: 1px;
+  background: rgba(201,168,76,0.12);
+  transition: background 0.3s ease;
+}
+
+.progress-dot.active { background: var(--gold); }
+.progress-dot.done { background: rgba(201,168,76,0.35); }
+
+.quiz-q-num {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  opacity: 0.6;
+  margin-bottom: 12px;
+}
+
+.quiz-question {
+  font-size: 20px;
+  color: var(--cream);
+  line-height: 1.4;
+  margin-bottom: 28px;
+  min-height: 56px;
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.quiz-option {
+  padding: 13px 16px;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: transparent;
+  color: var(--text);
+  font-family: var(--f);
+  font-size: 15px;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.18s, color 0.18s, background 0.18s;
+  line-height: 1.4;
+}
+
+.quiz-option:hover {
+  border-color: rgba(201,168,76,0.5);
+  color: var(--cream);
+  background: rgba(201,168,76,0.04);
+}
+
+.quiz-option.correct { border-color: #5a9e7a; color: #7ec49a; background: rgba(90,158,122,0.07); }
+.quiz-option.wrong   { border-color: #9e5a5a; color: #c47a7a; background: rgba(158,90,90,0.07); }
+.quiz-option.disabled { pointer-events: none; opacity: 0.3; }
+
+.quiz-feedback {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--muted);
+  min-height: 20px;
+  line-height: 1.55;
+}
+
+.quiz-feedback.correct-msg { color: #7ec49a; }
+.quiz-feedback.wrong-msg   { color: #c47a7a; }
+
+.quiz-next-btn {
+  margin-top: 28px;
+  padding: 10px 28px;
+  border: 1px solid rgba(201,168,76,0.4);
+  background: transparent;
+  color: var(--gold);
+  font-family: var(--f);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: none;
+}
+
+.quiz-next-btn:hover { background: var(--gold); color: var(--deep-blue); }
+
+.quiz-result { text-align: center; padding: 24px 0 8px; }
+
+.result-score {
+  font-size: 80px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.result-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.result-msg {
+  font-size: 20px;
+  color: var(--cream);
+  margin: 28px auto 0;
+  line-height: 1.5;
+  max-width: 400px;
+}
+
+.result-badge {
+  display: inline-block;
+  margin-top: 28px;
+  padding: 12px 32px;
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--gold-light);
+  font-size: 17px;
+}
+
+/* ── NAME SUBMIT ── */
+.name-submit-wrap {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.name-submit-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+}
+
+.name-input-row {
+  display: flex;
+  width: 100%;
+  max-width: 320px;
+}
+
+.name-input {
+  flex: 1;
+  padding: 11px 14px;
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.25);
+  border-right: none;
+  color: var(--cream);
+  font-family: var(--f);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.name-input::placeholder { color: var(--muted); opacity: 0.4; }
+.name-input:focus { border-color: rgba(201,168,76,0.6); }
+
+.name-submit-btn {
+  padding: 11px 18px;
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.25);
+  color: var(--gold);
+  font-family: var(--f);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.name-submit-btn:hover { background: var(--gold); color: var(--deep-blue); border-color: var(--gold); }
+.name-submit-btn:disabled { opacity: 0.35; cursor: default; }
+
+.name-submit-status {
+  font-size: 13px;
+  min-height: 18px;
+  color: var(--muted);
+  transition: color 0.25s;
+}
+
+.name-submit-status.ok  { color: #7ec49a; }
+.name-submit-status.err { color: #c47a7a; }
+
+/* ── PRESS ── */
+.press-section {
+  border-top: 1px solid rgba(201,168,76,0.1);
+  padding: 80px 32px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.eyebrow-wrap { margin-bottom: 0; }
+
+.press-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+  padding: 48px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.press-item:first-of-type { padding-top: 0; }
+.press-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+.press-item--reverse .press-photo { order: 2; }
+.press-item--reverse .press-text  { order: 1; }
+
+.press-photo {
+  position: relative;
+  overflow: hidden;
+}
+
+.press-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(201,168,76,0.12);
+  pointer-events: none;
+}
+
+.press-photo img {
+  width: 100%;
+  display: block;
+  filter: saturate(0.8) brightness(0.88);
+  transition: filter 0.35s ease;
+}
+
+.press-photo:hover img {
+  filter: saturate(0.95) brightness(0.98);
+}
+
+.press-text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.press-source {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.55;
+}
+
+.press-headline {
+  font-size: 22px;
+  color: var(--cream);
+  line-height: 1.3;
+}
+
+.press-body {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.press-body em { color: var(--gold-light); font-style: normal; }
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid rgba(201,168,76,0.08);
+  padding: 36px 32px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  opacity: 0.5;
+}
+
+/* ── MODAL ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6,12,20,0.95);
+  z-index: 500;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 72px 24px;
+  backdrop-filter: blur(8px);
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  max-width: 560px;
+  width: 100%;
+  animation: modalIn 0.3s ease;
+}
+
+.modal-close {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  background: none;
+  border: 1px solid rgba(201,168,76,0.18);
+  color: var(--muted);
+  font-family: var(--f);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.modal-close:hover { color: var(--gold); border-color: rgba(201,168,76,0.5); }
+
+.modal-track-num {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  opacity: 0.5;
+  margin-bottom: 10px;
+}
+
+.modal-title {
+  font-size: 38px;
+  color: var(--cream);
+  margin-bottom: 40px;
+  line-height: 1.1;
+}
+
+.modal-lyrics {
+  font-size: 16px;
+  line-height: 2;
+  color: var(--text);
+  white-space: pre-line;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.2; }
+  50%       { opacity: 0.6; }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .hero-artist { font-size: 52px; }
+  .hero-album  { font-size: 28px; }
+  .quiz-options { grid-template-columns: 1fr; }
+  .quiz-card { padding: 28px 22px; }
+  .press-item { grid-template-columns: 1fr; gap: 20px; }
+  .press-item--reverse .press-photo { order: 0; }
+  .press-item--reverse .press-text  { order: 0; }
+  .content-section { padding: 64px 24px; }
+  .press-section { padding: 64px 24px; }
+}
 </style>
 </head>
 <body>
@@ -667,17 +695,45 @@
 </section>
 
 
-<section class="photo-strip fade-in">
-  <div class="photo-strip-inner">
-    <div class="photo-item"><img src="image001.jpg" alt=""></div>
-    <div class="photo-item"><img src="image002.jpg" alt=""></div>
-    <div class="photo-item"><img src="image003.jpg" alt=""></div>
+<section class="press-section fade-in">
+  <div class="eyebrow-wrap"><div class="eyebrow">Press</div></div>
+
+  <div class="press-item">
+    <div class="press-photo">
+      <img src="image002.jpg" alt="Out of Her Shell — UNCUT">
+    </div>
+    <div class="press-text">
+      <p class="press-source">UNCUT · April 2026</p>
+      <h3 class="press-headline">껍질 밖으로</h3>
+      <p class="press-body">5년의 고단한 시간 끝에, 인디록의 감각 Lindsey Jordan은 마침내 자신에게 필요한 고요함을 찾았다. 뉴욕을 뒤로하고 노스캐롤라이나의 햇살 가득한 집으로 이사한 그녀는, 낡은 미신들을 떨쳐내고 상처의 굴레에서 벗어나 조용히 자신의 사운드를 다시 세웠다. "슬픈 여자애라는 낙인을 가슴에 새기고 싶지 않았어요"라고 그녀는 말한다. "나이가 들수록 모든 게 세상의 끝이 아니라는 걸 알게 되는 것 같아요."</p>
+    </div>
+  </div>
+
+  <div class="press-item press-item--reverse">
+    <div class="press-photo">
+      <img src="image001.jpg" alt="UNCUT feature spread">
+    </div>
+    <div class="press-text">
+      <p class="press-source">UNCUT · April 2026</p>
+      <h3 class="press-headline">Lindsey Jordan, 거의 갇힐 뻔 하다</h3>
+      <p class="press-body">그녀가 Snail Mail로 돌아온 곳은 어린 시절 침실이었다. 그녀의 데뷔 앨범 <em>Habit</em>과 <em>Lush</em>는 황홀경과 고통의 소용돌이 속에서 탄생했다. 뉴욕으로 탈출하려 했지만, 전 세계적인 팬데믹이 그녀를 메릴랜드로 돌려보냈다. 그리고 그곳에서, 폭발적으로 가슴 시린 <em>Valentine</em>이 만들어졌다. "정말 기묘한 미신이 생겼어요. 부모님 집에서만 곡을 쓸 수 있다는 느낌이요." 문을 열었을 때 들어오는 건 Suspiria 티셔츠를 입은 친근한 외로움이었다. 이제 그녀는 2년 전 산 집, 노스캐롤라이나 그린즈버러 인근 집에서 <em>Ricochet</em>를 마무리했다. Pip이라는 복슬복슬한 흰 강아지와 함께.</p>
+    </div>
+  </div>
+
+  <div class="press-item">
+    <div class="press-photo">
+      <img src="image003.jpg" alt="The Roots of Ricochet — UNCUT">
+    </div>
+    <div class="press-text">
+      <p class="press-source">UNCUT · April 2026</p>
+      <h3 class="press-headline">Ricochet의 뿌리들</h3>
+      <p class="press-body"><em>Ricochet</em>는 진공 속에서 탄생하지 않았다. Smashing Pumpkins의 <em>Mellon Collie and the Infinite Sadness</em>, The Sundays의 <em>Reading, Writing &amp; Arithmetic</em>, My Bloody Valentine의 <em>Loveless</em>, Frou Frou의 <em>Details</em> — 이 앨범들이 <em>Ricochet</em>의 DNA를 이룬다. "저는 90년대가 정말 좋아요. Radiohead, My Bloody Valentine." Jordan이 말했다. "제가 듣고 좋아하는 것들이에요. 전설적인 밴드들을 사랑하는 건 당연한 일이잖아요." <em>Tractor Beam</em>부터 <em>Agony Freak</em>까지, 그녀의 기타는 하늘 위로 솟구치는 네온 사인처럼 밤하늘을 가른다.</p>
+    </div>
   </div>
 </section>
 
 <section class="content-section fade-in">
   <div class="eyebrow">Tracklist</div>
-  <h2 class="section-title">Ricochet</h2>
   <div class="tracks" id="tracklist"></div>
 </section>
 
@@ -723,7 +779,7 @@ const tracklistEl = document.getElementById('tracklist');
 tracks.forEach((t, i) => {
   const row = document.createElement('div');
   row.className = 'track-row';
-  row.innerHTML = `<span class="track-num">${String(i+1).padStart(2,'0')}</span><span class="track-name">${t.title}</span><button class="lyrics-btn" onclick="openModal(${i})">가사</button>`;
+  row.innerHTML = `<span class="track-num">${i+1}</span><span class="track-name">${t.title}</span><button class="lyrics-btn" onclick="openModal(${i})">가사 보기</button>`;
   tracklistEl.appendChild(row);
 });
 
