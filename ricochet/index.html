@@ -1,346 +1,738 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snail Mail 'Ricochet' Listening Party</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700;1,900&family=Inter:wght@200;300;400;600;900&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000;
-            color: #D4C4A8;
-        }
-        .font-serif {
-            font-family: 'Playfair Display', serif;
-        }
-        ::selection {
-            background-color: #B8860B;
-            color: #0E1626;
-        }
-        ::-webkit-scrollbar {
-            width: 0px;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
-        .bg-indigo-deep { background-color: #0E1626; }
-        .text-antique-gold { color: #B8860B; }
-        .border-antique-gold { border-color: #B8860B; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snail Mail — Ricochet</title>
+<style>
+@font-face {
+    font-family: 'SeoulHangang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SeoulHangangM.woff') format('woff');
+    font-weight: normal;
+    font-display: swap;
+}
+  :root {
+    --deep-blue: #0e1a2b;
+    --gold: #c9a84c;
+    --gold-light: #e4c47a;
+    --cream: #f0e8d5;
+    --muted: #8a9ab0;
+    --text: #d4c9b8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--deep-blue);
+    color: var(--text);
+    font-family: 'SeoulHangang', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.4;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 40px 100px;
+    position: relative;
+  }
+
+  .hero-cover {
+    width: min(320px, 68vw);
+    margin-bottom: 52px;
+    position: relative;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.2s forwards;
+  }
+
+  .hero-cover img {
+    width: 100%;
+    display: block;
+    box-shadow: 0 0 80px rgba(0,0,0,0.85), 0 0 40px rgba(201,168,76,0.07);
+  }
+
+  .hero-cover::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border: 1px solid rgba(201,168,76,0.2);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .hero-label {
+    font-size: 10px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    animation: fadeUp 1s ease 0.6s forwards;
+    margin-bottom: 18px;
+  }
+
+  .hero-artist {
+    font-family: 'SeoulHangang', sans-serif;
+    font-size: clamp(52px, 9vw, 100px);
+    font-weight: 400;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+  }
+
+  .hero-album {
+    font-family: 'SeoulHangang', sans-serif;
+    
+    font-size: clamp(32px, 5.5vw, 62px);
+    color: var(--gold);
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
+    margin-top: 4px;
+  }
+
+  .hero-meta {
+    margin-top: 24px;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+    opacity: 0;
+    animation: fadeUp 1s ease 1.2s forwards;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    animation: fadeUp 1s ease 2s forwards;
+  }
+
+  .scroll-hint span {
+    font-size: 9px;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 44px;
+    background: linear-gradient(to bottom, var(--muted), transparent);
+    animation: scrollPulse 2.2s ease-in-out infinite;
+  }
+
+  /* SECTIONS */
+  .content-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 96px clamp(28px, 6vw, 72px);
+    border-top: 1px solid rgba(201,168,76,0.11);
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.44em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 44px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    display: block;
+    width: 34px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.45;
+    flex-shrink: 0;
+  }
+
+  /* BIO */
+  .bio-text {
+    font-size: 18.5px;
+    line-height: 1.95;
+    color: var(--text);
+  }
+
+  .bio-text p + p { margin-top: 26px; }
+  .bio-text strong { color: var(--cream); font-weight: 400; }
+  .bio-text em {  color: var(--gold-light); }
+
+  .bio-pull {
+    margin: 48px 0;
+    padding: 0 0 0 28px;
+    border-left: 1px solid rgba(201,168,76,0.32);
+  }
+
+  .bio-pull p {
+    font-family: 'SeoulHangang', sans-serif;
+    
+    font-size: clamp(21px, 2.8vw, 30px);
+    line-height: 1.48;
+    color: var(--cream);
+    font-weight: 300;
+  }
+
+  /* TRACKLIST */
+  .section-title {
+    font-family: 'SeoulHangang', sans-serif;
+    font-size: clamp(28px, 4vw, 44px);
+    color: var(--cream);
+    font-weight: 400;
+    margin-bottom: 52px;
+  }
+
+  .tracks { display: flex; flex-direction: column; }
+
+  .track-row {
+    display: grid;
+    grid-template-columns: 42px 1fr auto;
+    align-items: center;
+    gap: 18px;
+    padding: 19px 0;
+    border-bottom: 1px solid rgba(201,168,76,0.07);
+    transition: all 0.28s ease;
+  }
+
+  .track-row:hover {
+    padding-left: 10px;
+    border-bottom-color: rgba(201,168,76,0.2);
+  }
+
+  .track-row:hover .track-num { color: var(--gold); }
+  .track-row:hover .track-name { color: var(--cream); }
+
+  .track-num {
+    font-family: 'SeoulHangang', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    opacity: 0.4;
+    transition: all 0.28s;
+  }
+
+  .track-name {
+    font-family: 'SeoulHangang', sans-serif;
+    font-size: 23px;
+    font-weight: 300;
+    color: var(--text);
+    transition: color 0.28s;
+  }
+
+  .lyrics-btn {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    border: 1px solid rgba(201,168,76,0.26);
+    padding: 7px 13px;
+    cursor: pointer;
+    background: transparent;
+    font-family: 'SeoulHangang', sans-serif;
+    transition: all 0.22s ease;
+    white-space: nowrap;
+  }
+
+  .track-row:hover .lyrics-btn { opacity: 1; }
+  .lyrics-btn:hover { background: rgba(201,168,76,0.07); border-color: var(--gold); }
+
+  /* QUIZ */
+  .quiz-intro-desc {
+    font-family: 'SeoulHangang', sans-serif;
+    
+    font-size: 20px;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-top: 12px;
+    margin-bottom: 44px;
+  }
+
+  .quiz-card {
+    background: rgba(26,45,69,0.3);
+    border: 1px solid rgba(201,168,76,0.13);
+    padding: 50px 48px 44px;
+    position: relative;
+  }
+
+  .quiz-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    opacity: 0.32;
+  }
+
+  .quiz-progress {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 42px;
+  }
+
+  .progress-dot {
+    flex: 1;
+    height: 2px;
+    background: rgba(201,168,76,0.14);
+    transition: background 0.38s ease;
+  }
+
+  .progress-dot.active { background: var(--gold); }
+  .progress-dot.done { background: rgba(201,168,76,0.42); }
+
+  .quiz-q-num {
+    font-size: 10px;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.5;
+    margin-bottom: 14px;
+  }
+
+  .quiz-question {
+    font-family: 'SeoulHangang', sans-serif;
+    font-size: clamp(19px, 2.4vw, 27px);
+    color: var(--cream);
+    line-height: 1.45;
+    margin-bottom: 34px;
+    font-weight: 300;
+    
+    min-height: 66px;
+  }
+
+  .quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+  }
+
+  .quiz-option {
+    padding: 16px 20px;
+    border: 1px solid rgba(201,168,76,0.17);
+    background: transparent;
+    color: var(--text);
+    font-family: 'SeoulHangang', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+    line-height: 1.4;
+  }
+
+  .quiz-option:hover {
+    border-color: var(--gold);
+    color: var(--cream);
+    background: rgba(201,168,76,0.05);
+  }
+
+  .quiz-option.correct { border-color: #7eb89a; color: #7eb89a; background: rgba(126,184,154,0.07); }
+  .quiz-option.wrong { border-color: #c07070; color: #c07070; background: rgba(192,112,112,0.07); }
+  .quiz-option.disabled { pointer-events: none; opacity: 0.36; }
+
+  .quiz-feedback {
+    margin-top: 24px;
+    font-family: 'SeoulHangang', sans-serif;
+    
+    font-size: 17px;
+    color: var(--muted);
+    min-height: 26px;
+    line-height: 1.5;
+  }
+
+  .quiz-feedback.correct-msg { color: #7eb89a; }
+  .quiz-feedback.wrong-msg { color: #c07070; }
+
+  .quiz-next-btn {
+    margin-top: 28px;
+    padding: 12px 34px;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold);
+    font-family: 'SeoulHangang', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.26s ease;
+    display: none;
+  }
+
+  .quiz-next-btn:hover { background: var(--gold); color: var(--deep-blue); }
+
+  .quiz-result {
+    text-align: center;
+    padding: 28px 0 4px;
+  }
+
+  .result-score {
+    font-family: 'SeoulHangang', sans-serif;
+    font-size: 90px;
+    color: var(--gold);
+    line-height: 1;
+    font-weight: 300;
+  }
+
+  .result-label {
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .result-msg {
+    font-family: 'SeoulHangang', sans-serif;
+    
+    font-size: clamp(19px, 2.3vw, 25px);
+    color: var(--cream);
+    margin: 34px auto 0;
+    line-height: 1.52;
+    max-width: 460px;
+  }
+
+  .result-badge {
+    display: inline-block;
+    margin-top: 34px;
+    padding: 15px 42px;
+    border: 1px solid rgba(201,168,76,0.38);
+    color: var(--gold-light);
+    font-family: 'SeoulHangang', sans-serif;
+    
+    font-size: 21px;
+    background: rgba(201,168,76,0.04);
+  }
+
+  .quiz-restart {
+    margin-top: 20px;
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: 'SeoulHangang', sans-serif;
+    transition: color 0.28s;
+  }
+
+  .quiz-restart:hover { color: var(--gold); }
+
+  /* FOOTER */
+  .footer {
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 44px clamp(28px, 6vw, 72px);
+    text-align: center;
+    font-family: 'SeoulHangang', sans-serif;
+    
+    font-size: 17px;
+    color: var(--muted);
+    opacity: 0.55;
+  }
+
+  /* LYRICS MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(6,12,20,0.96);
+    z-index: 500;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 80px 24px;
+    backdrop-filter: blur(10px);
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    max-width: 620px;
+    width: 100%;
+    animation: modalIn 0.36s ease;
+  }
+
+  .modal-close {
+    position: fixed;
+    top: 26px;
+    right: 30px;
+    background: none;
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--muted);
+    font-family: 'SeoulHangang', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.26s;
+  }
+
+  .modal-close:hover { color: var(--gold); border-color: var(--gold); }
+
+  .modal-track-num {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.52;
+    margin-bottom: 14px;
+  }
+
+  .modal-title {
+    font-family: 'SeoulHangang', sans-serif;
+    font-size: clamp(30px, 5vw, 50px);
+    color: var(--cream);
+    font-weight: 400;
+    margin-bottom: 48px;
+    line-height: 1;
+  }
+
+  .modal-lyrics {
+    font-family: 'SeoulHangang', sans-serif;
+    font-size: 18px;
+    line-height: 2.1;
+    color: var(--text);
+    white-space: pre-line;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.22; }
+    50% { opacity: 0.65; }
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.85s ease, transform 0.85s ease;
+  }
+
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 600px) {
+    .quiz-options { grid-template-columns: 1fr; }
+    .quiz-card { padding: 34px 26px 30px; }
+  }
+</style>
 </head>
-<body class="overflow-x-hidden">
-    <!-- Texture Overlay -->
-    <div class="fixed inset-0 pointer-events-none opacity-[0.06] z-[100] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+<body>
 
-    <div class="max-w-md mx-auto min-h-screen bg-indigo-deep flex flex-col relative border-x border-[#B8860B]/10 shadow-2xl">
-        
-        <!-- 1. Hero Section (Poster) -->
-        <section class="relative w-full aspect-[3/4] overflow-hidden bg-[#C83E3E] flex items-center justify-center">
-            <!-- Poster Placeholder Content -->
-            <div class="text-center p-12 animate-in fade-in zoom-in duration-1000 z-10">
-                <div class="border border-[#F1E5AC]/20 p-8">
-                    <p class="text-[#F1E5AC] font-serif italic text-sm opacity-60">Snail Mail</p>
-                    <h1 class="text-[#F1E5AC] font-serif italic text-6xl my-4 tracking-tighter">Ricochet</h1>
-                    <p class="text-[#F1E5AC] text-[10px] tracking-[0.5em] uppercase mt-6">Seoul / Gimbab Records</p>
-                </div>
-            </div>
-            <!-- Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0E1626] via-transparent to-transparent"></div>
-            <div class="absolute bottom-10 left-10 right-10 z-20">
-                <span class="text-[10px] font-black text-[#F1E5AC] tracking-[0.5em] uppercase opacity-60">2024. 03. 24. 8PM</span>
-            </div>
-        </section>
+<section class="hero">
+  <div class="hero-cover">
+    <img src="Snail_Mail_-_Ricochet_-_Packshot.jpg" alt="Snail Mail — Ricochet">
+  </div>
+  <p class="hero-label">New Album · March 27, 2026 · Matador Records</p>
+  <h1 class="hero-artist">Snail Mail</h1>
+  <h2 class="hero-album">Ricochet</h2>
+  <p class="hero-meta">11 Tracks</p>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
 
-        <!-- 2. Intro Section -->
-        <section class="p-12 py-32 text-center space-y-12 bg-[#0A101C]">
-            <i data-lucide="quote" class="mx-auto text-antique-gold opacity-20 w-8 h-8"></i>
-            <div class="space-y-10">
-                <p class="text-2xl font-serif italic leading-[1.8] text-white/95 tracking-tight px-2 underline decoration-[#B8860B]/10 underline-offset-8">
-                    "5년의 침묵, 성대 수술, 고립. <br/>
-                    린지 조던이 붙들고 있던 건 <br/>
-                    부서진 관계와 되돌아오는 상처들이다."
-                </p>
-                <div class="w-8 h-[1px] bg-[#B8860B]/40 mx-auto"></div>
-                <p class="text-[14px] leading-[2.4] text-[#D4C4A8]/60 font-light max-w-[300px] mx-auto">
-                    Snail Mail의 세 번째 앨범 <span class="text-antique-gold font-bold italic underline underline-offset-4 decoration-[#B8860B]/20">Ricochet</span> — 90년대 얼터너티브의 질감 위에 쌓아올린, 가장 고귀하고 처절한 고백.
-                </p>
-            </div>
-        </section>
+<section class="content-section fade-in">
+  <div class="eyebrow">On Ricochet</div>
+  <div class="bio-text">
+    <p><em>Ricochet</em>에서 Lindsey Jordan은 세대를 대표하는 송라이터로서의 자리를 확고히 한다. 언제나처럼 명료하고, 솔직하게. 시간은 흘렀지만 그녀는 여전히 예민한 영혼이다. 이번 앨범에서 그 날카로운 내면의 시선은 이전보다 훨씬 넓고 깊어진 멜로디와 화려한 현악 편곡에 단단히 맞닿아 있다.</p>
 
-        <!-- 3. Tracklist Section -->
-        <section class="p-10 py-32 bg-indigo-deep">
-            <div class="mb-20 space-y-3">
-                <h2 class="text-4xl font-serif italic text-antique-gold leading-none tracking-tighter">Fragments</h2>
-                <p class="text-[10px] tracking-[0.5em] uppercase opacity-30 font-bold">Tracklist</p>
-            </div>
-            <div id="track-list" class="space-y-0 border-t border-[#B8860B]/10">
-                <!-- Tracks will be injected here -->
-            </div>
-        </section>
-
-        <!-- 4. Editorial Section -->
-        <section class="p-12 py-32 space-y-16 bg-[#0A101C]">
-            <div class="space-y-12">
-                <span class="text-[10px] font-black uppercase tracking-[0.6em] text-antique-gold block">Editorial</span>
-                <h3 class="text-6xl font-serif italic leading-[1.1] text-white tracking-tighter underline decoration-[#B8860B]/10 underline-offset-[12px]">낮아진 음역대, <br/>고결한 흉터.</h3>
-                <div class="space-y-8 text-[15px] leading-[2.6] text-[#D4C4A8]/70 font-light">
-                    <p class="border-l border-[#B8860B]/30 pl-6 italic">
-                        성대 수술은 린지 조던에게서 고음을 앗아갔지만, 대신 그 빈자리를 거친 질감의 성찰로 채웠습니다. 
-                    </p>
-                    <p>
-                        아트워크 속 굳어진 달팽이 껍질은 외부로부터 자신을 지키기 위한 보호막이자, 동시에 그녀가 견뎌온 시간의 퇴적층입니다. 
-                        아픔이 어떻게 소음이 아닌 '음악'이라는 고귀한 형태의 기품으로 변모하는지 목격하십시오.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. Quiz Section (The Offering) -->
-        <section class="p-12 py-32 bg-indigo-deep overflow-hidden">
-            <div id="quiz-container" class="min-h-[500px] flex flex-col justify-center transition-all duration-500">
-                <!-- Quiz content will be injected here -->
-            </div>
-        </section>
-
-        <!-- 6. Footer -->
-        <footer class="p-24 text-center opacity-20 border-t border-[#B8860B]/5 bg-[#0A101C]">
-            <div class="text-[10px] tracking-[0.6em] font-black uppercase italic">Ricochet © Seoul 2024</div>
-        </footer>
+    <div class="bio-pull">
+      <p>"5년이 지났다. 그 사이 붙들고 있던 건 죽음, 우정, 그리고 어느새 멀어진 사람들에 대한 이야기."</p>
     </div>
 
-    <!-- Lyrics Detail Overlay -->
-    <div id="lyrics-overlay" class="fixed inset-0 z-[200] bg-indigo-deep max-w-md mx-auto overflow-y-auto hidden">
-        <div class="p-10 pt-16">
-            <button id="close-lyrics" class="flex items-center gap-2 text-antique-gold mb-12 text-[10px] font-bold tracking-[0.4em] uppercase">
-                <i data-lucide="arrow-left" class="w-4 h-4"></i> Close
-            </button>
-            <div class="mb-14 border-l-2 border-antique-gold pl-6">
-                <span id="lyrics-track-num" class="text-[11px] font-black text-[#B8860B]/50 uppercase tracking-[0.5em] mb-3 block">Track 001</span>
-                <h2 id="lyrics-track-title" class="text-4xl font-serif italic text-white leading-none tracking-tighter">Tractor Beam</h2>
-            </div>
-            <p id="lyrics-content" class="text-[17px] leading-[2.6] text-[#D4C4A8]/90 font-light italic font-serif whitespace-pre-wrap">
-                <!-- Lyrics will be injected here -->
-            </p>
-            <div class="mt-32 pt-10 border-t border-[#B8860B]/5 text-center opacity-20">
-                <div class="font-serif italic text-[10px] tracking-widest uppercase">Snail Mail — Ricochet</div>
-            </div>
-        </div>
-    </div>
+    <p><em>Ricochet</em>를 쓰는 동안 Jordan은 오랫동안 외면해온 것들에 집착하기 시작했다. 죽음, 그리고 그 이후에 대한 물음들. 11개의 트랙은 손가락 사이로 빠져나가는 삶에 대한 불안감으로 물들어 있으며, 동시에 깊이 사랑하는 것의 취약함에 관한 이야기이기도 하다. 결국 <em>Ricochet</em>는 — 내 작은 삶에 무슨 일이 일어나든, 세상은 계속 돌아간다는 것을 깨닫고 받아들이는 앨범이다.</p>
 
-    <!-- Firebase Scripts -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    <p>2021년 <em>Valentine</em>을 들고 전 세계를 투어하기 전, Jordan은 성대 폴립 제거 수술을 받았다. 집중적인 언어 치료를 마친 뒤 그녀는 보컬리스트로서 더 자신감을 갖게 됐다. 불확실성에 관한 앨범임에도 불구하고, <em>Ricochet</em>에서 Jordan은 자신의 목소리를 이전과 다른 방식으로 다룬다. 그녀는 Jane Schoenbrun 감독의 인디 호러 <em>I Saw the TV Glow</em>에 배우로 데뷔했고, 뉴욕을 떠나 노스캐롤라이나 그린즈버러 인근에 정착했다. 올해 26살, 복슬복슬한 흰 강아지 한 마리와 함께 살고 있다.</p>
 
-        // --- Data & State ---
-        const tracks = [
-            { id: 1, title: "Tractor Beam", lyrics: "Star fragments falling from her\nShe lays by the pool in the summer\nThe end was such a bummer\nVitriol and on and on\nI know you’ll miss me when I’m gone\n\nInto the night\nEndless as it might seem\nThe future looks so bright\nSkyward on a tractor beam\n\nStarlet your shine is dimming\nI guess we were doomed from the beginning\nOutside the world kept spinning\nMiles beyond what we could see\nSomething keeps on dragging me\n\nInto the night\nEndless as it might seem\nThe future looks so bright\nSkyward on a tractor beam\n\nAnd a sour taste is all I’ll be\nIn a bitter part of your memory\nYou can cast my letters to the sea\nBut you can’t find anyone else like me" },
-            { id: 2, title: "My Maker", lyrics: "I wanna fly a plane to heaven\nTarry at the airport bar\nProbably couldn’t even get in\nI know I’ve gone wrong\nLet’s restart\n\nAnother year gone by\nWhat if nothing matters?\nWaitin’ round to die\nTo see what happens after\nBattalions of angels marching from on high\nSay “above us, it’s just sky”\n\nTonight I’m gonna meet my maker\nCast a line in Spirit Lake\n[a] problem for the undertaker\nFrom the outset to the grave" },
-            { id: 3, title: "Light On Our Feet", lyrics: "Warm and alive\nWon’t let a day go by\nSo when it’s goodbye\nWe’ll be so light on our feet\n\nCarnival lights\nDancing around your eyes\nAnd higher than high\nWe’ll be so light on our feet\n\nAnother year older\nNo getting over you\nAnd I promise I’ll love you when\nOne day we won’t be around\nWe’ll find eachother anew\nWon’t let your feet touch the ground\nUp on the moon" },
-            { id: 4, title: "Cruise", lyrics: "Don’t need this vessel, don’t need this frame\nI wanna waste my whole life away\nSick with a rage that I can’t contain\nSweeter than candy in my veins\nAnd I can leave my body and float away\n\nAnd just for an instant\nThere’s nothing to lose\nForget our existence\nAnd we can just cruise\n\nWe’ll cruise…" },
-            { id: 5, title: "Agony Freak", lyrics: "We don’t need anyone\nSorrow and me\nKnockin’ em back like there’s nowhere to be\n\nSummoning something from out of the goo\nFeeling surrounded, feeling subdued\n\nI tried to feed it but it just wants more\nI can’t remember who I was before\nBeen trying to leave it, but I can’t\nSo, twist around me, Agony Freak" },
-            { id: 6, title: "Dead End", lyrics: "Woke up thinking about you\nTried calling, but I couldn’t get through\nI guess we’ve got our own shit to do\nBut these days I don’t recognize you\n\nCouldn’t ever be the same\nTo be loved is to be changed\nI don’t need other people around\nNobody’s gonna get me down\n\nAnd the sound of your name\nBrings down the perennial rain\nI can feel it coming down\nAnd I can’t stop thinking about\n\nHours we’d spend\nParked at the dead end\nYou’re burned in my heart old friend\nTell me, can’t you even look me in my eyes?" },
-            { id: 7, title: "Butterfly", lyrics: "Butterfly,\nI wanna keep you trapped inside a jar\nTo be near you\n\nAnd the suit is just another grifter with a card\nTo revere you\n\nI won’t let them pluck your wings\nSuck the life from everything\nCrystalized and on display\nI can take the pain away" },
-            { id: 8, title: "Nowhere", lyrics: "Speeding around\nLife is a race\nSo much potential out there\nAlways gonna be someone to take your place\n\nI know a way out\nNobody can know\nThe junction of sleeping and being in limbo\nAnd when I get back there,\nThe crater from my dream,\nI’m going nowhere\nYou’ll never catch me" },
-            { id: 9, title: "Hell", lyrics: "I wanna be decent\nEven if nothing else\nI wanna be decent\nOh, bouncer in the sky\nLet me in, I’m scared to die\n\nNobody else decides the way we\nScurry around this hell\nYou’re coming to find the difference, baby,\nIs I can live with myself" },
-            { id: 10, title: "Ricochet", lyrics: "My renegade\nCan’t stand the way\nI just bounce right off ya,\nRicochet\n\nCan’t let you go,\nSo I rearrange,\n‘Cus there ain’t no dancing around it\nYou have changed\nIf there’s nothing after\nWe can do whatever we want" },
-            { id: 11, title: "Reverie", lyrics: "VIP coming though\nLook alive, I think we’re supposed to move\nLet’s clear a path ‘cus he’s important\n\nBut I could do it all the time with you\nLife is so worth living now\nAnd from our caste in the clouds,\nThe planet looks so small\nBig shot! Who cares?\nIf loved is all we’ll ever be,\nThen we’ll bask in our reverie" },
-        ];
+    <p>앨범은 친구이자 퍼지 인디록 밴드 Momma의 베이시스트·프로듀서인 <strong>Aron Kobayashi Ritch</strong>와 함께 만들었다. R.E.M.의 프로듀서 Mitch Easter가 소유한 노스캐롤라이나의 Fidelitorium Recordings, 그리고 브루클린의 the Nightfly·Studio G에서 2025년 겨울 녹음했다. Jordan은 이 과정을 "동등한 목소리로 대화하는 느낌"이었다고 표현했다.</p>
 
-        const quizQuestions = [
-            { q: "린지 조던이 'Ricochet'을 완성하기까지 걸린 침묵의 시간은?", a: ["1년", "3년", "5년"], correct: 2 },
-            { q: "가사 중 'abomination, Agony Freak'이 등장하는 곡은?", a: ["Butterfly", "Agony Freak", "Nowhere"], correct: 1 },
-            { q: "이번 파티가 열리는 서울의 상징적인 장소는?", a: ["김밥레코즈", "벨로주", "뮤직라이브러리"], correct: 0 },
-        ];
+    <p>사운드적으로 <em>Ricochet</em>는 Snail Mail 디스코그래피의 자연스러운 다음 걸음이다. 2018년 데뷔작 <em>Lush</em>의 절제된 기타와 <em>Valentine</em>의 날것의 록 에너지 위에, Smashing Pumpkins의 가장 밝은 순간과 Radiohead의 브릿팝 시절, Catherine Wheel의 슈게이징, Ivy의 파워팝, Sunny Day Real Estate의 이모를 한데 녹여낸다.</p>
 
-        let currentQuestion = 0;
-        let score = 0;
-        let user = null;
+    <p>앨범 커버에는 처음으로 Jordan의 얼굴이 없다. 대신 깊고 거친 블루 배경 위로 나선형 껍데기가 가득 찬다. 나선은 동시에 두 방향으로 움직인다. 안으로 감길수록 소멸에 가까워지고, 밖으로 열릴수록 무한의 가능성이 펼쳐진다.</p>
+  </div>
+</section>
 
-        // --- Firebase Init ---
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'snail-mail-ricochet-seoul-final';
+<section class="content-section fade-in">
+  <div class="eyebrow">Tracklist</div>
+  <h2 class="section-title">Ricochet</h2>
+  <div class="tracks" id="tracklist"></div>
+</section>
 
-        const initAuth = async () => {
-            if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                await signInWithCustomToken(auth, __initial_auth_token);
-            } else {
-                await signInAnonymously(auth);
-            }
-        };
+<section class="content-section fade-in">
+  <div class="eyebrow">사인 엽서 추첨</div>
+  <h2 class="section-title">Ricochet Quiz</h2>
+  <p class="quiz-intro-desc">Snail Mail을 얼마나 알고 있나요?<br>높은 점수를 받으면 오늘 밤 사인 엽서 추첨 기회가 주어집니다.</p>
+  <div class="quiz-card">
+    <div class="quiz-progress" id="quizProgress"></div>
+    <div id="quizBody"></div>
+  </div>
+</section>
 
-        onAuthStateChanged(auth, (u) => {
-            user = u;
-        });
+<footer class="footer">
+  Snail Mail · <em>Ricochet</em> · March 27, 2026
+</footer>
 
-        initAuth();
+<div class="modal-overlay" id="lyricsModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">닫기 ✕</button>
+    <div class="modal-track-num" id="modalTrackNum"></div>
+    <h2 class="modal-title" id="modalTitle"></h2>
+    <div class="modal-lyrics" id="modalLyrics"></div>
+  </div>
+</div>
 
-        // --- UI Rendering ---
-        const renderTracks = () => {
-            const trackList = document.getElementById('track-list');
-            trackList.innerHTML = tracks.map(track => `
-                <div class="w-full flex items-center justify-between py-8 border-b border-[#B8860B]/10 group transition-all">
-                    <div class="flex items-baseline gap-6">
-                        <span class="text-[11px] font-bold text-antique-gold opacity-40 group-hover:opacity-100 transition-opacity tracking-tighter">0${track.id < 10 ? '0' + track.id : track.id}</span>
-                        <span class="text-xl font-serif italic text-[#D4C4A8]/80 group-hover:text-white transition-all tracking-tight">${track.title}</span>
-                    </div>
-                    <button class="lyrics-btn px-4 py-2 border border-[#B8860B]/30 text-antique-gold text-[9px] font-black uppercase tracking-[0.2em] hover:bg-antique-gold hover:text-[#0E1626] transition-all rounded-sm" data-id="${track.id}">
-                        Lyrics
-                    </button>
-                </div>
-            `).join('');
+<script>
+const tracks = [
+  { title: "Tractor Beam", lyrics: `Star fragments falling from her\nShe lays by the pool in the summer\nThe end was such a bummer\nVitriol and on and on\nI know you'll miss me when I'm gone\n\nInto the night\nEndless as it might seem\nThe future looks so bright\nSkyward on a tractor beam\n\nStarlet your shine is dimming\nI guess we were doomed from the beginning\nOutside the world kept spinning\nMiles beyond what we could see\nSomething keeps on dragging me\n\nInto the night\nEndless as it might seem\nThe future looks so bright\nSkyward on a tractor beam\n\nAnd a sour taste is all I'll be\nIn a bitter part of your memory\nYou can cast my letters to the sea\nBut you can't find anyone else like me` },
+  { title: "My Maker", lyrics: `I wanna fly a plane to heaven\nTarry at the airport bar\nProbably couldn't even get in\nI know I've gone wrong\nLet's restart\n\nAnother year gone by\nWhat if nothing matters?\nWaitin' round to die\nTo see what happens after\n\nBattalions of angels marching from on high\nSay "above us, it's just sky"\n\nTonight I'm gonna meet my maker\nCast a line in Spirit Lake\nA problem for the undertaker\nFrom the outset to the grave\n\nAnother year gone by\nWhat if nothing matters?\nWaitin' round to die\nTo see what happens after\n\nBattalions of angels marching from on high\nSay "above us, it's just sky"` },
+  { title: "Light On Our Feet", lyrics: `Warm and alive\nWon't let a day go by\nSo when it's goodbye\nWe'll be so light on our feet\n\nCarnival lights\nDancing around your eyes\nAnd higher than high\nWe'll be so light on our feet\n\nAnother year older\nNo getting over you\nAnd I promise I'll love you when\nOne day we won't be around\nWe'll find each other anew\nWon't let your feet touch the ground\n\nUp on the moon\nDrunken sublime\nMemories we can't keep\nIt's never enough time\nWe're always falling asleep\n\nAnother year older\nNo getting over you\nAnd I promise I'll love you when\nOne day we won't be around\nWe'll find each other anew\nWon't let your feet touch the ground\n\nUp on the moon\nPirouetting into me\nBallerina in a dream\nFantasy is pulling at the seams\nBut we'll be so light on our feet\nWe'll be so light on our feet\nWe'll be so light on our feet\nUp on the moon` },
+  { title: "Cruise", lyrics: `Don't need this vessel, don't need this frame\nI wanna waste my whole life away\nSick with a rage that I can't contain\nSweeter than candy in my veins\n\nAnd I can leave my body and float away\nAnd just for an instant\nThere's nothing to lose\nForget our existence\nAnd we can just cruise\n\nFireworks going off from above\nLit up the sky like lightning bugs\nFelt so alive then, I can't explain\nCouldn't wait to get home and hide my face\nCouldn't wait to get home and slip away\n\nAnd just for an instant\nThere's nothing to lose\nForget our existence\nAnd we can just cruise\n\nWe'll cruise…` },
+  { title: "Agony Freak", lyrics: `We don't need anyone\nSorrow and me\nKnockin' em back like there's nowhere to be\nSummoning something from out of the goo\nFeeling surrounded, feeling subdued\n\nI tried to feed it but it just wants more\nI can't remember who I was before\nBeen trying to leave it, but I can't\nSo, twist around me, Agony Freak\n\nTook in the monster we dragged from the creek\nMy abomination, Agony Freak\nWouldn't be long before the feeling set in\nThat it was taking me over, wearing my skin\n\nI tried to feed it but it just wants more\nI can't remember who I was before\nBeen trying to leave it, but I can't\nSo, twist around me, Agony Freak\n\nYou should get out while you can, girl\nCutting with a dull knife\nYou won't make it out of my world\nAnd you've got your whole life\n\nI tried to feed it but it just wants more\nI can't remember who I was before\nBeen trying to leave it, but I can't\nSo, twist around me, Agony Freak` },
+  { title: "Dead End", lyrics: `Woke up thinking about you\nTried calling, but I couldn't get through\nGuess we've got our own shit to do\nBut these days I don't recognize you\n\nCouldn't ever be the same\nTo be loved is to be changed\nI don't need other people around\nNobody's gonna get me down\n\nAnd the sound of your name\nBrings down the perennial rain\nI can feel it coming down\nAnd I can't stop thinking about\nHours we'd spend\nParked at the dead end\nYou're burned in my heart old friend\n\nTell me, can't you even look me in my eyes?\n(what a waste)\nTell me, can't you even look me in my eyes?\n\nI don't need you anyhow\nThere's more room on the basement couch\nNowadays I don't even come down\nNobody's gonna stop me now\n\nAnd I think I should be blunt\nYou can do whatever you want\nI hope you get the life you want\nI really hope you get the life you want\n\nThe sunlight rocks me to oblivion\nYou know, you make me feel so used\nDo you ever wonder where I've been?\nCus' I still wonder about you\nYea, and I do` },
+  { title: "Butterfly", lyrics: `Butterfly,\nI wanna keep you trapped inside a jar\nTo be near you\nAnd the suit is just another grifter with a card\nTo revere you\n\nI won't let them pluck your wings\nSuck the life from everything\nCrystalized and on display\nI can take the pain away\n\nYou should know\nYou're so much more than a souvenir\nTo remind you where you've been\nAnd all the money spent commemorating what's behind you\n\nI won't let them pluck your wings\nSuck the life from everything\nCrystalized and on display\nI can take the pain away\n\nYou want a trip?\nYou want a quick vacation?\nI saw you sneaking undercover\nTaking something then another\nJust to feel alive\n\nAnd you are` },
+  { title: "Nowhere", lyrics: `Speeding around\nLife is a race\nSo much potential out there\nAlways gonna be someone to take your place\n\nNumb myself out\nWhat else should we do?\nYou covered me all in kisses\nI said I couldn't feel it, but I wanted to\n\nI know a way out\nNobody can know\nThe junction of sleeping and being in limbo\n\nAnd when I get back there,\nThe crater from my dream,\nI'm going nowhere\nYou'll never catch me\n\nTwo headed fox\nCovered in snow\nThe gentle stuff just kills me\nGotta be a place for all the good to go\n\nI know a way out\nNobody can know\nThe junction of sleeping and limbo\n\nAnd when I get back there,\nThe crater from my dream,\nI'm going nowhere\nYou'll never catch me\n\nDamn, the sky's so clear tonight\nLike a hot bath waiting on the other side\nJust begging me to slip beneath\nGot a one way ticket in between my teeth\n\nAnd I could've sworn I heard a lullaby,\nBeckoning me over to the other side\n\nI know a way out,\nNobody can know\nThe junction of sleeping and being in limbo\n\nAnd when I get back there,\nThe crater from my dream,\nI'm going nowhere\nYou'll never catch me\n\nEverything's melting\nDissolving around me\nI feel like a shadow,\nI feel like a dead beast\n\nAnd when I get back there,\nThe crater from my dream,\nI'm going nowhere,\nYou'll never catch me` },
+  { title: "Hell", lyrics: `I wanna be decent\nEven if nothing else\nI wanna be decent\n\nOh, bouncer in the sky\nLet me in, I'm scared to die\n\nYou'll hold yourself hostage,\nKeeping your secrets straight\nI know you're exhausted,\nBut you can't count yourself to sleep\n2,300 sheep\n\nNobody else decides the way we\nScurry around this hell\nYou're coming to find the difference, baby,\nIs I can live with myself\n\nLooks like you made it\nSomebody would be so proud,\nBut you isolated\nAlienate your friends\n'Cus they're just a means to an end\n\nNobody else decides the way we\nScurry around this hell\nYou're coming to find the difference, baby,\nIs I can live with myself\n\nAre you wasted?\nBeing on your own\nToo busy getting faded\nThat's why you can't pick up the phone\n\nI know there's no going back now\nI think I'd still do it over\n\nNobody else decides the way we\nScurry around this hell\nYou're coming to find the difference, baby,\nIs I can live with myself` },
+  { title: "Ricochet", lyrics: `My renegade\nCan't stand the way\nI just bounce right off ya,\nRicochet\n\nCan't let you go,\nSo I rearrange,\n'Cus there ain't no dancing around it\nYou have changed\n\nIf there's nothing after\nWe can do whatever we want\nYou can't stop now\n\nMy little cliché\n'Til you've sold out\nAll over LA\n\nNo matter what\nOh come what may\nI bounce right back to ya,\nRicochet\n\nInto the hole\nThat you dug for me\n'Cus I can't keep holding you up, girl,\nThere's no release\n\nAnd if nothing matters\nWe can do whatever we want\nYou can't stop now,\nMy little cliché,\n'Til you've sold out\nAll over LA\n\nYou know, I'd hoped life would screw ya\nBut on the train,\nI heard somebody singing "hallelujah"\n"Hallelujah, I'm alive"` },
+  { title: "Reverie", lyrics: `VIP coming though\nLook alive, I think we're supposed to move\nLet's clear a path 'cus he's important\nIt's clear tonight's about the cash\n\nMet a guy so far up his own ass\nI gotta laugh to keep from crying…\n\nBut I could do it all the time with you\nLife is so worth living now\nAnd from our caste in the clouds,\nThe planet looks so small\n\nBig shot! Who cares?\nIf loved is all we'll ever be,\nThen we'll bask in our reverie\nWith hands up in the air\n\nGive it days\nHe's gonna crash\nPlaying rockstar with his daddy's cash\nI know I'm wrong to wish him death…\n\nBut I could do it all the time with you\nLife is so worth living now\nAnd from our caste in the clouds,\nThe planet looks so small\n\nBig shot! Who cares?\nIf loved is all we'll ever be,\nThen we'll bask in our reverie\nWith hands up in the air\n\nThese soulless zombies\nAre gonna hang you out to dry\nI already know they ain't got nothing on me\nNothing over you and I\n\nOlder, now I've realized\nAll my heroes are nothing more than socialites\nFuck them too\n\nBut you're a lighthouse\nIn my cold, stormy life\nAnd I could do it all the time` }
+];
 
-            document.querySelectorAll('.lyrics-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const trackId = parseInt(e.target.dataset.id);
-                    const track = tracks.find(t => t.id === trackId);
-                    showLyrics(track);
-                });
-            });
-        };
+const tracklistEl = document.getElementById('tracklist');
+tracks.forEach((t, i) => {
+  const row = document.createElement('div');
+  row.className = 'track-row';
+  row.innerHTML = `<span class="track-num">${String(i+1).padStart(2,'0')}</span><span class="track-name">${t.title}</span><button class="lyrics-btn" onclick="openModal(${i})">가사</button>`;
+  tracklistEl.appendChild(row);
+});
 
-        const showLyrics = (track) => {
-            document.getElementById('lyrics-track-num').innerText = `Track 0${track.id < 10 ? '0' + track.id : track.id}`;
-            document.getElementById('lyrics-track-title').innerText = track.title;
-            document.getElementById('lyrics-content').innerText = track.lyrics;
-            document.getElementById('lyrics-overlay').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        };
+function openModal(idx) {
+  const t = tracks[idx];
+  document.getElementById('modalTrackNum').textContent = `Track ${String(idx+1).padStart(2,'0')}`;
+  document.getElementById('modalTitle').textContent = t.title;
+  document.getElementById('modalLyrics').textContent = t.lyrics;
+  document.getElementById('lyricsModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
 
-        document.getElementById('close-lyrics').addEventListener('click', () => {
-            document.getElementById('lyrics-overlay').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        });
+function closeModal() {
+  document.getElementById('lyricsModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
 
-        // --- Quiz Logic ---
-        const renderQuiz = (step) => {
-            const container = document.getElementById('quiz-container');
-            if (step === 'start') {
-                container.innerHTML = `
-                    <div class="space-y-12 text-center border border-[#B8860B]/20 p-10 py-20 bg-[#1A2A44]/10 backdrop-blur-sm relative">
-                        <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#B8860B]/40 to-transparent"></div>
-                        <div class="w-16 h-16 border border-[#B8860B]/20 rounded-full flex items-center justify-center mx-auto opacity-40">
-                            <i data-lucide="minus" class="text-antique-gold rotate-45 w-6 h-6"></i>
-                        </div>
-                        <div class="space-y-4">
-                            <h2 class="text-3xl font-serif italic text-white leading-none tracking-tight uppercase tracking-widest">The Offering</h2>
-                            <p class="text-[12px] leading-[2.4] text-[#D4C4A8]/60 tracking-widest font-light px-4">
-                                음악과 깊게 공명하셨나요?<br />
-                                퀴즈를 통해 당신의 흔적을 남겨주세요.<br />
-                                공명한 <strong>4분에게</strong> 마음을 전합니다.
-                            </p>
-                        </div>
-                        <button id="start-quiz-btn" class="w-full py-5 border border-antique-gold text-antique-gold text-[11px] font-bold uppercase tracking-[0.4em] hover:bg-antique-gold hover:text-[#0E1626] transition-all">
-                            Begin the Ritual
-                        </button>
-                    </div>
-                `;
-                document.getElementById('start-quiz-btn').addEventListener('click', () => {
-                    currentQuestion = 0;
-                    score = 0;
-                    renderQuiz('playing');
-                });
-            } else if (step === 'playing') {
-                const q = quizQuestions[currentQuestion];
-                container.innerHTML = `
-                    <div class="space-y-12 animate-in fade-in">
-                        <div class="flex justify-between items-center border-b border-[#B8860B]/10 pb-6 font-mono">
-                            <span class="text-[9px] font-black text-antique-gold uppercase tracking-[0.4em]">Section 0${currentQuestion + 1}</span>
-                        </div>
-                        <h3 class="text-2xl font-serif italic text-white leading-snug tracking-tighter">${q.q}</h3>
-                        <div class="space-y-4 pt-4">
-                            ${q.a.map((opt, i) => `
-                                <button class="answer-btn w-full p-6 text-left border border-[#B8860B]/10 bg-[#1A2A44]/10 text-[13px] font-medium text-[#D4C4A8]/80 hover:border-antique-gold hover:text-white transition-all" data-idx="${i}">
-                                    ${opt}
-                                </button>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-                document.querySelectorAll('.answer-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const idx = parseInt(e.target.dataset.idx);
-                        if (idx === q.correct) score++;
-                        if (currentQuestion < quizQuestions.length - 1) {
-                            currentQuestion++;
-                            renderQuiz('playing');
-                        } else {
-                            renderQuiz('form');
-                        }
-                    });
-                });
-            } else if (step === 'form') {
-                container.innerHTML = `
-                    <div class="space-y-10 animate-in fade-in text-center">
-                        <div class="space-y-2">
-                            <h2 class="text-5xl font-serif italic text-antique-gold leading-none tracking-tighter">${score} / 3</h2>
-                            <p class="text-[9px] uppercase tracking-[0.3em] text-[#D4C4A8]/40 font-bold">Resonance Level</p>
-                        </div>
-                        <div class="space-y-6 pt-4 text-left">
-                            <input id="form-name" type="text" placeholder="NAME" class="w-full p-5 bg-transparent border-b border-[#B8860B]/20 focus:border-antique-gold outline-none transition-all text-sm font-light text-white placeholder:text-white/10">
-                            <input id="form-phone" type="tel" placeholder="CONTACT" class="w-full p-5 bg-transparent border-b border-[#B8860B]/20 focus:border-antique-gold outline-none transition-all text-sm font-light text-white placeholder:text-white/10">
-                            <button id="submit-quiz-btn" class="w-full py-6 bg-antique-gold text-[#0E1626] font-bold uppercase tracking-[0.3em] text-[11px]">
-                                Complete Offering
-                            </button>
-                        </div>
-                    </div>
-                `;
-                document.getElementById('submit-quiz-btn').addEventListener('click', async () => {
-                    const name = document.getElementById('form-name').value;
-                    const phone = document.getElementById('form-phone').value;
-                    if (!name || !phone || !user) return;
-                    
-                    document.getElementById('submit-quiz-btn').innerText = "Recording...";
-                    document.getElementById('submit-quiz-btn').disabled = true;
+document.getElementById('lyricsModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-                    try {
-                        await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'quiz_results'), {
-                            userId: user.uid,
-                            name,
-                            phone,
-                            score,
-                            timestamp: new Date().toISOString()
-                        });
-                        renderQuiz('completed');
-                    } catch (e) {
-                        console.error(e);
-                        document.getElementById('submit-quiz-btn').innerText = "Error. Retry?";
-                        document.getElementById('submit-quiz-btn').disabled = false;
-                    }
-                });
-            } else if (step === 'completed') {
-                container.innerHTML = `
-                    <div class="text-center space-y-10 border border-[#B8860B]/20 p-10 py-20 bg-[#1A2A44]/5 animate-in zoom-in-95">
-                        <div class="text-4xl opacity-50">🐚</div>
-                        <h2 class="text-3xl font-serif italic text-antique-gold tracking-tighter leading-tight">기록이 <br/>심해에 닿았습니다.</h2>
-                        <p class="text-[12px] text-[#D4C4A8]/50 leading-[2.2] tracking-widest font-light px-4">
-                            정성껏 응모해주셔서 감사합니다.<br />
-                            추첨 결과는 개별적으로 <br/>정중히 안내드리겠습니다.
-                        </p>
-                        <button id="reset-quiz-btn" class="text-[9px] font-black uppercase tracking-[0.5em] text-antique-gold border-b border-[#B8860B]/30 pb-1">Return</button>
-                    </div>
-                `;
-                document.getElementById('reset-quiz-btn').addEventListener('click', () => renderQuiz('start'));
-            }
-            lucide.createIcons();
-        };
+const questions = [
+  { q: "Snail Mail의 본명은?", opts: ["Lindsey Jordan", "Gracie Abrams", "Phoebe Bridgers", "Lucy Dacus"], ans: 0, fact: "Lindsey Jordan은 메릴랜드 출신으로, 10대 때부터 음악을 시작했습니다." },
+  { q: "Ricochet는 Snail Mail의 몇 번째 정규 앨범인가요?", opts: ["첫 번째", "두 번째", "세 번째", "네 번째"], ans: 2, fact: "2018년 Lush, 2021년 Valentine에 이은 세 번째 앨범입니다." },
+  { q: "Snail Mail의 데뷔 앨범 제목은?", opts: ["Habit", "Lush", "Valentine", "Mess"], ans: 1, fact: "Lush는 2018년 Matador Records를 통해 발매되었습니다." },
+  { q: "Lindsey Jordan이 출연한 영화는?", opts: ["Bottoms", "I Saw the TV Glow", "Drive-Away Dolls", "Beau Is Afraid"], ans: 1, fact: "Jane Schoenbrun 감독의 인디 호러 I Saw the TV Glow에 출연했습니다." },
+  { q: "Ricochet 앨범 커버에 담긴 이미지는?", opts: ["Lindsey의 얼굴", "뉴욕 거리", "나선형 껍데기", "별이 가득한 하늘"], ans: 2, fact: "이번 앨범은 Snail Mail 최초로 커버에 Lindsey의 얼굴이 없습니다. 딥블루 배경의 나선형 껍데기가 담겨 있습니다." },
+  { q: "Ricochet를 함께 프로듀싱한 사람은?", opts: ["Alex Luciano", "Aron Kobayashi Ritch", "Mitch Easter", "Justin Raisen"], ans: 1, fact: "인디록 밴드 Momma의 베이시스트·프로듀서 Aron Kobayashi Ritch와 함께 작업했습니다." },
+  { q: "\"Nowhere\"의 가사에 영감을 준 시와 시인은?", opts: ["Sylvia Plath — Lady Lazarus", "Laura Gilpin — The Two-Headed Calf", "Ocean Vuong — Someday I'll Love", "Mary Oliver — Wild Geese"], ans: 1, fact: "Laura Gilpin의 1977년 시 The Two-Headed Calf에서 영감을 받았습니다." },
+  { q: "Ricochet 녹음에 사용된 스튜디오가 아닌 곳은?", opts: ["Fidelitorium Recordings (NC)", "the Nightfly (Brooklyn)", "Electric Lady Studios (NY)", "Studio G (Brooklyn)"], ans: 2, fact: "Fidelitorium Recordings, the Nightfly, Studio G 세 곳에서 녹음했습니다." }
+];
 
-        // --- Init ---
-        window.onload = () => {
-            renderTracks();
-            renderQuiz('start');
-            lucide.createIcons();
-        };
-    </script>
+let currentQ = 0, score = 0, answered = false;
+
+function renderProgress() {
+  document.getElementById('quizProgress').innerHTML = questions.map((_,i) =>
+    `<div class="progress-dot ${i < currentQ ? 'done' : i === currentQ ? 'active' : ''}"></div>`
+  ).join('');
+}
+
+function renderQuestion() {
+  answered = false;
+  const q = questions[currentQ];
+  document.getElementById('quizBody').innerHTML = `
+    <div class="quiz-q-num">Question ${currentQ + 1} / ${questions.length}</div>
+    <div class="quiz-question">${q.q}</div>
+    <div class="quiz-options">${q.opts.map((o,i) => `<button class="quiz-option" onclick="selectAnswer(${i})">${o}</button>`).join('')}</div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+    <button class="quiz-next-btn" id="quizNext" onclick="nextQuestion()">${currentQ < questions.length - 1 ? '다음 →' : '결과 보기'}</button>
+  `;
+  renderProgress();
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[currentQ];
+  document.querySelectorAll('.quiz-option').forEach((o,i) => {
+    o.classList.add('disabled');
+    if (i === q.ans) o.classList.add('correct');
+    else if (i === idx && idx !== q.ans) o.classList.add('wrong');
+  });
+  if (idx === q.ans) { score++; document.getElementById('quizFeedback').className = 'quiz-feedback correct-msg'; document.getElementById('quizFeedback').textContent = `✓ 정답 — ${q.fact}`; }
+  else { document.getElementById('quizFeedback').className = 'quiz-feedback wrong-msg'; document.getElementById('quizFeedback').textContent = `✗ 오답 — ${q.fact}`; }
+  document.getElementById('quizNext').style.display = 'block';
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ >= questions.length) showResult();
+  else renderQuestion();
+}
+
+function showResult() {
+  const pct = Math.round((score / questions.length) * 100);
+  let msg, badge;
+  if (pct >= 88)      { msg = "완벽합니다. 오늘 밤 사인 엽서는 당신의 것."; badge = "🐌 True Snail Mail Stan"; }
+  else if (pct >= 62) { msg = "꽤 잘 알고 있네요. Ricochet와 함께 더 깊이 빠져들 준비가 됐습니다."; badge = "🌙 Tractor Beam에 올라탄 사람"; }
+  else                { msg = "처음이라도 괜찮아요. 오늘 밤이 시작입니다."; badge = "🌀 Ricochet 입문자"; }
+  document.getElementById('quizBody').innerHTML = `
+    <div class="quiz-result">
+      <div class="result-score">${score}<span style="font-size:38px;color:var(--muted);"> / ${questions.length}</span></div>
+      <div class="result-label">${pct}% 정답률</div>
+      <div class="result-msg">${msg}</div>
+      <div class="result-badge">${badge}</div><br>
+      <button class="quiz-restart" onclick="restartQuiz()">다시 도전하기</button>
+    </div>`;
+  renderProgress();
+}
+
+function restartQuiz() { currentQ = 0; score = 0; renderQuestion(); }
+renderQuestion();
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.07 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
