@@ -242,19 +242,18 @@ body::before {
 .lyrics-btn {
   font-size: 11px;
   color: var(--muted);
-  opacity: 0;
+  opacity: 0.45;
   border: none;
   padding: 0;
   cursor: pointer;
   background: transparent;
   font-family: var(--f);
-  transition: opacity 0.15s ease, color 0.15s ease;
+  transition: color 0.15s ease, opacity 0.15s ease;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
-.track-row:hover .lyrics-btn { opacity: 1; }
-.lyrics-btn:hover { color: var(--gold); }
+.lyrics-btn:hover { color: var(--gold); opacity: 1; }
 
 
 /* ── PREORDER ── */
@@ -854,7 +853,7 @@ const tracklistEl = document.getElementById('tracklist');
 tracks.forEach((t, i) => {
   const row = document.createElement('div');
   row.className = 'track-row';
-  row.innerHTML = `<span class="track-num">${i+1}</span><span class="track-name">${t.title}</span><button class="lyrics-btn" onclick="openModal(${i})">가사 보기</button>`;
+  row.innerHTML = `<span class="track-num">${i+1}</span><span class="track-name">${t.title}</span><button class="lyrics-btn" onclick="openModal(${i})">Lyrics</button>`;
   tracklistEl.appendChild(row);
 });
 
