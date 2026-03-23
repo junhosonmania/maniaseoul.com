@@ -256,6 +256,61 @@ body::before {
 .track-row:hover .lyrics-btn { opacity: 1; }
 .lyrics-btn:hover { color: var(--gold); }
 
+
+/* ── PREORDER ── */
+.preorder-section { padding-bottom: 56px; }
+
+.preorder-items {
+  display: flex;
+  flex-direction: column;
+}
+
+.preorder-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  text-decoration: none;
+  transition: border-color 0.18s;
+}
+
+.preorder-item:first-child { border-top: 1px solid rgba(255,255,255,0.05); }
+.preorder-item:hover { border-bottom-color: rgba(201,168,76,0.2); }
+.preorder-item:hover .preorder-format { color: var(--cream); }
+.preorder-item:hover .preorder-arrow  { color: var(--gold); opacity: 1; }
+
+.preorder-format {
+  font-size: 18px;
+  color: var(--text);
+  transition: color 0.18s;
+  flex: 1;
+}
+
+.preorder-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.6;
+  border: 1px solid rgba(201,168,76,0.25);
+  padding: 3px 8px;
+}
+
+.preorder-arrow {
+  font-size: 16px;
+  color: var(--muted);
+  opacity: 0.4;
+  transition: color 0.18s, opacity 0.18s;
+}
+
+.preorder-note {
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--muted);
+  opacity: 0.5;
+}
+
 /* ── QUIZ ── */
 .quiz-intro-desc {
   font-size: 15px;
@@ -671,6 +726,26 @@ body::before {
     <div class="scroll-line"></div>
     <span>Scroll</span>
   </div>
+</section>
+
+<section class="content-section preorder-section fade-in">
+  <div class="eyebrow">Pre-order</div>
+  <div class="preorder-items">
+    <a class="preorder-item" href="https://gimbabrecords.com/product/snail-mail-ricochet-cd-%EC%98%88%EC%95%BD%EC%83%81%ED%92%88-3%EC%9B%94-27%EC%9D%BC-%EC%9D%B4%ED%9B%84-%EB%B0%B0%EC%86%A1-%EC%98%88%EC%A0%95/31261/category/70/display/1/" target="_blank">
+      <span class="preorder-format">CD</span>
+      <span class="preorder-arrow">↗</span>
+    </a>
+    <a class="preorder-item" href="https://gimbabrecords.com/product/snail-mail-ricochet-indi-exclusive-red-vinyl-%EC%98%88%EC%95%BD%EC%83%81%ED%92%88-3%EC%9B%94-27%EC%9D%BC-%EC%9D%B4%ED%9B%84-%EB%B0%B0%EC%86%A1-%EC%98%88%EC%A0%95/31260/category/70/display/1/" target="_blank">
+      <span class="preorder-format">Red Vinyl</span>
+      <span class="preorder-label">Indie Exclusive</span>
+      <span class="preorder-arrow">↗</span>
+    </a>
+    <a class="preorder-item" href="https://gimbabrecords.com/product/snail-mail-ricochet-standard-black-vinyl-%EC%98%88%EC%95%BD%EC%83%81%ED%92%88-3%EC%9B%94-27%EC%9D%BC-%EC%9D%B4%ED%9B%84-%EB%B0%B0%EC%86%A1-%EC%98%88%EC%A0%95/31259/category/70/display/1/" target="_blank">
+      <span class="preorder-format">Black Vinyl</span>
+      <span class="preorder-arrow">↗</span>
+    </a>
+  </div>
+  <p class="preorder-note">3월 27일 이후 배송 예정 · 김밥레코즈</p>
 </section>
 
 <section class="content-section fade-in">
