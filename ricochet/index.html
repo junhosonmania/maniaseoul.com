@@ -17,8 +17,8 @@
   --gold: #c9a84c;
   --gold-light: #e4c47a;
   --cream: #f0e8d5;
-  --muted: #7a8fa8;
-  --text: #c8bfae;
+  --muted: #8fa4bc;
+  --text: #ddd5c4;
   --f: 'KbizHanmaumMyungjo', serif;
 }
 
@@ -166,29 +166,29 @@ body::before {
   text-transform: uppercase;
   color: var(--gold);
   opacity: 0.7;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 /* ── BIO ── */
 .bio-text {
   font-size: 17px;
-  line-height: 1.85;
+  line-height: 2.1;
   color: var(--text);
 }
 
-.bio-text p + p { margin-top: 22px; }
+.bio-text p + p { margin-top: 28px; }
 .bio-text strong { color: var(--cream); }
 .bio-text em { color: var(--gold-light); font-style: normal; }
 
 .bio-pull {
-  margin: 40px 0;
-  padding-left: 20px;
-  border-left: 1px solid rgba(201,168,76,0.28);
+  margin: 44px 0;
+  padding-left: 24px;
+  border-left: 1px solid rgba(201,168,76,0.3);
 }
 
 .bio-pull p {
-  font-size: 22px;
-  line-height: 1.5;
+  font-size: 21px;
+  line-height: 1.65;
   color: var(--cream);
 }
 
@@ -212,8 +212,8 @@ body::before {
   display: flex;
   align-items: baseline;
   gap: 0;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
   cursor: default;
   position: relative;
 }
@@ -224,17 +224,17 @@ body::before {
 .track-num {
   font-size: 11px;
   color: var(--muted);
-  opacity: 0.4;
+  opacity: 0.55;
   width: 28px;
   flex-shrink: 0;
   transition: color 0.2s, opacity 0.2s;
-  padding-top: 2px;
+  padding-top: 3px;
 }
 
 .track-name {
   flex: 1;
-  font-size: 19px;
-  color: var(--text);
+  font-size: 18px;
+  color: var(--cream);
   transition: color 0.2s;
   line-height: 1.2;
 }
@@ -242,7 +242,7 @@ body::before {
 .lyrics-btn {
   font-size: 11px;
   color: var(--muted);
-  opacity: 0.45;
+  opacity: 0.6;
   border: none;
   padding: 0;
   cursor: pointer;
@@ -359,9 +359,9 @@ body::before {
 }
 
 .quiz-question {
-  font-size: 20px;
+  font-size: 19px;
   color: var(--cream);
-  line-height: 1.4;
+  line-height: 1.55;
   margin-bottom: 28px;
   min-height: 56px;
 }
@@ -373,8 +373,8 @@ body::before {
 }
 
 .quiz-option {
-  padding: 13px 16px;
-  border: 1px solid rgba(255,255,255,0.07);
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,0.09);
   background: transparent;
   color: var(--text);
   font-family: var(--f);
@@ -382,7 +382,7 @@ body::before {
   cursor: pointer;
   text-align: left;
   transition: border-color 0.18s, color 0.18s, background 0.18s;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .quiz-option:hover {
@@ -400,7 +400,7 @@ body::before {
   font-size: 14px;
   color: var(--muted);
   min-height: 20px;
-  line-height: 1.55;
+  line-height: 1.7;
 }
 
 .quiz-feedback.correct-msg { color: #7ec49a; }
@@ -599,14 +599,14 @@ body::before {
 }
 
 .press-headline {
-  font-size: 22px;
+  font-size: 21px;
   color: var(--cream);
-  line-height: 1.3;
+  line-height: 1.4;
 }
 
 .press-body {
   font-size: 15px;
-  line-height: 1.8;
+  line-height: 2.0;
   color: var(--text);
 }
 
@@ -679,8 +679,8 @@ body::before {
 
 .modal-lyrics {
   font-size: 16px;
-  line-height: 2;
-  color: var(--text);
+  line-height: 2.2;
+  color: #ddd5c4;
   white-space: pre-line;
 }
 
@@ -733,7 +733,7 @@ body::before {
   <div class="hero-cover">
     <img src="albumcover.jpg" alt="Snail Mail — Ricochet">
   </div>
-  <p class="hero-label">Ricochet Listening Party</p>
+  <p class="hero-label">Snail Mail Third Album <em style="font-style:italic;">Ricochet</em> Listening Party</p>
   <p class="hero-sublabel">Gimbab Records · March 24</p>
   <h1 class="hero-artist">Snail Mail</h1>
   <h2 class="hero-album">Ricochet</h2>
@@ -790,7 +790,7 @@ body::before {
 <section class="content-section video-section fade-in">
   <div class="eyebrow">Hello from Lindsey</div>
   <div class="video-wrap">
-    <video src="video.mp4" autoplay muted loop playsinline controls preload="metadata">
+    <video src="video.mov" autoplay muted loop playsinline controls preload="metadata">
       Your browser does not support the video tag.
     </video>
   </div>
