@@ -517,6 +517,23 @@ body::before {
 .name-submit-status.ok  { color: #7ec49a; }
 .name-submit-status.err { color: #c47a7a; }
 
+
+/* ── VIDEO ── */
+.video-section { padding-bottom: 0; }
+
+.video-wrap {
+  width: 100%;
+  background: #000;
+  position: relative;
+}
+
+.video-wrap video {
+  width: 100%;
+  display: block;
+  max-height: 480px;
+  object-fit: contain;
+}
+
 /* ── PRESS ── */
 .press-section {
   border-top: 1px solid rgba(201,168,76,0.1);
@@ -768,6 +785,16 @@ body::before {
   </div>
 </section>
 
+
+
+<section class="content-section video-section fade-in">
+  <div class="eyebrow">Hello from Lindsey</div>
+  <div class="video-wrap">
+    <video src="video.mov" controls playsinline preload="metadata">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</section>
 
 <section class="press-section fade-in">
   <div class="eyebrow-wrap"><div class="eyebrow">Press</div></div>
