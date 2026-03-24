@@ -241,19 +241,22 @@ body::before {
 
 .lyrics-btn {
   font-size: 11px;
-  color: var(--muted);
-  opacity: 0.6;
-  border: none;
-  padding: 0;
+  color: var(--gold);
+  opacity: 0.7;
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 4px 10px;
   cursor: pointer;
   background: transparent;
   font-family: var(--f);
-  transition: color 0.15s ease, opacity 0.15s ease;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+  letter-spacing: 0.08em;
+  transition: all 0.15s ease;
 }
 
-.lyrics-btn:hover { color: var(--gold); opacity: 1; }
+.lyrics-btn:hover {
+  opacity: 1;
+  background: rgba(201,168,76,0.08);
+  border-color: rgba(201,168,76,0.7);
+}
 
 
 /* ── PREORDER ── */
@@ -906,10 +909,25 @@ const questions = [
   { q: "Ricochet는 Snail Mail의 몇 번째 정규 앨범인가요?", opts: ["첫 번째", "두 번째", "세 번째", "네 번째"], ans: 2, fact: "2018년 Lush, 2021년 Valentine에 이은 세 번째 앨범입니다." },
   { q: "Snail Mail의 데뷔 앨범 제목은?", opts: ["Habit", "Lush", "Valentine", "Mess"], ans: 1, fact: "Lush는 2018년 Matador Records를 통해 발매되었습니다." },
   { q: "Lindsey Jordan이 출연한 영화는?", opts: ["Bottoms", "I Saw the TV Glow", "Drive-Away Dolls", "Beau Is Afraid"], ans: 1, fact: "Jane Schoenbrun 감독의 인디 호러 I Saw the TV Glow에 출연했습니다." },
-  { q: "Ricochet 앨범 커버에 담긴 이미지는?", opts: ["Lindsey의 얼굴", "뉴욕 거리", "나선형 껍데기", "별이 가득한 하늘"], ans: 2, fact: "이번 앨범은 Snail Mail 최초로 커버에 Lindsey의 얼굴이 없습니다. 딥블루 배경의 나선형 껍데기가 담겨 있습니다." },
   { q: "Ricochet를 함께 프로듀싱한 사람은?", opts: ["Alex Luciano", "Aron Kobayashi Ritch", "Mitch Easter", "Justin Raisen"], ans: 1, fact: "인디록 밴드 Momma의 베이시스트·프로듀서 Aron Kobayashi Ritch와 함께 작업했습니다." },
-  { q: "\"Nowhere\"의 가사에 영감을 준 시와 시인은?", opts: ["Sylvia Plath — Lady Lazarus", "Laura Gilpin — The Two-Headed Calf", "Ocean Vuong — Someday I'll Love", "Mary Oliver — Wild Geese"], ans: 1, fact: "Laura Gilpin의 1977년 시 The Two-Headed Calf에서 영감을 받았습니다." },
-  { q: "Ricochet 녹음에 사용된 스튜디오가 아닌 곳은?", opts: ["Fidelitorium Recordings (NC)", "the Nightfly (Brooklyn)", "Electric Lady Studios (NY)", "Studio G (Brooklyn)"], ans: 2, fact: "Fidelitorium Recordings, the Nightfly, Studio G 세 곳에서 녹음했습니다." }
+  {
+    q: "Jordan이 Ricochet 작곡 과정에 대해 설명한 것으로 맞는 것은?",
+    opts: ["가사를 먼저 쓰고 멜로디를 붙였다", "기악·보컬 멜로디를 먼저 완성하고 가사는 1년에 걸쳐 나중에 채웠다", "프로듀서가 먼저 트랙을 만들면 가사를 썼다", "모든 곡을 즉흥 연주로 완성했다"],
+    ans: 1,
+    fact: "Jordan은 '피아노나 기타로 기악과 보컬 멜로디를 먼저 다 쓰고, 가사는 1년에 걸쳐 한꺼번에 채워넣었다'고 말했습니다."
+  },
+  {
+    q: '"Nowhere"에 영감을 준 Laura Gilpin의 시 The Two-Headed Calf는 어떤 이야기인가요?',
+    opts: ["두 개의 심장을 가진 새에 관한 이야기", "선천적 기형으로 두 개의 머리를 가져 별을 두 배로 볼 수 있는 어린 동물", "쌍둥이로 태어나 서로 다른 삶을 사는 사람들", "두 개의 꼬리를 가진 물고기의 여정"],
+    ans: 1,
+    fact: "1977년 시로, 선천적 기형 때문에 별을 두 배로 볼 수 있는 어린 동물의 이야기입니다. Jordan은 가사에 '그 부드러운 것들이 나를 죽인다'고 썼습니다."
+  },
+  {
+    q: "Jordan이 감정적 고립을 설명할 때 사용한 비유는?",
+    opts: ["창문 없는 방에 갇힌 것", "깊은 바다 속에 혼자 잠긴 것", "멈춰버린 시계 속에 사는 것", "스노글로브 안에 스스로를 가둔 것 — 춥고 이상하고 플라스틱 같은"],
+    ans: 3,
+    fact: "Jordan은 '어느 날 눈을 떠보니 스노글로브 안에 자신을 가둬놓은 걸 깨달아요. 춥고 이상하고 플라스틱 같아요'라고 말했습니다."
+  }
 ];
 
 let currentQ = 0, score = 0, answered = false;
