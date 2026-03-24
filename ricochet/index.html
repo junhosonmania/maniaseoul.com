@@ -842,9 +842,9 @@ body::before {
 </section>
 
 <section class="content-section fade-in">
-  <div class="eyebrow">사인 엽서 추첨</div>
+  <div class="eyebrow">친필 사인 엽서 추첨</div>
   <h2 class="section-title">Ricochet Quiz</h2>
-  <p class="quiz-intro-desc">Snail Mail을 얼마나 알고 있나요?<br>높은 점수를 받으면 오늘 밤 사인 엽서 추첨 기회가 주어집니다.</p>
+  <p class="quiz-intro-desc">Snail Mail을 얼마나 알고 있나요?<br>높은 점수를 받으면 사인 엽서 추첨 기회가 주어집니다.</p>
   <div class="quiz-card">
     <div class="quiz-progress" id="quizProgress"></div>
     <div id="quizBody"></div>
@@ -907,14 +907,14 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
 const questions = [
   { q: "Snail Mail의 본명은?", opts: ["Lindsey Jordan", "Gracie Abrams", "Phoebe Bridgers", "Lucy Dacus"], ans: 0, fact: "Lindsey Jordan은 메릴랜드 출신으로, 10대 때부터 음악을 시작했습니다." },
   { q: "Ricochet는 Snail Mail의 몇 번째 정규 앨범인가요?", opts: ["첫 번째", "두 번째", "세 번째", "네 번째"], ans: 2, fact: "2018년 Lush, 2021년 Valentine에 이은 세 번째 앨범입니다." },
-  { q: "Snail Mail의 데뷔 앨범 제목은?", opts: ["Habit", "Lush", "Valentine", "Mess"], ans: 1, fact: "Lush는 2018년 Matador Records를 통해 발매되었습니다." },
+  { q: "Snail Mail의 데뷔 정규 앨범 제목은?", opts: ["Habit", "Lush", "Valentine", "Mess"], ans: 1, fact: "Lush는 2018년 Matador Records를 통해 발매되었습니다." },
   { q: "Lindsey Jordan이 출연한 영화는?", opts: ["Bottoms", "I Saw the TV Glow", "Drive-Away Dolls", "Beau Is Afraid"], ans: 1, fact: "Jane Schoenbrun 감독의 인디 호러 I Saw the TV Glow에 출연했습니다." },
   { q: "Ricochet를 함께 프로듀싱한 사람은?", opts: ["Alex Luciano", "Aron Kobayashi Ritch", "Mitch Easter", "Justin Raisen"], ans: 1, fact: "인디록 밴드 Momma의 베이시스트·프로듀서 Aron Kobayashi Ritch와 함께 작업했습니다." },
   {
-    q: "Jordan이 Ricochet 작곡 과정에 대해 설명한 것으로 맞는 것은?",
+    q: "Lindsey가 Ricochet 작곡 과정에 대해 설명한 것으로 맞는 것은?",
     opts: ["가사를 먼저 쓰고 멜로디를 붙였다", "기악·보컬 멜로디를 먼저 완성하고 가사는 1년에 걸쳐 나중에 채웠다", "프로듀서가 먼저 트랙을 만들면 가사를 썼다", "모든 곡을 즉흥 연주로 완성했다"],
     ans: 1,
-    fact: "Jordan은 '피아노나 기타로 기악과 보컬 멜로디를 먼저 다 쓰고, 가사는 1년에 걸쳐 한꺼번에 채워넣었다'고 말했습니다."
+    fact: "Lindsey은 '피아노나 기타로 기악과 보컬 멜로디를 먼저 다 쓰고, 가사는 1년에 걸쳐 한꺼번에 채워넣었다'고 말했습니다."
   },
   {
     q: '"Nowhere"에 영감을 준 Laura Gilpin의 시 The Two-Headed Calf는 어떤 이야기인가요?',
@@ -923,10 +923,10 @@ const questions = [
     fact: "1977년 시로, 선천적 기형 때문에 별을 두 배로 볼 수 있는 어린 동물의 이야기입니다. Jordan은 가사에 '그 부드러운 것들이 나를 죽인다'고 썼습니다."
   },
   {
-    q: "Jordan이 감정적 고립을 설명할 때 사용한 비유는?",
+    q: "Lyndse가 감정적 고립을 설명할 때 사용한 비유는?",
     opts: ["창문 없는 방에 갇힌 것", "깊은 바다 속에 혼자 잠긴 것", "멈춰버린 시계 속에 사는 것", "스노글로브 안에 스스로를 가둔 것 — 춥고 이상하고 플라스틱 같은"],
     ans: 3,
-    fact: "Jordan은 '어느 날 눈을 떠보니 스노글로브 안에 자신을 가둬놓은 걸 깨달아요. 춥고 이상하고 플라스틱 같아요'라고 말했습니다."
+    fact: Lyndsey은 '어느 날 눈을 떠보니 스노글로브 안에 자신을 가둬놓은 걸 깨달아요. 춥고 이상하고 플라스틱 같아요'라고 말했습니다."
   }
 ];
 
@@ -992,9 +992,9 @@ async function submitScore(name, score, total) {
 function showResult() {
   const pct = Math.round((score / questions.length) * 100);
   let msg, badge;
-  if (pct >= 88)      { msg = "완벽합니다. 오늘 밤 사인 엽서는 당신의 것."; badge = "🐌 True Snail Mail Stan"; }
-  else if (pct >= 62) { msg = "꽤 잘 알고 있네요. Ricochet와 함께 더 깊이 빠져들 준비가 됐습니다."; badge = "🌙 Tractor Beam에 올라탄 사람"; }
-  else                { msg = "처음이라도 괜찮아요. 오늘 밤이 시작입니다."; badge = "🌀 Ricochet 입문자"; }
+  if (pct >= 88)      { msg = "당신이 그야말로 Snail Mail잘알 "; badge = "🐌 True Snail Mail Stan"; }
+  else if (pct >= 62) { msg = "꽤 잘 알고 계시네요. Ricochet에 더 깊이 빠져들 준비가 됐습니다."; badge = "🌙 Tractor Beam에 올라탄 사람"; }
+  else                { msg = "처음이라도 괜찮아요. 오늘이 시작입니다."; badge = "🌀 Ricochet 입문자"; }
 
   document.getElementById('quizBody').innerHTML = `
     <div class="quiz-result">
