@@ -1,5 +1,6 @@
 let data = [
     // [현재] mania seoul (구분: 'mania')
+    ['2026/07/28', 'Geordie Greep Live In Seoul 2026', 'Geordie Greep', 'HyundaiCard UNDERSTAGE', 'Promoter', 'mania'],
     ['2026/04/26', 'shame live in seoul 2026', 'shame', 'SSMD LIVE HALL', 'Promoter', 'mania'],
     ['2026/03/29', 'Oneohtrix Point Never [Tranquilizer] Live in Seoul', 'Oneohtrix Point Never', 'Ticket Link 1975 Theater', 'Promoter', 'mania'],
     ['2026/01/25', 'bar italia extra night in seoul', 'bar italia', 'Panta Garage', 'Promoter', 'mania'],
